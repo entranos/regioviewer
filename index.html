@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Nederland</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link
+    href="//fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" type="text/css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/milligram.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+</head>
+
+<script>
+  // Data source configuration
+  // dataSource = 'file';
+  // dataSource = 'url'
+  let dataSource = 'url' // 'url', 'file' or 'embedded'
+  let embeddedPublicPassword = 'rewind-sharper-jumbo-broker-unrigged-primary' // set to password or 'none'
+
+  // let projectID = 'ESA'
+  // let productID = 'A'
+  // let versionID = 'v5'
+
+  // let sankeyData = { links: [], nodes: [], order: [] }
+</script>
+
+
+<!-- Device detection and phone blocking -->
+<!-- <script src="js/deviceDetection.js"></script> -->
+
+<!-- Embedded encrypted data -->
+<!-- <script id="embedded-data-script" src="js/embeddedData.js"></script> -->
+
+<body>
+  <!-- Loading Splash Screen -->
+  <div id="loading-splash">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <h2 class="loading-title">Regioviewer Energiesysteem</h2>
+      <p class="loading-text">Laden...</p>
+      <div class="loading-progress">
+        <div class="loading-progress-bar" id="loading-progress-bar"></div>
+      </div>
+      <p class="loading-status" id="loading-status">Preparing...</p>
+    </div>
+  </div>
+
+  <div id="liner"></div>
+  <!-- <div id="loadFileDialog"></div> -->
+  <div id="showValueOnHover"></div>
+
+  <div id="main-container" style="display: none;">
+    <div class="content-fullwidth" style="padding:0px">
+      <div class="concept-label" style="float: right;">
+        CONCEPT
+      </div>
+      <div class="content-fullwidth" style="padding:0px;background-color: white;">
+        <div class="version-label">
+          v11.11.2025.ESA-R.NBNL2025
+        </div>
+
+      </div>
+
+      <div class="full-width-container">
+        <div class="content-constrained" style="background-color: white;">
+          <br><br><br>
+          <h3><span style="font-weight: 500;">Viewer</span> &nbsp;|&nbsp; Geregionaliseerde dataset NBNL-scenario’s 2025
+            (v1.0)
+          </h3>
+          <br><br>
+          <p style="line-height:30px; width: 70%;">
+            Deze viewer visualiseert de <a
+              href="https://www.netbeheernederland.nl/toekomstscenarios/regionalisatie-datasets-van-de-netbeheer-nederland-scenarios-editie-2025"
+              target="_blank">aannames over ruimtelijke verdeling van opwek,
+              vraag en flexibiliteit</a> uit de <a
+              href="https://www.netbeheernederland.nl/artikelen/nieuws/netbeheer-nederland-scenarios-editie-2025"
+              target="_blank">NBNL-scenario’s 2025</a></a>. De cijfers zijn indicatief en vormen een momentopname die
+            periodiek wordt geactualiseerd.
+          </p>
+        </div>
+        <!-- <div class="content-fullwidth" style="padding:0px;background-color:#DCE6EF;height:40px;"></div> -->
+        <div class="content-fullwidth sticky" id="sticky-menu-map"
+          style="background-color:#DCE6EF;padding-bottom:0px;padding-top:0px;">
+          <div class="menuContainer" id="menuContainer_map">
+
+
+            <div class="menuContainer-part" id="scenarioButtons_map">
+              <div class="menu-label">Scenario</div>
+            </div>
+
+            <div class="menuContainer-part" id="yearButtons">
+              <div class="menu-label">Jaar</div>
+            </div>
+
+            <div class="menuContainer-part" id="dataCarrierButtons">
+              <div class="menu-label">Drager</div>
+            </div>
+
+            <div class="menuContainer-part" id="metricTypeButtons">
+              <div class="menu-label">Metric</div>
+            </div>
+
+            <div class="menuContainer-part" id="dataTypeButtons">
+              <div class="menu-label">Categorie</div>
+            </div>
+
+            <div class="menuContainer-part" id="sectorButtons">
+              <div class="menu-label">Sector</div>
+            </div>
+
+            <div class="menuContainer-part" id="viewButtons">
+              <div class="menu-label">Posities</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-fullwidth" style="padding:0px;background-color:#EEF5FA">
+          <div id="unitSelector_map"></div>
+          <div id="mapTitle"
+            style="padding-top:70px; padding-left: 90px; font-size: 30px; font-weight: 300; fill: #333; letter-spacing: 0.4px; text-anchor: start;">
+            Nederland |</div>
+          <!-- <div class="content-fullwidth" style="padding-bottom:0px;"> -->
+          <!-- <br> -->
+          <!-- <h4 style="margin-bottom:0px;margin-left:15px;" id="sankeyTitle"></h4> -->
+          <!-- </div> -->
+
+          <div class="content-constrained" style="padding-bottom:0px;padding-top:30px;">
+          </div>
+        </div>
+        <div class="content-fullwidth" id="SVGContainer_kaart">
+
+        </div>
+
+
+
+        <div class="content-fullwidth sticky" id="sticky-menu-sankey"
+          style="background-color:#DCE6EF;padding-bottom:0px;padding-top:0px;">
+          <div class="menuContainer" id="menuContainer_sankey">
+            <div class="menuContainer-part" id="sankeyEnergiestromenSelectieMenu">
+              <div class="menu-label">Scope</div>
+            </div>
+            <div class="menuContainer-part" id="scenarioButtons_sankey">
+              <div class="menu-label">Provincie</div>
+            </div>
+            <div class="menuContainer-part" id="yearButtons_sankey">
+              <div class="menu-label">Jaar</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="content-fullwidth" style="padding:0px;background-color:#EEF5FA">
+          <div id="unitSelector_sankey"></div>
+          <div class="content-fullwidth" style="padding-bottom:0px;">
+            <p style="margin-left:15px;line-height:30px; ">
+              Getoond: <a
+                href="https://www.netbeheernederland.nl/sites/default/files/2025-11/Toelichting%20provinciale%20uitwerkingen%20KM-scenario%20v2.0.pdf"
+                target="_blank">twaalf ETM-scenario’s </a>met een uitwerking van het
+              Koersvaste
+              Middenwegscenario op provincieniveau.
+            </p>
+            <br>
+            <h4 style="margin-bottom:0px;margin-left:15px;" id="sankeyTitle">Energiesysteem</h4>
+          </div>
+
+          <div class="content-constrained" style="padding-bottom:0px;padding-top:30px;">
+          </div>
+        </div>
+
+        <div class="content-fullwidth" id="SVGContainer_energyflows">
+          <div id="popupContainer"> </div>
+        </div>
+        <div id="opmerkingen_bij_sankey_ii3050v3" class="note-box" style="display:none;">
+          <p style="font-weight: bold; margin-top: 0; margin-bottom: 2em;">
+            Aandachtspunten bij de visualisatie van data uit II3050 versie 3
+          </p>
+          <p style="margin-bottom: 2.5em;">
+            Op de visualisaties van de scenario's uit de II3050 versie 3 zijn de volgende
+            aandachtspunten van toepassing.
+          </p>
+          <ul style="list-style-type: disc; margin-left: 0; padding-left: 2.2em; max-width: 900px;">
+            <div style="display: flex; flex-direction: column; gap: 0.0em; margin-bottom: 2.5em;">
+              <span style="font-weight: bold;">Subsector kunstmest valt onder chemie</span>
+              <span style="margin-left: 0; text-indent: 0; margin-top: 0.2em;margin-bottom: 0.0em;">
+                Om anonimiteit te behouden zijn de gegevens over energie- en grondstofgebruik in de subsector kunstmest
+                samengevoegd met die van de bredere chemiesector.
+              </span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0em; margin-bottom: 2.5em;">
+              <span style="font-weight: bold;">Synthetische brand- en grondstoffen vallen onder
+                biobrandstoffen</span>
+              <span style="margin-left: 0; text-indent: 0; margin-top: 0.2em;">
+                Het Energie Transitie Model (ETM) kent momenteel geen aparte categorie om synthetische brand- of
+                grondstoffen
+                als energiedrager weer te geven. In de modelleringen van II3050 v3 is in het achterliggende Carbon
+                Transition Model (CTM) echter wél met vraag en aanbod van synthetische brandstoffen gerekend.
+                Als voorlopige workaround zijn deze volumes in de ETM-boekhouding ondergebracht onder de categorie
+                biobrandstoffen/-grondstoffen. Daardoor vallen synthetische brand- en grondstoffen ook in het
+                Sankey-diagram
+                vooralsnog onder de categorie 'biomassa(derivaten)'.
+              </span>
+            </div>
+          </ul>
+        </div>
+
+
+        <!-- Bottom padding for visual spacing -->
+        <div class="content-constrained" style="padding-bottom:40px;padding-top:40px;background-color: #EEF5FA;">
+        </div>
+
+
+
+
+
+      </div>
+
+      <!-- About Button -->
+      <div class="about-label" onclick="showAboutModal()">
+        Over deze viewer
+      </div>
+    </div>
+  </div>
+
+  <!-- About modal loaded from separate JS file -->
+  <!-- Municipal Data Loader Script -->
+  <script src="js/municipal-data-loader.js"></script>
+  <!-- Provincial Data Loader Script -->
+  <script src="js/provincial-data-loader.js"></script>
+  <!-- SVG Viewer Script -->
+  <script src="js/svg-viewer.js"></script>
+
+</body>
+<!-- About modal script -->
+<script src="js/aboutModal.js"></script>
+<script src="js/sankeyViewer/jszip.min.js"></script>
+<script src="js/sankeyViewer/jszip-utils.min.js"></script>
+<script src="js/sankeyViewer/UIlisteners.js"></script>
+<script src="js/sankeyViewer/helpers.js"></script>
+<!-- <script src="js/xlsx.full.min.js"></script> -->
+<script src="js/sankeyViewer/d3-collection.v1.min.js"></script>
+<script src="js/sankeyViewer/d3-sankey-diagram.js"></script>
+<script src="js/sankeyViewer/drawSankey.js"></script>
+<script src="js/sankeyViewer/loadData.js"></script>
+<script src="js/sankeyViewer/drawRemarks.js"></script>
+<!-- <script src="js/sankeyViewer/fileLoadButton.js"></script> -->
+<script src="js/sankeyViewer/drawLineGraphFlowClick.js"></script>
+<script src="js/sankeyViewer/drawSelectionButtons.js"></script>
+
+
+</html>

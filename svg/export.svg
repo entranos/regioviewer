@@ -1,0 +1,1240 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 2000 2100" width="2000" height="2100">
+  <style>
+    path {
+        stroke: none;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    circle {
+        fill: black;
+        stroke: none;
+    }
+    </style>
+  <g id="GM0014_group">
+    <circle id="GM0014_point" cx="1537.81" cy="246.82" r="3" />
+  </g>
+  <g id="GM0034_group">
+    <circle id="GM0034_point" cx="951.95" cy="866.10" r="3" />
+  </g>
+  <g id="GM0037_group">
+    <circle id="GM0037_point" cx="1711.27" cy="396.05" r="3" />
+  </g>
+  <g id="GM0047_group">
+    <circle id="GM0047_point" cx="1652.13" cy="334.79" r="3" />
+  </g>
+  <g id="GM0050_group">
+    <circle id="GM0050_point" cx="1041.35" cy="880.29" r="3" />
+  </g>
+  <g id="GM0059_group">
+    <circle id="GM0059_point" cx="1333.79" cy="250.26" r="3" />
+  </g>
+  <g id="GM0060_group">
+    <circle id="GM0060_point" cx="1146.87" cy="57.98" r="3" />
+  </g>
+  <g id="GM0072_group">
+    <circle id="GM0072_point" cx="1035.40" cy="285.25" r="3" />
+  </g>
+  <g id="GM0074_group">
+    <circle id="GM0074_point" cx="1264.34" cy="410.66" r="3" />
+  </g>
+  <g id="GM0080_group">
+    <circle id="GM0080_point" cx="1186.08" cy="288.53" r="3" />
+  </g>
+  <g id="GM0085_group">
+    <circle id="GM0085_point" cx="1396.05" cy="417.43" r="3" />
+  </g>
+  <g id="GM0086_group">
+    <circle id="GM0086_point" cx="1323.22" cy="371.73" r="3" />
+  </g>
+  <g id="GM0088_group">
+    <circle id="GM0088_point" cx="1348.97" cy="34.41" r="3" />
+  </g>
+  <g id="GM0090_group">
+    <circle id="GM0090_point" cx="1287.84" cy="326.62" r="3" />
+  </g>
+  <g id="GM0093_group">
+    <circle id="GM0093_point" cx="985.08" cy="98.68" r="3" />
+  </g>
+  <g id="GM0096_group">
+    <circle id="GM0096_point" cx="820.76" cy="197.93" r="3" />
+  </g>
+  <g id="GM0098_group">
+    <circle id="GM0098_point" cx="1282.85" cy="497.90" r="3" />
+  </g>
+  <g id="GM0106_group">
+    <circle id="GM0106_point" cx="1513.44" cy="401.69" r="3" />
+  </g>
+  <g id="GM0109_group">
+    <circle id="GM0109_point" cx="1596.69" cy="586.44" r="3" />
+  </g>
+  <g id="GM0114_group">
+    <circle id="GM0114_point" cx="1696.75" cy="576.72" r="3" />
+  </g>
+  <g id="GM0118_group">
+    <circle id="GM0118_point" cx="1502.05" cy="603.07" r="3" />
+  </g>
+  <g id="GM0119_group">
+    <circle id="GM0119_point" cx="1361.01" cy="610.28" r="3" />
+  </g>
+  <g id="GM0141_group">
+    <circle id="GM0141_point" cx="1574.56" cy="868.78" r="3" />
+  </g>
+  <g id="GM0147_group">
+    <circle id="GM0147_point" cx="1610.74" cy="895.90" r="3" />
+  </g>
+  <g id="GM0148_group">
+    <circle id="GM0148_point" cx="1400.67" cy="735.49" r="3" />
+  </g>
+  <g id="GM0150_group">
+    <circle id="GM0150_point" cx="1385.17" cy="929.56" r="3" />
+  </g>
+  <g id="GM0153_group">
+    <circle id="GM0153_point" cx="1668.95" cy="957.18" r="3" />
+  </g>
+  <g id="GM0158_group">
+    <circle id="GM0158_point" cx="1617.37" cy="1004.11" r="3" />
+  </g>
+  <g id="GM0160_group">
+    <circle id="GM0160_point" cx="1527.12" cy="700.53" r="3" />
+  </g>
+  <g id="GM0163_group">
+    <circle id="GM0163_point" cx="1486.97" cy="861.59" r="3" />
+  </g>
+  <g id="GM0164_group">
+    <circle id="GM0164_point" cx="1626.65" cy="935.40" r="3" />
+  </g>
+  <g id="GM0166_group">
+    <circle id="GM0166_point" cx="1246.98" cy="726.78" r="3" />
+  </g>
+  <g id="GM0168_group">
+    <circle id="GM0168_point" cx="1719.08" cy="896.56" r="3" />
+  </g>
+  <g id="GM0171_group">
+    <circle id="GM0171_point" cx="1176.50" cy="615.06" r="3" />
+  </g>
+  <g id="GM0173_group">
+    <circle id="GM0173_point" cx="1682.50" cy="894.36" r="3" />
+  </g>
+  <g id="GM0175_group">
+    <circle id="GM0175_point" cx="1459.90" cy="751.60" r="3" />
+  </g>
+  <g id="GM0177_group">
+    <circle id="GM0177_point" cx="1401.47" cy="844.85" r="3" />
+  </g>
+  <g id="GM0180_group">
+    <circle id="GM0180_point" cx="1368.46" cy="669.70" r="3" />
+  </g>
+  <g id="GM0183_group">
+    <circle id="GM0183_point" cx="1622.25" cy="823.78" r="3" />
+  </g>
+  <g id="GM0184_group">
+    <circle id="GM0184_point" cx="1111.46" cy="651.40" r="3" />
+  </g>
+  <g id="GM0189_group">
+    <circle id="GM0189_point" cx="1532.02" cy="873.22" r="3" />
+  </g>
+  <g id="GM0193_group">
+    <circle id="GM0193_point" cx="1328.86" cy="752.42" r="3" />
+  </g>
+  <g id="GM0197_group">
+    <circle id="GM0197_point" cx="1535.44" cy="1176.71" r="3" />
+  </g>
+  <g id="GM0200_group">
+    <circle id="GM0200_point" cx="1249.49" cy="989.95" r="3" />
+  </g>
+  <g id="GM0202_group">
+    <circle id="GM0202_point" cx="1240.02" cy="1126.65" r="3" />
+  </g>
+  <g id="GM0203_group">
+    <circle id="GM0203_point" cx="1127.27" cy="1008.31" r="3" />
+  </g>
+  <g id="GM0209_group">
+    <circle id="GM0209_point" cx="1173.88" cy="1225.39" r="3" />
+  </g>
+  <g id="GM0213_group">
+    <circle id="GM0213_point" cx="1337.12" cy="1046.09" r="3" />
+  </g>
+  <g id="GM0214_group">
+    <circle id="GM0214_point" cx="1023.67" cy="1172.08" r="3" />
+  </g>
+  <g id="GM0216_group">
+    <circle id="GM0216_point" cx="945.83" cy="1179.27" r="3" />
+  </g>
+  <g id="GM0221_group">
+    <circle id="GM0221_point" cx="1351.40" cy="1110.65" r="3" />
+  </g>
+  <g id="GM0222_group">
+    <circle id="GM0222_point" cx="1414.05" cy="1151.72" r="3" />
+  </g>
+  <g id="GM0225_group">
+    <circle id="GM0225_point" cx="1114.30" cy="1216.13" r="3" />
+  </g>
+  <g id="GM0226_group">
+    <circle id="GM0226_point" cx="1289.31" cy="1165.66" r="3" />
+  </g>
+  <g id="GM0228_group">
+    <circle id="GM0228_point" cx="1166.47" cy="1072.58" r="3" />
+  </g>
+  <g id="GM0230_group">
+    <circle id="GM0230_point" cx="1214.15" cy="830.10" r="3" />
+  </g>
+  <g id="GM0232_group">
+    <circle id="GM0232_point" cx="1261.45" cy="892.04" r="3" />
+  </g>
+  <g id="GM0233_group">
+    <circle id="GM0233_point" cx="1136.97" cy="930.09" r="3" />
+  </g>
+  <g id="GM0243_group">
+    <circle id="GM0243_point" cx="1143.63" cy="884.78" r="3" />
+  </g>
+  <g id="GM0244_group">
+    <circle id="GM0244_point" cx="1301.44" cy="785.74" r="3" />
+  </g>
+  <g id="GM0246_group">
+    <circle id="GM0246_point" cx="1301.49" cy="835.71" r="3" />
+  </g>
+  <g id="GM0252_group">
+    <circle id="GM0252_point" cx="1207.36" cy="1286.53" r="3" />
+  </g>
+  <g id="GM0262_group">
+    <circle id="GM0262_point" cx="1440.13" cy="1003.81" r="3" />
+  </g>
+  <g id="GM0263_group">
+    <circle id="GM0263_point" cx="977.04" cy="1290.46" r="3" />
+  </g>
+  <g id="GM0267_group">
+    <circle id="GM0267_point" cx="1058.32" cy="971.68" r="3" />
+  </g>
+  <g id="GM0268_group">
+    <circle id="GM0268_point" cx="1218.30" cy="1244.34" r="3" />
+  </g>
+  <g id="GM0269_group">
+    <circle id="GM0269_point" cx="1251.50" cy="798.97" r="3" />
+  </g>
+  <g id="GM0273_group">
+    <circle id="GM0273_point" cx="1100.97" cy="964.80" r="3" />
+  </g>
+  <g id="GM0274_group">
+    <circle id="GM0274_point" cx="1192.86" cy="1136.33" r="3" />
+  </g>
+  <g id="GM0275_group">
+    <circle id="GM0275_point" cx="1309.10" cy="1084.89" r="3" />
+  </g>
+  <g id="GM0277_group">
+    <circle id="GM0277_point" cx="1272.34" cy="1095.12" r="3" />
+  </g>
+  <g id="GM0279_group">
+    <circle id="GM0279_point" cx="1081.72" cy="1065.12" r="3" />
+  </g>
+  <g id="GM0281_group">
+    <circle id="GM0281_point" cx="1025.16" cy="1211.89" r="3" />
+  </g>
+  <g id="GM0285_group">
+    <circle id="GM0285_point" cx="1326.31" cy="962.41" r="3" />
+  </g>
+  <g id="GM0289_group">
+    <circle id="GM0289_point" cx="1139.78" cy="1149.50" r="3" />
+  </g>
+  <g id="GM0293_group">
+    <circle id="GM0293_point" cx="1264.07" cy="1171.44" r="3" />
+  </g>
+  <g id="GM0294_group">
+    <circle id="GM0294_point" cx="1606.92" cy="1138.47" r="3" />
+  </g>
+  <g id="GM0296_group">
+    <circle id="GM0296_point" cx="1154.29" cy="1247.87" r="3" />
+  </g>
+  <g id="GM0297_group">
+    <circle id="GM0297_point" cx="914.73" cy="1278.55" r="3" />
+  </g>
+  <g id="GM0299_group">
+    <circle id="GM0299_point" cx="1326.18" cy="1181.49" r="3" />
+  </g>
+  <g id="GM0301_group">
+    <circle id="GM0301_point" cx="1387.15" cy="1014.32" r="3" />
+  </g>
+  <g id="GM0302_group">
+    <circle id="GM0302_point" cx="1187.78" cy="882.90" r="3" />
+  </g>
+  <g id="GM0303_group">
+    <circle id="GM0303_point" cx="1148.19" cy="782.03" r="3" />
+  </g>
+  <g id="GM0307_group">
+    <circle id="GM0307_point" cx="1014.62" cy="1003.57" r="3" />
+  </g>
+  <g id="GM0308_group">
+    <circle id="GM0308_point" cx="961.49" cy="982.09" r="3" />
+  </g>
+  <g id="GM0310_group">
+    <circle id="GM0310_point" cx="922.86" cy="1028.72" r="3" />
+  </g>
+  <g id="GM0312_group">
+    <circle id="GM0312_point" cx="939.22" cy="1100.29" r="3" />
+  </g>
+  <g id="GM0313_group">
+    <circle id="GM0313_point" cx="1002.13" cy="955.56" r="3" />
+  </g>
+  <g id="GM0317_group">
+    <circle id="GM0317_point" cx="971.89" cy="961.02" r="3" />
+  </g>
+  <g id="GM0321_group">
+    <circle id="GM0321_point" cx="923.58" cy="1127.81" r="3" />
+  </g>
+  <g id="GM0327_group">
+    <circle id="GM0327_point" cx="1029.19" cy="1041.43" r="3" />
+  </g>
+  <g id="GM0331_group">
+    <circle id="GM0331_point" cx="819.49" cy="1143.45" r="3" />
+  </g>
+  <g id="GM0335_group">
+    <circle id="GM0335_point" cx="818.80" cy="1096.26" r="3" />
+  </g>
+  <g id="GM0339_group">
+    <circle id="GM0339_point" cx="1058.69" cy="1079.93" r="3" />
+  </g>
+  <g id="GM0340_group">
+    <circle id="GM0340_point" cx="1073.62" cy="1130.50" r="3" />
+  </g>
+  <g id="GM0342_group">
+    <circle id="GM0342_point" cx="976.12" cy="1017.17" r="3" />
+  </g>
+  <g id="GM0344_group">
+    <circle id="GM0344_point" cx="879.73" cy="1066.83" r="3" />
+  </g>
+  <g id="GM0345_group">
+    <circle id="GM0345_point" cx="1073.63" cy="1113.29" r="3" />
+  </g>
+  <g id="GM0351_group">
+    <circle id="GM0351_point" cx="1034.20" cy="1071.79" r="3" />
+  </g>
+  <g id="GM0352_group">
+    <circle id="GM0352_point" cx="987.99" cy="1137.28" r="3" />
+  </g>
+  <g id="GM0353_group">
+    <circle id="GM0353_point" cx="856.69" cy="1109.64" r="3" />
+  </g>
+  <g id="GM0355_group">
+    <circle id="GM0355_point" cx="953.03" cy="1068.20" r="3" />
+  </g>
+  <g id="GM0356_group">
+    <circle id="GM0356_point" cx="886.21" cy="1107.98" r="3" />
+  </g>
+  <g id="GM0358_group">
+    <circle id="GM0358_point" cx="734.91" cy="944.92" r="3" />
+  </g>
+  <g id="GM0361_group">
+    <circle id="GM0361_point" cx="757.04" cy="699.60" r="3" />
+  </g>
+  <g id="GM0362_group">
+    <circle id="GM0362_point" cx="777.82" cy="923.11" r="3" />
+  </g>
+  <g id="GM0363_group">
+    <circle id="GM0363_point" cx="778.66" cy="869.16" r="3" />
+  </g>
+  <g id="GM0373_group">
+    <circle id="GM0373_point" cx="698.84" cy="654.37" r="3" />
+  </g>
+  <g id="GM0375_group">
+    <circle id="GM0375_point" cx="689.87" cy="783.40" r="3" />
+  </g>
+  <g id="GM0376_group">
+    <circle id="GM0376_point" cx="957.71" cy="929.05" r="3" />
+  </g>
+  <g id="GM0377_group">
+    <circle id="GM0377_point" cx="660.37" cy="857.36" r="3" />
+  </g>
+  <g id="GM0383_group">
+    <circle id="GM0383_point" cx="701.58" cy="731.28" r="3" />
+  </g>
+  <g id="GM0384_group">
+    <circle id="GM0384_point" cx="845.28" cy="888.46" r="3" />
+  </g>
+  <g id="GM0385_group">
+    <circle id="GM0385_point" cx="851.09" cy="740.89" r="3" />
+  </g>
+  <g id="GM0388_group">
+    <circle id="GM0388_point" cx="958.96" cy="616.11" r="3" />
+  </g>
+  <g id="GM0392_group">
+    <circle id="GM0392_point" cx="687.24" cy="856.08" r="3" />
+  </g>
+  <g id="GM0394_group">
+    <circle id="GM0394_point" cx="704.65" cy="910.80" r="3" />
+  </g>
+  <g id="GM0396_group">
+    <circle id="GM0396_point" cx="690.34" cy="763.80" r="3" />
+  </g>
+  <g id="GM0397_group">
+    <circle id="GM0397_point" cx="674.41" cy="883.32" r="3" />
+  </g>
+  <g id="GM0399_group">
+    <circle id="GM0399_point" cx="715.98" cy="700.40" r="3" />
+  </g>
+  <g id="GM0400_group">
+    <circle id="GM0400_point" cx="733.54" cy="468.92" r="3" />
+  </g>
+  <g id="GM0402_group">
+    <circle id="GM0402_point" cx="917.75" cy="969.44" r="3" />
+  </g>
+  <g id="GM0405_group">
+    <circle id="GM0405_point" cx="872.18" cy="658.01" r="3" />
+  </g>
+  <g id="GM0406_group">
+    <circle id="GM0406_point" cx="940.23" cy="924.64" r="3" />
+  </g>
+  <g id="GM0415_group">
+    <circle id="GM0415_point" cx="810.87" cy="807.67" r="3" />
+  </g>
+  <g id="GM0417_group">
+    <circle id="GM0417_point" cx="938.93" cy="940.70" r="3" />
+  </g>
+  <g id="GM0420_group">
+    <circle id="GM0420_point" cx="884.14" cy="613.40" r="3" />
+  </g>
+  <g id="GM0431_group">
+    <circle id="GM0431_point" cx="789.78" cy="805.38" r="3" />
+  </g>
+  <g id="GM0432_group">
+    <circle id="GM0432_point" cx="821.19" cy="616.78" r="3" />
+  </g>
+  <g id="GM0437_group">
+    <circle id="GM0437_point" cx="805.90" cy="922.25" r="3" />
+  </g>
+  <g id="GM0439_group">
+    <circle id="GM0439_point" cx="812.76" cy="740.19" r="3" />
+  </g>
+  <g id="GM0441_group">
+    <circle id="GM0441_point" cx="731.97" cy="568.53" r="3" />
+  </g>
+  <g id="GM0448_group">
+    <circle id="GM0448_point" cx="754.56" cy="355.08" r="3" />
+  </g>
+  <g id="GM0450_group">
+    <circle id="GM0450_point" cx="725.15" cy="755.49" r="3" />
+  </g>
+  <g id="GM0451_group">
+    <circle id="GM0451_point" cx="750.71" cy="960.19" r="3" />
+  </g>
+  <g id="GM0453_group">
+    <circle id="GM0453_point" cx="679.84" cy="807.65" r="3" />
+  </g>
+  <g id="GM0473_group">
+    <circle id="GM0473_point" cx="642.06" cy="874.67" r="3" />
+  </g>
+  <g id="GM0479_group">
+    <circle id="GM0479_point" cx="732.21" cy="789.80" r="3" />
+  </g>
+  <g id="GM0482_group">
+    <circle id="GM0482_point" cx="696.27" cy="1226.81" r="3" />
+  </g>
+  <g id="GM0484_group">
+    <circle id="GM0484_point" cx="682.89" cy="1048.86" r="3" />
+  </g>
+  <g id="GM0489_group">
+    <circle id="GM0489_point" cx="633.99" cy="1236.80" r="3" />
+  </g>
+  <g id="GM0498_group">
+    <circle id="GM0498_point" cx="913.21" cy="653.64" r="3" />
+  </g>
+  <g id="GM0502_group">
+    <circle id="GM0502_point" cx="656.60" cy="1177.29" r="3" />
+  </g>
+  <g id="GM0503_group">
+    <circle id="GM0503_point" cx="561.38" cy="1131.64" r="3" />
+  </g>
+  <g id="GM0505_group">
+    <circle id="GM0505_point" cx="715.12" cy="1286.43" r="3" />
+  </g>
+  <g id="GM0512_group">
+    <circle id="GM0512_point" cx="833.76" cy="1246.36" r="3" />
+  </g>
+  <g id="GM0513_group">
+    <circle id="GM0513_point" cx="714.57" cy="1120.79" r="3" />
+  </g>
+  <g id="GM0518_group">
+    <circle id="GM0518_point" cx="533.58" cy="1081.77" r="3" />
+  </g>
+  <g id="GM0523_group">
+    <circle id="GM0523_point" cx="779.31" cy="1250.81" r="3" />
+  </g>
+  <g id="GM0531_group">
+    <circle id="GM0531_point" cx="685.00" cy="1243.84" r="3" />
+  </g>
+  <g id="GM0532_group">
+    <circle id="GM0532_point" cx="938.88" cy="627.28" r="3" />
+  </g>
+  <g id="GM0534_group">
+    <circle id="GM0534_point" cx="650.17" cy="926.15" r="3" />
+  </g>
+  <g id="GM0537_group">
+    <circle id="GM0537_point" cx="587.82" cy="996.16" r="3" />
+  </g>
+  <g id="GM0542_group">
+    <circle id="GM0542_point" cx="666.87" cy="1196.68" r="3" />
+  </g>
+  <g id="GM0546_group">
+    <circle id="GM0546_point" cx="615.88" cy="1018.38" r="3" />
+  </g>
+  <g id="GM0547_group">
+    <circle id="GM0547_point" cx="640.80" cy="1017.51" r="3" />
+  </g>
+  <g id="GM0553_group">
+    <circle id="GM0553_point" cx="643.51" cy="947.37" r="3" />
+  </g>
+  <g id="GM0556_group">
+    <circle id="GM0556_point" cx="510.79" cy="1185.56" r="3" />
+  </g>
+  <g id="GM0569_group">
+    <circle id="GM0569_point" cx="741.05" cy="1017.55" r="3" />
+  </g>
+  <g id="GM0575_group">
+    <circle id="GM0575_point" cx="618.04" cy="939.39" r="3" />
+  </g>
+  <g id="GM0579_group">
+    <circle id="GM0579_point" cx="609.67" cy="996.75" r="3" />
+  </g>
+  <g id="GM0589_group">
+    <circle id="GM0589_point" cx="783.42" cy="1109.66" r="3" />
+  </g>
+  <g id="GM0590_group">
+    <circle id="GM0590_point" cx="712.56" cy="1249.00" r="3" />
+  </g>
+  <g id="GM0597_group">
+    <circle id="GM0597_point" cx="664.58" cy="1223.96" r="3" />
+  </g>
+  <g id="GM0599_group">
+    <circle id="GM0599_point" cx="534.81" cy="1182.25" r="3" />
+  </g>
+  <g id="GM0603_group">
+    <circle id="GM0603_point" cx="543.51" cy="1103.22" r="3" />
+  </g>
+  <g id="GM0606_group">
+    <circle id="GM0606_point" cx="617.33" cy="1177.81" r="3" />
+  </g>
+  <g id="GM0610_group">
+    <circle id="GM0610_point" cx="743.77" cy="1253.06" r="3" />
+  </g>
+  <g id="GM0613_group">
+    <circle id="GM0613_point" cx="594.42" cy="1237.24" r="3" />
+  </g>
+  <g id="GM0622_group">
+    <circle id="GM0622_point" cx="544.60" cy="1189.29" r="3" />
+  </g>
+  <g id="GM0626_group">
+    <circle id="GM0626_point" cx="594.63" cy="1040.83" r="3" />
+  </g>
+  <g id="GM0627_group">
+    <circle id="GM0627_point" cx="684.66" cy="1100.93" r="3" />
+  </g>
+  <g id="GM0629_group">
+    <circle id="GM0629_point" cx="563.92" cy="1029.99" r="3" />
+  </g>
+  <g id="GM0632_group">
+    <circle id="GM0632_point" cx="798.51" cy="1056.05" r="3" />
+  </g>
+  <g id="GM0637_group">
+    <circle id="GM0637_point" cx="616.32" cy="1085.13" r="3" />
+  </g>
+  <g id="GM0638_group">
+    <circle id="GM0638_point" cx="628.14" cy="1049.59" r="3" />
+  </g>
+  <g id="GM0642_group">
+    <circle id="GM0642_point" cx="668.61" cy="1258.24" r="3" />
+  </g>
+  <g id="GM0654_group">
+    <circle id="GM0654_point" cx="324.57" cy="1547.96" r="3" />
+  </g>
+  <g id="GM0664_group">
+    <circle id="GM0664_point" cx="328.25" cy="1475.87" r="3" />
+  </g>
+  <g id="GM0668_group">
+    <circle id="GM0668_point" cx="1066.13" cy="1233.02" r="3" />
+  </g>
+  <g id="GM0677_group">
+    <circle id="GM0677_point" cx="420.47" cy="1616.64" r="3" />
+  </g>
+  <g id="GM0678_group">
+    <circle id="GM0678_point" cx="381.20" cy="1498.64" r="3" />
+  </g>
+  <g id="GM0687_group">
+    <circle id="GM0687_point" cx="239.61" cy="1483.38" r="3" />
+  </g>
+  <g id="GM0703_group">
+    <circle id="GM0703_point" cx="454.80" cy="1548.54" r="3" />
+  </g>
+  <g id="GM0715_group">
+    <circle id="GM0715_point" cx="323.36" cy="1639.86" r="3" />
+  </g>
+  <g id="GM0716_group">
+    <circle id="GM0716_point" cx="455.05" cy="1437.13" r="3" />
+  </g>
+  <g id="GM0717_group">
+    <circle id="GM0717_point" cx="200.77" cy="1458.29" r="3" />
+  </g>
+  <g id="GM0718_group">
+    <circle id="GM0718_point" cx="227.72" cy="1512.73" r="3" />
+  </g>
+  <g id="GM0736_group">
+    <circle id="GM0736_point" cx="807.57" cy="967.47" r="3" />
+  </g>
+  <g id="GM0737_group">
+    <circle id="GM0737_point" cx="1254.41" cy="264.66" r="3" />
+  </g>
+  <g id="GM0743_group">
+    <circle id="GM0743_point" cx="1194.72" cy="1568.19" r="3" />
+  </g>
+  <g id="GM0744_group">
+    <circle id="GM0744_point" cx="798.96" cy="1531.61" r="3" />
+  </g>
+  <g id="GM0748_group">
+    <circle id="GM0748_point" cx="526.24" cy="1487.03" r="3" />
+  </g>
+  <g id="GM0753_group">
+    <circle id="GM0753_point" cx="1022.96" cy="1477.62" r="3" />
+  </g>
+  <g id="GM0755_group">
+    <circle id="GM0755_point" cx="1154.76" cy="1408.47" r="3" />
+  </g>
+  <g id="GM0757_group">
+    <circle id="GM0757_point" cx="989.94" cy="1406.99" r="3" />
+  </g>
+  <g id="GM0758_group">
+    <circle id="GM0758_point" cx="737.91" cy="1426.83" r="3" />
+  </g>
+  <g id="GM0762_group">
+    <circle id="GM0762_point" cx="1198.05" cy="1530.72" r="3" />
+  </g>
+  <g id="GM0765_group">
+    <circle id="GM0765_point" cx="1693.27" cy="347.65" r="3" />
+  </g>
+  <g id="GM0766_group">
+    <circle id="GM0766_point" cx="824.02" cy="1397.97" r="3" />
+  </g>
+  <g id="GM0770_group">
+    <circle id="GM0770_point" cx="987.29" cy="1562.17" r="3" />
+  </g>
+  <g id="GM0772_group">
+    <circle id="GM0772_point" cx="1049.27" cy="1521.95" r="3" />
+  </g>
+  <g id="GM0777_group">
+    <circle id="GM0777_point" cx="688.22" cy="1432.77" r="3" />
+  </g>
+  <g id="GM0779_group">
+    <circle id="GM0779_point" cx="790.32" cy="1347.67" r="3" />
+  </g>
+  <g id="GM0784_group">
+    <circle id="GM0784_point" cx="808.79" cy="1446.52" r="3" />
+  </g>
+  <g id="GM0785_group">
+    <circle id="GM0785_point" cx="859.08" cy="1480.00" r="3" />
+  </g>
+  <g id="GM0794_group">
+    <circle id="GM0794_point" cx="1139.24" cy="1504.44" r="3" />
+  </g>
+  <g id="GM0796_group">
+    <circle id="GM0796_point" cx="1000.13" cy="1332.64" r="3" />
+  </g>
+  <g id="GM0797_group">
+    <circle id="GM0797_point" cx="917.01" cy="1347.38" r="3" />
+  </g>
+  <g id="GM0798_group">
+    <circle id="GM0798_point" cx="909.84" cy="1502.62" r="3" />
+  </g>
+  <g id="GM0809_group">
+    <circle id="GM0809_point" cx="865.26" cy="1393.99" r="3" />
+  </g>
+  <g id="GM0820_group">
+    <circle id="GM0820_point" cx="1091.90" cy="1501.68" r="3" />
+  </g>
+  <g id="GM0823_group">
+    <circle id="GM0823_point" cx="975.31" cy="1493.88" r="3" />
+  </g>
+  <g id="GM0824_group">
+    <circle id="GM0824_point" cx="929.64" cy="1446.12" r="3" />
+  </g>
+  <g id="GM0826_group">
+    <circle id="GM0826_point" cx="784.00" cy="1396.04" r="3" />
+  </g>
+  <g id="GM0828_group">
+    <circle id="GM0828_point" cx="1077.83" cy="1296.24" r="3" />
+  </g>
+  <g id="GM0840_group">
+    <circle id="GM0840_point" cx="646.74" cy="1473.77" r="3" />
+  </g>
+  <g id="GM0845_group">
+    <circle id="GM0845_point" cx="1013.94" cy="1374.76" r="3" />
+  </g>
+  <g id="GM0847_group">
+    <circle id="GM0847_point" cx="1155.73" cy="1572.41" r="3" />
+  </g>
+  <g id="GM0848_group">
+    <circle id="GM0848_point" cx="1061.11" cy="1475.24" r="3" />
+  </g>
+  <g id="GM0851_group">
+    <circle id="GM0851_point" cx="541.24" cy="1420.14" r="3" />
+  </g>
+  <g id="GM0852_group">
+    <circle id="GM0852_point" cx="850.04" cy="803.97" r="3" />
+  </g>
+  <g id="GM0855_group">
+    <circle id="GM0855_point" cx="879.04" cy="1428.96" r="3" />
+  </g>
+  <g id="GM0858_group">
+    <circle id="GM0858_point" cx="1048.22" cy="1614.00" r="3" />
+  </g>
+  <g id="GM0861_group">
+    <circle id="GM0861_point" cx="1015.97" cy="1552.28" r="3" />
+  </g>
+  <g id="GM0865_group">
+    <circle id="GM0865_point" cx="951.57" cy="1381.70" r="3" />
+  </g>
+  <g id="GM0866_group">
+    <circle id="GM0866_point" cx="1054.00" cy="1569.15" r="3" />
+  </g>
+  <g id="GM0867_group">
+    <circle id="GM0867_point" cx="848.96" cy="1351.56" r="3" />
+  </g>
+  <g id="GM0873_group">
+    <circle id="GM0873_point" cx="544.73" cy="1554.59" r="3" />
+  </g>
+  <g id="GM0879_group">
+    <circle id="GM0879_point" cx="684.81" cy="1502.87" r="3" />
+  </g>
+  <g id="GM0880_group">
+    <circle id="GM0880_point" cx="780.27" cy="771.36" r="3" />
+  </g>
+  <g id="GM0882_group">
+    <circle id="GM0882_point" cx="1304.37" cy="1910.92" r="3" />
+  </g>
+  <g id="GM0888_group">
+    <circle id="GM0888_point" cx="1215.04" cy="1894.03" r="3" />
+  </g>
+  <g id="GM0889_group">
+    <circle id="GM0889_point" cx="1323.23" cy="1648.12" r="3" />
+  </g>
+  <g id="GM0893_group">
+    <circle id="GM0893_point" cx="1320.55" cy="1416.85" r="3" />
+  </g>
+  <g id="GM0899_group">
+    <circle id="GM0899_point" cx="1280.89" cy="1886.11" r="3" />
+  </g>
+  <g id="GM0907_group">
+    <circle id="GM0907_point" cx="1274.73" cy="1340.96" r="3" />
+  </g>
+  <g id="GM0917_group">
+    <circle id="GM0917_point" cx="1284.67" cy="1918.59" r="3" />
+  </g>
+  <g id="GM0928_group">
+    <circle id="GM0928_point" cx="1306.03" cy="1935.27" r="3" />
+  </g>
+  <g id="GM0935_group">
+    <circle id="GM0935_point" cx="1165.03" cy="1949.01" r="3" />
+  </g>
+  <g id="GM0938_group">
+    <circle id="GM0938_point" cx="1190.39" cy="1915.32" r="3" />
+  </g>
+  <g id="GM0944_group">
+    <circle id="GM0944_point" cx="1247.65" cy="1320.29" r="3" />
+  </g>
+  <g id="GM0946_group">
+    <circle id="GM0946_point" cx="1193.62" cy="1632.08" r="3" />
+  </g>
+  <g id="GM0957_group">
+    <circle id="GM0957_point" cx="1298.48" cy="1696.70" r="3" />
+  </g>
+  <g id="GM0965_group">
+    <circle id="GM0965_point" cx="1293.49" cy="1964.36" r="3" />
+  </g>
+  <g id="GM0971_group">
+    <circle id="GM0971_point" cx="1195.16" cy="1868.58" r="3" />
+  </g>
+  <g id="GM0981_group">
+    <circle id="GM0981_point" cx="1269.86" cy="1993.61" r="3" />
+  </g>
+  <g id="GM0983_group">
+    <circle id="GM0983_point" cx="1366.19" cy="1560.07" r="3" />
+  </g>
+  <g id="GM0984_group">
+    <circle id="GM0984_point" cx="1275.49" cy="1474.09" r="3" />
+  </g>
+  <g id="GM0986_group">
+    <circle id="GM0986_point" cx="1261.73" cy="1938.43" r="3" />
+  </g>
+  <g id="GM0988_group">
+    <circle id="GM0988_point" cx="1155.79" cy="1675.56" r="3" />
+  </g>
+  <g id="GM0994_group">
+    <circle id="GM0994_point" cx="1220.98" cy="1944.06" r="3" />
+  </g>
+  <g id="GM0995_group">
+    <circle id="GM0995_point" cx="1048.32" cy="787.15" r="3" />
+  </g>
+  <g id="GM1507_group">
+    <circle id="GM1507_point" cx="1322.55" cy="1523.61" r="3" />
+  </g>
+  <g id="GM1509_group">
+    <circle id="GM1509_point" cx="1469.26" cy="1189.25" r="3" />
+  </g>
+  <g id="GM1525_group">
+    <circle id="GM1525_point" cx="627.36" cy="978.05" r="3" />
+  </g>
+  <g id="GM1581_group">
+    <circle id="GM1581_point" cx="1015.12" cy="1104.22" r="3" />
+  </g>
+  <g id="GM1586_group">
+    <circle id="GM1586_point" cx="1539.95" cy="1111.22" r="3" />
+  </g>
+  <g id="GM1598_group">
+    <circle id="GM1598_point" cx="819.49" cy="667.64" r="3" />
+  </g>
+  <g id="GM1621_group">
+    <circle id="GM1621_point" cx="622.73" cy="1125.28" r="3" />
+  </g>
+  <g id="GM1640_group">
+    <circle id="GM1640_point" cx="1218.42" cy="1691.10" r="3" />
+  </g>
+  <g id="GM1641_group">
+    <circle id="GM1641_point" cx="1241.90" cy="1727.40" r="3" />
+  </g>
+  <g id="GM1652_group">
+    <circle id="GM1652_point" cx="1182.91" cy="1456.59" r="3" />
+  </g>
+  <g id="GM1655_group">
+    <circle id="GM1655_point" cx="632.54" cy="1423.59" r="3" />
+  </g>
+  <g id="GM1658_group">
+    <circle id="GM1658_point" cx="1099.99" cy="1586.49" r="3" />
+  </g>
+  <g id="GM1659_group">
+    <circle id="GM1659_point" cx="1120.27" cy="1464.77" r="3" />
+  </g>
+  <g id="GM1667_group">
+    <circle id="GM1667_point" cx="911.48" cy="1575.83" r="3" />
+  </g>
+  <g id="GM1669_group">
+    <circle id="GM1669_point" cx="1312.92" cy="1737.83" r="3" />
+  </g>
+  <g id="GM1674_group">
+    <circle id="GM1674_point" cx="586.74" cy="1480.12" r="3" />
+  </g>
+  <g id="GM1676_group">
+    <circle id="GM1676_point" cx="355.37" cy="1351.28" r="3" />
+  </g>
+  <g id="GM1680_group">
+    <circle id="GM1680_point" cx="1588.31" cy="407.18" r="3" />
+  </g>
+  <g id="GM1681_group">
+    <circle id="GM1681_point" cx="1652.70" cy="467.05" r="3" />
+  </g>
+  <g id="GM1690_group">
+    <circle id="GM1690_point" cx="1439.99" cy="618.96" r="3" />
+  </g>
+  <g id="GM1695_group">
+    <circle id="GM1695_point" cx="298.35" cy="1436.56" r="3" />
+  </g>
+  <g id="GM1696_group">
+    <circle id="GM1696_point" cx="881.34" cy="967.68" r="3" />
+  </g>
+  <g id="GM1699_group">
+    <circle id="GM1699_point" cx="1463.08" cy="335.46" r="3" />
+  </g>
+  <g id="GM1700_group">
+    <circle id="GM1700_point" cx="1558.31" cy="798.26" r="3" />
+  </g>
+  <g id="GM1701_group">
+    <circle id="GM1701_point" cx="1403.36" cy="523.19" r="3" />
+  </g>
+  <g id="GM1705_group">
+    <circle id="GM1705_point" cx="1263.65" cy="1199.89" r="3" />
+  </g>
+  <g id="GM1706_group">
+    <circle id="GM1706_point" cx="1112.65" cy="1638.79" r="3" />
+  </g>
+  <g id="GM1708_group">
+    <circle id="GM1708_point" cx="1289.41" cy="583.91" r="3" />
+  </g>
+  <g id="GM1709_group">
+    <circle id="GM1709_point" cx="639.20" cy="1374.36" r="3" />
+  </g>
+  <g id="GM1711_group">
+    <circle id="GM1711_point" cx="1254.25" cy="1783.03" r="3" />
+  </g>
+  <g id="GM1714_group">
+    <circle id="GM1714_point" cx="176.03" cy="1607.57" r="3" />
+  </g>
+  <g id="GM1719_group">
+    <circle id="GM1719_point" cx="745.92" cy="1335.86" r="3" />
+  </g>
+  <g id="GM1721_group">
+    <circle id="GM1721_point" cx="1077.65" cy="1364.55" r="3" />
+  </g>
+  <g id="GM1723_group">
+    <circle id="GM1723_point" cx="795.40" cy="1488.34" r="3" />
+  </g>
+  <g id="GM1724_group">
+    <circle id="GM1724_point" cx="998.32" cy="1624.62" r="3" />
+  </g>
+  <g id="GM1728_group">
+    <circle id="GM1728_point" cx="953.44" cy="1578.97" r="3" />
+  </g>
+  <g id="GM1729_group">
+    <circle id="GM1729_point" cx="1244.49" cy="1975.45" r="3" />
+  </g>
+  <g id="GM1730_group">
+    <circle id="GM1730_point" cx="1533.76" cy="332.37" r="3" />
+  </g>
+  <g id="GM1731_group">
+    <circle id="GM1731_point" cx="1508.33" cy="497.19" r="3" />
+  </g>
+  <g id="GM1734_group">
+    <circle id="GM1734_point" cx="1191.09" cy="1184.79" r="3" />
+  </g>
+  <g id="GM1735_group">
+    <circle id="GM1735_point" cx="1544.18" cy="950.26" r="3" />
+  </g>
+  <g id="GM1740_group">
+    <circle id="GM1740_point" cx="1106.93" cy="1192.89" r="3" />
+  </g>
+  <g id="GM1742_group">
+    <circle id="GM1742_point" cx="1463.03" cy="911.16" r="3" />
+  </g>
+  <g id="GM1771_group">
+    <circle id="GM1771_point" cx="1107.83" cy="1536.21" r="3" />
+  </g>
+  <g id="GM1773_group">
+    <circle id="GM1773_point" cx="1347.15" cy="863.55" r="3" />
+  </g>
+  <g id="GM1774_group">
+    <circle id="GM1774_point" cx="1682.03" cy="848.80" r="3" />
+  </g>
+  <g id="GM1783_group">
+    <circle id="GM1783_point" cx="496.94" cy="1130.66" r="3" />
+  </g>
+  <g id="GM1842_group">
+    <circle id="GM1842_point" cx="536.92" cy="1155.70" r="3" />
+  </g>
+  <g id="GM1859_group">
+    <circle id="GM1859_point" cx="1535.52" cy="1043.82" r="3" />
+  </g>
+  <g id="GM1876_group">
+    <circle id="GM1876_point" cx="1419.36" cy="1088.94" r="3" />
+  </g>
+  <g id="GM1883_group">
+    <circle id="GM1883_point" cx="1223.29" cy="1843.08" r="3" />
+  </g>
+  <g id="GM1884_group">
+    <circle id="GM1884_point" cx="679.78" cy="1008.16" r="3" />
+  </g>
+  <g id="GM1891_group">
+    <circle id="GM1891_point" cx="1263.30" cy="206.67" r="3" />
+  </g>
+  <g id="GM1892_group">
+    <circle id="GM1892_point" cx="667.63" cy="1131.30" r="3" />
+  </g>
+  <g id="GM1894_group">
+    <circle id="GM1894_point" cx="1292.04" cy="1601.57" r="3" />
+  </g>
+  <g id="GM1895_group">
+    <circle id="GM1895_point" cx="1726.33" cy="257.65" r="3" />
+  </g>
+  <g id="GM1896_group">
+    <circle id="GM1896_point" cx="1307.71" cy="691.98" r="3" />
+  </g>
+  <g id="GM1900_group">
+    <circle id="GM1900_point" cx="1074.26" cy="393.08" r="3" />
+  </g>
+  <g id="GM1901_group">
+    <circle id="GM1901_point" cx="741.05" cy="1083.93" r="3" />
+  </g>
+  <g id="GM1903_group">
+    <circle id="GM1903_point" cx="1200.00" cy="1986.36" r="3" />
+  </g>
+  <g id="GM1904_group">
+    <circle id="GM1904_point" cx="849.20" cy="1003.58" r="3" />
+  </g>
+  <g id="GM1911_group">
+    <circle id="GM1911_point" cx="818.40" cy="534.46" r="3" />
+  </g>
+  <g id="GM1916_group">
+    <circle id="GM1916_point" cx="587.59" cy="1064.44" r="3" />
+  </g>
+  <g id="GM1924_group">
+    <circle id="GM1924_point" cx="455.21" cy="1311.47" r="3" />
+  </g>
+  <g id="GM1926_group">
+    <circle id="GM1926_point" cx="588.68" cy="1118.90" r="3" />
+  </g>
+  <g id="GM1930_group">
+    <circle id="GM1930_point" cx="526.55" cy="1250.32" r="3" />
+  </g>
+  <g id="GM1931_group">
+    <circle id="GM1931_point" cx="727.11" cy="1164.34" r="3" />
+  </g>
+  <g id="GM1940_group">
+    <circle id="GM1940_point" cx="1155.42" cy="470.84" r="3" />
+  </g>
+  <g id="GM1942_group">
+    <circle id="GM1942_point" cx="911.97" cy="926.14" r="3" />
+  </g>
+  <g id="GM1945_group">
+    <circle id="GM1945_point" cx="1265.56" cy="1255.39" r="3" />
+  </g>
+  <g id="GM1948_group">
+    <circle id="GM1948_point" cx="1071.65" cy="1420.28" r="3" />
+  </g>
+  <g id="GM1949_group">
+    <circle id="GM1949_point" cx="1104.49" cy="249.32" r="3" />
+  </g>
+  <g id="GM1950_group">
+    <circle id="GM1950_point" cx="1757.67" cy="385.29" r="3" />
+  </g>
+  <g id="GM1952_group">
+    <circle id="GM1952_point" cx="1617.32" cy="260.49" r="3" />
+  </g>
+  <g id="GM1954_group">
+    <circle id="GM1954_point" cx="1253.99" cy="1889.27" r="3" />
+  </g>
+  <g id="GM1955_group">
+    <circle id="GM1955_point" cx="1382.90" cy="1185.20" r="3" />
+  </g>
+  <g id="GM1959_group">
+    <circle id="GM1959_point" cx="819.67" cy="1299.50" r="3" />
+  </g>
+  <g id="GM1960_group">
+    <circle id="GM1960_point" cx="935.47" cy="1228.79" r="3" />
+  </g>
+  <g id="GM1961_group">
+    <circle id="GM1961_point" cx="868.74" cy="1175.62" r="3" />
+  </g>
+  <g id="GM1963_group">
+    <circle id="GM1963_point" cx="602.11" cy="1295.56" r="3" />
+  </g>
+  <g id="GM1966_group">
+    <circle id="GM1966_point" cx="1496.02" cy="130.23" r="3" />
+  </g>
+  <g id="GM1969_group">
+    <circle id="GM1969_point" cx="1416.29" cy="248.67" r="3" />
+  </g>
+  <g id="GM1970_group">
+    <circle id="GM1970_point" cx="1277.60" cy="170.90" r="3" />
+  </g>
+  <g id="GM1978_group">
+    <circle id="GM1978_point" cx="772.80" cy="1213.24" r="3" />
+  </g>
+  <g id="GM1979_group">
+    <circle id="GM1979_point" cx="1631.59" cy="162.07" r="3" />
+  </g>
+  <g id="GM1980_group">
+    <circle id="GM1980_point" cx="764.72" cy="639.46" r="3" />
+  </g>
+  <g id="GM1982_group">
+    <circle id="GM1982_point" cx="1226.96" cy="1373.39" r="3" />
+  </g>
+  <g id="GM1991_group">
+    <circle id="GM1991_point" cx="1135.82" cy="1353.26" r="3" />
+  </g>
+  <g id="GM1992_group">
+    <circle id="GM1992_point" cx="457.61" cy="1219.49" r="3" />
+  </g>
+  <g id="polygon_groningen_group">
+    <path id="polygon_groningen" d="M 1829.58 445.06 L 1771.36 503.29 L 1553.47 286.61 L 1500.16 286.61 L 1416.63 370.13 L 1359.97 313.47 L 1359.97 271.61 L 1400.71 230.87 L 1400.71 177.68 L 1363.37 140.34 L 1363.37 110.50 L 1387.73 89.94 L 1433.24 44.43 L 1598.64 44.43 L 1714.77 160.57 L 1772.75 160.57 L 1829.58 217.41 Z" />
+  </g>
+  <g id="polygon_friesland_group">
+    <path id="polygon_friesland_0" d="M 770.23 240.82 L 775.03 245.62 L 784.09 245.62 L 826.63 203.08 L 859.05 185.00 L 885.96 158.09 L 877.41 158.10 L 829.24 181.81 Z" />
+    <path id="polygon_friesland_1" d="M 909.13 130.38 L 939.86 99.66 L 1060.51 63.35 L 1073.87 63.35 L 1080.25 69.73 L 1074.56 75.41 L 1053.97 75.41 L 1041.24 88.15 L 989.12 112.22 L 945.30 112.22 L 927.02 130.49 Z" />
+    <path id="polygon_friesland_2" d="M 1114.35 54.30 L 1126.22 42.42 L 1138.27 42.42 L 1144.85 49.01 L 1253.77 49.01 L 1253.77 50.86 L 1156.52 66.34 L 1119.79 66.34 L 1114.35 63.70 Z" />
+    <path id="polygon_friesland_3" d="M 1340.46 43.26 L 1340.46 29.05 L 1453.35 9.43 L 1452.98 10.70 L 1414.50 21.33 L 1402.33 33.50 L 1361.81 33.50 L 1352.05 43.26 Z" />
+    <path id="polygon_friesland_4" d="M 1378.38 90.66 L 1357.88 107.95 L 1357.88 142.61 L 1395.22 179.95 L 1395.22 228.60 L 1354.49 269.34 L 1354.49 315.74 L 1414.70 375.95 L 1472.16 433.41 L 1446.90 458.68 L 1395.98 458.68 L 1331.09 523.57 L 1260.45 518.04 L 1226.50 553.40 L 1181.10 508.00 L 1139.26 509.27 L 1049.83 509.88 L 1013.23 473.27 L 1013.23 279.53 L 1171.27 121.48 L 1258.80 121.48 L 1289.62 90.66 Z" />
+  </g>
+  <g id="polygon_noordholland_group">
+    <path id="polygon_noordholland_0" d="M 849.43 874.46 L 892.12 917.15 L 977.19 917.15 L 986.33 926.19 L 963.16 949.66 L 951.34 937.84 L 931.83 957.36 L 931.83 996.37 L 899.10 1029.11 L 854.51 1029.11 L 841.96 1016.56 L 841.96 962.54 L 841.16 964.48 L 856.76 948.87 L 830.25 922.37 L 791.70 960.92 L 764.69 960.92 L 732.95 992.66 L 671.30 992.66 L 671.30 910.80 L 620.14 918.83 L 597.64 896.33 L 636.79 771.41 L 696.59 421.22 L 741.62 420.98 L 741.62 438.32 L 779.28 475.98 L 815.20 440.06 L 856.84 440.06 L 894.95 478.18 L 894.95 557.32 L 923.03 585.40 L 961.74 585.40 L 977.89 601.55 L 914.08 665.37 L 865.89 665.37 L 829.81 701.44 L 827.27 703.68 L 861.71 738.12 L 861.71 799.21 L 893.19 830.69 Z" />
+    <path id="polygon_noordholland_1" d="M 704.62 374.57 L 704.62 399.93 L 728.79 399.93 L 792.27 336.45 L 792.27 293.81 L 764.77 266.30 L 731.92 311.09 Z" />
+  </g>
+  <g id="polygon_drenthe_group">
+    <path id="polygon_drenthe" d="M 1632.51 658.62 L 1615.68 675.45 L 1584.09 643.87 L 1536.05 643.87 L 1492.48 687.44 L 1464.72 687.44 L 1437.00 659.73 L 1397.46 659.73 L 1338.27 600.53 L 1374.21 564.59 L 1336.01 526.40 L 1398.25 464.16 L 1449.17 464.16 L 1479.92 433.41 L 1420.51 374.01 L 1502.43 292.09 L 1551.21 292.09 L 1768.62 508.30 L 1768.62 658.62 Z" />
+  </g>
+  <g id="polygon_flevoland_group">
+    <path id="polygon_flevoland" d="M 1093.36 561.84 L 1140.49 514.72 L 1178.90 513.55 L 1224.60 559.26 L 1270.33 604.99 L 1270.33 654.50 L 1230.27 694.56 L 1230.27 775.93 L 1036.99 969.20 L 992.14 924.22 L 979.45 911.67 L 894.39 911.67 L 857.18 874.46 L 898.20 833.43 L 936.42 833.43 L 1093.36 676.49 Z" />
+  </g>
+  <g id="polygon_overijssel_group">
+    <path id="polygon_overijssel" d="M 1344.85 871.95 L 1345.09 842.22 L 1310.54 807.68 L 1277.64 774.78 L 1235.75 774.35 L 1235.75 696.84 L 1275.82 656.77 L 1275.82 602.72 L 1230.38 557.28 L 1262.61 523.71 L 1330.91 529.05 L 1366.45 564.59 L 1330.51 600.53 L 1395.19 665.21 L 1434.73 665.21 L 1462.45 692.93 L 1494.75 692.93 L 1538.32 649.35 L 1581.82 649.35 L 1611.80 679.33 L 1602.90 688.23 L 1602.90 773.41 L 1626.66 797.17 L 1708.55 797.17 L 1767.04 855.66 L 1767.04 934.42 L 1654.83 1046.41 L 1621.78 1046.41 L 1574.05 998.69 L 1505.06 1000.33 L 1488.96 984.22 L 1467.22 962.48 L 1362.28 962.19 L 1318.76 918.67 L 1318.57 898.24 Z" />
+  </g>
+  <g id="polygon_gelderland_group">
+    <path id="polygon_gelderland" d="M 1281.70 1320.47 L 1256.23 1294.99 L 1218.19 1295.70 L 1200.04 1313.85 L 1152.23 1311.91 L 1118.55 1278.24 L 1021.34 1277.24 L 947.50 1350.95 L 928.85 1332.41 L 926.91 1331.61 L 896.15 1331.61 L 896.15 1311.62 L 881.02 1296.49 L 865.00 1296.49 L 839.01 1270.50 L 848.04 1261.47 L 848.04 1239.48 L 865.15 1239.50 L 944.77 1159.87 L 1016.17 1159.87 L 1031.40 1144.64 L 1073.25 1144.64 L 1088.86 1160.25 L 1088.86 1100.75 L 1072.06 1083.95 L 1072.00 1004.21 L 1040.87 973.08 L 1234.13 779.82 L 1275.35 780.24 L 1306.67 811.56 L 1339.59 844.48 L 1339.39 869.66 L 1313.06 895.99 L 1313.30 920.96 L 1360.01 967.67 L 1464.94 967.96 L 1485.08 988.10 L 1502.85 1005.86 L 1571.83 1004.23 L 1617.91 1050.30 L 1618.24 1078.48 L 1659.35 1119.58 L 1660.28 1158.77 L 1585.13 1233.92 L 1375.92 1235.67 L 1360.48 1250.57 L 1304.92 1250.57 L 1281.62 1273.87 Z" />
+  </g>
+  <g id="polygon_utrecht_group">
+    <path id="polygon_utrecht" d="M 772.10 1029.54 L 737.96 995.40 L 766.96 966.41 L 793.97 966.41 L 830.25 930.12 L 849.01 948.87 L 837.28 960.60 L 836.48 962.54 L 836.48 1018.83 L 852.24 1034.59 L 901.37 1034.59 L 937.31 998.65 L 937.31 959.63 L 951.34 945.60 L 963.18 957.44 L 990.21 930.06 L 1035.05 975.02 L 1066.52 1006.48 L 1066.58 1086.22 L 1083.38 1103.02 L 1083.38 1147.01 L 1075.52 1139.16 L 1029.13 1139.16 L 1013.90 1154.39 L 942.50 1154.39 L 862.88 1234.01 L 846.44 1233.99 L 807.26 1194.82 L 773.04 1193.91 L 746.01 1156.79 L 746.01 1127.88 L 759.00 1114.89 L 759.00 1072.47 L 749.55 1063.02 L 772.10 1040.47 Z" />
+  </g>
+  <g id="polygon_zuidholland_group">
+    <path id="polygon_zuidholland" d="M 393.07 1317.33 L 393.13 1294.58 L 381.34 1282.80 L 362.19 1282.80 L 345.76 1299.22 L 332.76 1299.22 L 325.58 1292.04 L 325.63 1274.56 L 345.25 1255.16 L 369.03 1255.16 L 418.64 1255.16 L 418.64 1211.52 L 407.29 1200.17 L 389.29 1200.17 L 371.77 1182.65 L 371.77 1153.98 L 436.47 1153.98 L 555.11 1015.02 L 596.18 900.36 L 618.73 923.88 L 666.24 916.65 L 666.24 998.14 L 732.95 998.14 L 766.61 1031.81 L 766.61 1038.20 L 741.79 1063.02 L 753.52 1074.74 L 753.52 1112.62 L 740.53 1125.61 L 740.53 1158.57 L 770.20 1199.32 L 804.93 1200.24 L 842.56 1237.87 L 842.56 1259.20 L 834.00 1267.76 L 798.23 1267.86 L 774.81 1291.27 L 742.03 1291.27 L 696.32 1336.99 L 667.07 1336.99 L 651.12 1336.99 L 639.47 1348.77 L 626.71 1361.53 L 563.30 1361.53 L 518.55 1406.27 L 504.28 1392.00 L 472.01 1359.73 L 435.47 1359.73 Z" />
+  </g>
+  <g id="polygon_noordbrabant_group">
+    <path id="polygon_noordbrabant" d="M 1201.39 1515.06 L 1218.33 1532.00 L 1218.33 1563.80 L 1090.23 1691.91 L 1090.38 1666.43 L 1068.62 1644.66 L 1038.80 1640.71 L 1007.63 1671.89 L 949.19 1665.70 L 879.33 1595.84 L 883.38 1571.32 L 898.99 1555.63 L 858.19 1514.83 L 843.50 1529.51 L 799.37 1573.64 L 776.94 1573.64 L 752.39 1549.08 L 776.51 1524.97 L 739.63 1488.09 L 676.35 1551.37 L 644.61 1551.37 L 644.61 1517.90 L 602.93 1517.90 L 558.36 1562.47 L 584.35 1588.46 L 584.35 1600.27 L 574.33 1610.29 L 550.54 1610.29 L 527.81 1587.56 L 504.86 1588.05 L 505.42 1474.00 L 484.24 1452.83 L 484.24 1415.92 L 502.35 1397.82 L 518.55 1414.03 L 565.57 1367.01 L 628.99 1367.01 L 643.36 1352.64 L 653.41 1342.47 L 667.07 1342.47 L 698.59 1342.47 L 744.30 1296.76 L 777.08 1296.76 L 800.50 1273.34 L 834.00 1273.25 L 862.73 1301.97 L 878.75 1301.97 L 890.67 1313.90 L 890.67 1337.09 L 926.91 1337.09 L 924.98 1336.30 L 947.51 1358.69 L 1023.58 1282.74 L 1116.26 1283.70 L 1149.86 1317.31 L 1199.95 1319.33 L 1241.40 1360.79 L 1266.21 1385.59 L 1265.84 1416.04 L 1243.29 1437.51 L 1202.10 1476.74 Z" />
+  </g>
+  <g id="polygon_limburg_group">
+    <path id="polygon_limburg" d="M 1091.33 1698.57 L 1223.82 1566.07 L 1223.82 1529.73 L 1206.91 1512.83 L 1207.54 1479.13 L 1247.08 1441.48 L 1271.29 1418.42 L 1271.72 1383.35 L 1245.28 1356.91 L 1205.01 1316.64 L 1220.50 1301.14 L 1254.00 1300.52 L 1282.52 1329.04 L 1337.11 1383.63 L 1337.34 1426.73 L 1384.82 1474.22 L 1384.82 1602.98 L 1329.10 1658.71 L 1329.10 1694.15 L 1353.31 1718.36 L 1352.30 1747.51 L 1271.00 1828.81 L 1223.09 1828.23 L 1254.10 1859.23 L 1274.10 1859.64 L 1319.16 1904.70 L 1319.16 1966.99 L 1298.41 1987.74 L 1277.66 2008.50 L 1222.40 2008.50 L 1182.39 2008.50 L 1163.65 1989.75 L 1144.90 1971.01 L 1144.90 1920.09 L 1173.06 1891.93 L 1173.06 1844.93 L 1207.67 1804.18 L 1207.75 1759.56 L 1177.21 1729.01 L 1119.88 1727.12 Z" />
+  </g>
+  <g id="polygon_zeeland_group">
+    <path id="polygon_zeeland" d="M 424.79 1684.67 L 383.49 1684.67 L 350.60 1717.56 L 314.35 1717.56 L 301.09 1704.31 L 301.09 1676.61 L 282.85 1658.36 L 250.16 1658.36 L 230.19 1638.39 L 196.75 1638.39 L 176.21 1658.93 L 176.21 1680.60 L 170.48 1686.33 L 141.90 1686.33 L 124.65 1669.09 L 124.65 1620.53 L 174.63 1573.65 L 232.63 1573.65 L 267.37 1608.38 L 333.06 1608.38 L 349.14 1624.46 L 382.87 1590.72 L 382.87 1568.89 L 400.32 1568.89 L 425.62 1594.20 L 487.72 1594.20 L 462.49 1568.96 L 398.79 1541.16 L 374.88 1517.25 L 353.55 1538.57 L 353.55 1564.64 L 342.08 1576.12 L 297.16 1576.12 L 257.73 1536.70 L 207.75 1536.70 L 140.31 1469.26 L 172.21 1422.12 L 330.51 1422.12 L 444.15 1535.77 L 478.13 1535.77 L 479.49 1484.67 L 465.95 1471.13 L 427.19 1471.13 L 303.41 1347.35 L 276.49 1374.27 L 258.53 1374.27 L 249.71 1365.45 L 249.68 1344.75 L 271.57 1322.76 L 338.63 1323.67 L 390.91 1323.67 L 434.92 1367.68 L 471.46 1367.68 L 497.72 1393.94 L 479.03 1412.63 L 479.03 1456.12 L 500.19 1477.28 L 499.63 1590.85 L 499.74 1613.96 Z" />
+  </g>
+  <g id="province_reference_point_1_group">
+    <circle id="province_reference_point_1_point" cx="754.88" cy="822.13" r="3" />
+  </g>
+  <g id="province_reference_point_2_group">
+    <circle id="province_reference_point_2_point" cx="1136.65" cy="746.69" r="3" />
+  </g>
+  <g id="province_reference_point_3_group">
+    <circle id="province_reference_point_3_point" cx="1475.86" cy="828.00" r="3" />
+  </g>
+  <g id="province_reference_point_4_group">
+    <circle id="province_reference_point_4_point" cx="1562.64" cy="499.46" r="3" />
+  </g>
+  <g id="province_reference_point_5_group">
+    <circle id="province_reference_point_5_point" cx="1684.29" cy="272.45" r="3" />
+  </g>
+  <g id="province_reference_point_6_group">
+    <circle id="province_reference_point_6_point" cx="1206.37" cy="336.53" r="3" />
+  </g>
+  <g id="province_reference_point_7_group">
+    <circle id="province_reference_point_7_point" cx="1303.41" cy="1117.23" r="3" />
+  </g>
+  <g id="province_reference_point_8_group">
+    <circle id="province_reference_point_8_point" cx="989.96" cy="1056.73" r="3" />
+  </g>
+  <g id="province_reference_point_9_group">
+    <circle id="province_reference_point_9_point" cx="571.73" cy="1193.44" r="3" />
+  </g>
+  <g id="province_reference_point_10_group">
+    <circle id="province_reference_point_10_point" cx="958.83" cy="1458.72" r="3" />
+  </g>
+  <g id="province_reference_point_11_group">
+    <circle id="province_reference_point_11_point" cx="1249.83" cy="1663.10" r="3" />
+  </g>
+  <g id="province_reference_point_12_group">
+    <circle id="province_reference_point_12_point" cx="324.04" cy="1514.21" r="3" />
+  </g>
+  <g id="polygon_nederland_backdrop_group">
+    <path id="polygon_nederland_backdrop_0" d="M 770.23 240.82 L 775.03 245.62 L 784.09 245.62 L 826.63 203.08 L 859.05 185.00 L 885.96 158.09 L 877.41 158.10 L 829.24 181.81 Z" />
+    <path id="polygon_nederland_backdrop_1" d="M 909.13 130.38 L 939.86 99.66 L 1060.51 63.35 L 1073.87 63.35 L 1080.25 69.73 L 1074.56 75.41 L 1053.97 75.41 L 1041.24 88.14 L 989.12 112.22 L 945.30 112.22 L 927.02 130.49 Z" />
+    <path id="polygon_nederland_backdrop_2" d="M 1114.35 54.30 L 1126.22 42.42 L 1138.27 42.42 L 1144.85 49.01 L 1253.77 49.01 L 1253.77 50.86 L 1156.52 66.34 L 1119.79 66.34 L 1114.35 63.70 Z" />
+    <path id="polygon_nederland_backdrop_3" d="M 1340.46 43.26 L 1340.46 29.05 L 1453.35 9.43 L 1452.98 10.70 L 1414.50 21.33 L 1402.33 33.50 L 1361.81 33.50 L 1352.05 43.26 Z" />
+    <path id="polygon_nederland_backdrop_4" d="M 1829.58 445.06 L 1771.36 503.29 L 1768.62 508.30 L 1768.62 658.62 L 1632.51 658.62 L 1615.68 675.45 L 1611.80 679.33 L 1602.90 688.23 L 1602.90 773.41 L 1626.66 797.17 L 1708.55 797.17 L 1767.04 855.66 L 1767.04 934.42 L 1654.83 1046.41 L 1621.78 1046.41 L 1617.91 1050.30 L 1618.24 1078.48 L 1659.35 1119.58 L 1660.28 1158.77 L 1585.13 1233.92 L 1375.92 1235.67 L 1360.48 1250.57 L 1304.92 1250.57 L 1281.62 1273.87 L 1281.70 1320.47 L 1282.52 1329.04 L 1337.11 1383.63 L 1337.34 1426.73 L 1384.82 1474.22 L 1384.82 1602.98 L 1329.10 1658.71 L 1329.10 1694.15 L 1353.31 1718.35 L 1352.30 1747.51 L 1271.00 1828.81 L 1223.09 1828.23 L 1254.10 1859.23 L 1274.10 1859.64 L 1319.16 1904.70 L 1319.16 1966.99 L 1298.41 1987.74 L 1277.66 2008.50 L 1222.40 2008.50 L 1182.39 2008.50 L 1163.65 1989.75 L 1144.90 1971.01 L 1144.90 1920.09 L 1173.06 1891.93 L 1173.06 1844.93 L 1207.67 1804.18 L 1207.75 1759.56 L 1177.21 1729.01 L 1119.88 1727.12 L 1091.33 1698.57 L 1090.23 1691.91 L 1090.38 1666.43 L 1068.62 1644.66 L 1038.80 1640.71 L 1007.63 1671.89 L 949.19 1665.70 L 879.33 1595.84 L 883.38 1571.32 L 898.99 1555.63 L 858.19 1514.83 L 843.50 1529.51 L 799.37 1573.64 L 776.94 1573.64 L 752.39 1549.08 L 776.51 1524.97 L 739.63 1488.09 L 676.35 1551.37 L 644.61 1551.37 L 644.61 1517.90 L 602.93 1517.90 L 558.36 1562.47 L 584.35 1588.46 L 584.35 1600.27 L 574.33 1610.29 L 550.54 1610.29 L 527.81 1587.56 L 504.86 1588.05 L 499.63 1588.05 L 499.74 1613.96 L 424.79 1684.67 L 383.49 1684.67 L 350.60 1717.56 L 314.35 1717.56 L 301.09 1704.31 L 301.09 1676.61 L 282.85 1658.36 L 250.16 1658.36 L 230.19 1638.39 L 196.75 1638.39 L 176.21 1658.93 L 176.21 1680.60 L 170.48 1686.33 L 141.90 1686.33 L 124.65 1669.09 L 124.65 1620.53 L 174.63 1573.65 L 232.63 1573.65 L 267.37 1608.38 L 333.06 1608.38 L 349.14 1624.46 L 382.87 1590.72 L 382.87 1568.89 L 400.32 1568.89 L 425.62 1594.19 L 487.72 1594.19 L 462.49 1568.96 L 398.79 1541.16 L 374.88 1517.25 L 353.55 1538.57 L 353.55 1564.64 L 342.08 1576.12 L 297.16 1576.12 L 257.73 1536.69 L 207.75 1536.69 L 140.31 1469.26 L 172.21 1422.12 L 330.51 1422.12 L 444.15 1535.77 L 478.13 1535.77 L 479.49 1484.67 L 465.95 1471.13 L 427.19 1471.13 L 303.41 1347.35 L 276.49 1374.27 L 258.53 1374.27 L 249.71 1365.45 L 249.68 1344.75 L 271.57 1322.76 L 338.63 1323.67 L 390.91 1323.67 L 393.07 1317.33 L 393.13 1294.58 L 381.34 1282.80 L 362.19 1282.80 L 345.76 1299.22 L 332.76 1299.22 L 325.58 1292.04 L 325.63 1274.56 L 345.25 1255.16 L 369.03 1255.16 L 418.64 1255.16 L 418.64 1211.52 L 407.29 1200.17 L 389.29 1200.17 L 371.77 1182.65 L 371.77 1153.98 L 436.47 1153.98 L 555.11 1015.02 L 596.18 900.36 L 597.64 896.33 L 636.79 771.41 L 696.59 421.22 L 741.62 420.98 L 741.62 438.32 L 779.28 475.98 L 815.20 440.06 L 856.84 440.06 L 894.95 478.18 L 894.95 557.32 L 923.03 585.40 L 961.74 585.40 L 977.89 601.55 L 914.08 665.37 L 865.89 665.37 L 829.81 701.44 L 827.27 703.68 L 861.71 738.12 L 861.71 799.21 L 893.19 830.69 L 898.20 833.43 L 936.42 833.43 L 1093.36 676.49 L 1093.36 561.84 L 1140.49 514.72 L 1139.26 509.27 L 1049.83 509.88 L 1013.23 473.27 L 1013.23 279.53 L 1171.27 121.48 L 1258.80 121.48 L 1289.62 90.66 L 1378.38 90.66 L 1387.73 89.94 L 1433.24 44.43 L 1598.64 44.43 L 1714.77 160.57 L 1772.75 160.57 L 1829.58 217.41 Z" />
+    <path id="polygon_nederland_backdrop_5" d="M 704.62 374.57 L 704.62 399.93 L 728.79 399.93 L 792.27 336.45 L 792.27 293.81 L 764.77 266.30 L 731.92 311.09 Z" />
+  </g>
+  <g id="electricity_drenthe_overijssel_group">
+    <path id="electricity_drenthe_overijssel" d="M 1477.03 828.53 L 1477.03 585.99 L 1563.37 499.64" />
+  </g>
+  <g id="electricity_flevoland_friesland_group">
+    <path id="electricity_flevoland_friesland" d="M 1207.45 336.69 L 1207.45 674.16 L 1136.93 744.67" />
+  </g>
+  <g id="electricity_flevoland_gelderland_group">
+    <path id="electricity_flevoland_gelderland" d="M 1476.78 828.53 L 1394.09 745.84 L 1137.10 745.84" />
+  </g>
+  <g id="electricity_friesland_groningen_group">
+    <path id="electricity_friesland_groningen" d="M 1683.25 273.42 L 1614.62 204.80 L 1339.15 204.80 L 1207.37 336.57" />
+  </g>
+  <g id="electricity_gelderland_overijssel_group">
+    <path id="electricity_gelderland_overijssel" d="M 1304.21 1118.03 L 1410.17 1012.07 L 1410.17 891.84 L 1475.61 826.40" />
+  </g>
+  <g id="electricity_groningen_drenthe_group">
+    <path id="electricity_groningen_drenthe" d="M 1563.00 499.10 L 1563.00 391.08 L 1683.94 270.14" />
+  </g>
+  <g id="electricity_groningen_overijssel_group">
+    <path id="electricity_groningen_overijssel" d="M 1474.80 830.72 L 1558.33 747.19 L 1558.33 695.31 L 1683.97 569.67 L 1683.97 273.65" />
+  </g>
+  <g id="electricity_noordbrabant_limburg_group">
+    <path id="electricity_noordbrabant_limburg" d="M 952.87 1452.77 L 1163.46 1663.36 L 1247.36 1663.36" />
+  </g>
+  <g id="electricity_noordholland_flevoland_group">
+    <path id="electricity_noordholland_flevoland" d="M 755.94 821.05 L 1064.47 821.05 L 1138.42 747.10" />
+  </g>
+  <g id="electricity_noordholland_utrecht_group">
+    <path id="electricity_noordholland_utrecht" d="M 991.40 1054.40 L 756.99 820.00" />
+  </g>
+  <g id="electricity_noordholland_zuidholland_group">
+    <path id="electricity_noordholland_zuidholland" d="M 745.54 831.45 L 665.81 911.18 L 665.81 1098.44 L 571.83 1192.42" />
+  </g>
+  <g id="electricity_gelderland_limburg_group">
+    <path id="electricity_gelderland_limburg" d="M 1304.21 1118.03 L 1304.21 1607.46 L 1249.38 1662.30" />
+  </g>
+  <g id="electricity_zeeland_noordbrabant_group">
+    <path id="electricity_zeeland_noordbrabant" d="M 324.85 1516.27 L 381.65 1459.46 L 959.14 1459.46" />
+  </g>
+  <g id="electricity_zuidholland_noordbrabant_group">
+    <path id="electricity_zuidholland_noordbrabant" d="M 952.87 1452.77 L 880.68 1380.58 L 761.39 1380.58 L 572.21 1191.41" />
+  </g>
+  <g id="electricity_zuidholland_utrecht_group">
+    <path id="electricity_zuidholland_utrecht" d="M 572.14 1191.38 L 735.18 1191.38 L 869.95 1056.61 L 989.27 1056.61" />
+  </g>
+  <g id="hydrogen_drenthe_overijssel_group">
+    <path id="hydrogen_drenthe_overijssel" d="M 1477.03 828.53 L 1562.77 742.79 L 1562.77 499.73" />
+  </g>
+  <g id="hydrogen_friesland_groningen_group">
+    <path id="hydrogen_friesland_groningen" d="M 1683.25 273.42 L 1614.62 204.80 L 1339.15 204.80 L 1207.37 336.57" />
+  </g>
+  <g id="hydrogen_gelderland_overijssel_group">
+    <path id="hydrogen_gelderland_overijssel" d="M 1304.21 1118.03 L 1410.17 1012.07 L 1410.17 891.84 L 1475.61 826.40" />
+  </g>
+  <g id="hydrogen_groningen_drenthe_group">
+    <path id="hydrogen_groningen_drenthe" d="M 1563.00 499.10 L 1563.00 391.08 L 1683.94 270.14" />
+  </g>
+  <g id="hydrogen_noordholland_zuidholland_group">
+    <path id="hydrogen_noordholland_zuidholland" d="M 745.54 831.45 L 665.81 911.18 L 665.81 1098.44 L 571.83 1192.42" />
+  </g>
+  <g id="hydrogen_overijssel_limburg_group">
+    <path id="hydrogen_overijssel_limburg" d="M 1304.21 1118.03 L 1304.21 1607.46 L 1249.38 1662.30" />
+  </g>
+  <g id="hydrogen_zeeland_noordbrabant_group">
+    <path id="hydrogen_zeeland_noordbrabant" d="M 324.85 1516.27 L 381.65 1459.46 L 959.14 1459.46" />
+  </g>
+  <g id="hydrogen_zeeland_zuidholland_group">
+    <path id="hydrogen_zeeland_zuidholland" d="M 324.85 1514.21 L 324.85 1439.85 L 570.87 1193.83" />
+  </g>
+  <g id="hydrogen_noordholland_friesland_group">
+    <path id="hydrogen_noordholland_friesland" d="M 743.90 832.51 L 803.35 773.05 L 803.35 739.85 L 1208.01 335.19" />
+  </g>
+  <g id="hydrogen_noordbrabant_gelderland_group">
+    <path id="hydrogen_noordbrabant_gelderland" d="M 961.36 1459.19 L 1304.66 1115.88" />
+  </g>
+  <g id="methane_drenthe_overijssel_group">
+    <path id="methane_drenthe_overijssel" d="M 1477.03 828.53 L 1477.03 585.99 L 1563.37 499.64" />
+  </g>
+  <g id="methane_flevoland_gelderland_group">
+    <path id="methane_flevoland_gelderland" d="M 1476.78 828.53 L 1394.09 745.84 L 1137.10 745.84" />
+  </g>
+  <g id="methane_friesland_groningen_group">
+    <path id="methane_friesland_groningen" d="M 1683.25 273.42 L 1614.62 204.80 L 1339.15 204.80 L 1207.37 336.57" />
+  </g>
+  <g id="methane_gelderland_overijssel_group">
+    <path id="methane_gelderland_overijssel" d="M 1475.61 826.40 L 1475.61 946.18 L 1304.84 1116.94" />
+  </g>
+  <g id="methane_groningen_drenthe_group">
+    <path id="methane_groningen_drenthe" d="M 1563.00 499.10 L 1563.00 391.08 L 1683.94 270.14" />
+  </g>
+  <g id="methane_noordbrabant_limburg_group">
+    <path id="methane_noordbrabant_limburg" d="M 952.87 1452.77 L 1163.46 1663.36 L 1247.36 1663.36" />
+  </g>
+  <g id="methane_noordholland_zuidholland_group">
+    <path id="methane_noordholland_zuidholland" d="M 745.54 831.45 L 665.81 911.18 L 665.81 1098.44 L 571.83 1192.42" />
+  </g>
+  <g id="methane_zeeland_noordbrabant_group">
+    <path id="methane_zeeland_noordbrabant" d="M 324.85 1516.27 L 381.65 1459.46 L 959.14 1459.46" />
+  </g>
+  <g id="methane_zuidholland_noordbrabant_group">
+    <path id="methane_zuidholland_noordbrabant" d="M 952.87 1452.77 L 880.68 1380.58 L 761.39 1380.58 L 572.21 1191.41" />
+  </g>
+  <g id="methane_zuidholland_utrecht_group">
+    <path id="methane_zuidholland_utrecht" d="M 572.14 1191.38 L 735.18 1191.38 L 869.95 1056.61 L 989.27 1056.61" />
+  </g>
+  <g id="methane_noordbrabant_gelderland_group">
+    <path id="methane_noordbrabant_gelderland" d="M 959.29 1459.31 L 1301.53 1117.07" />
+  </g>
+  <g id="methane_utrecht_overijssel_group">
+    <path id="methane_utrecht_overijssel" d="M 1473.46 827.28 L 1388.67 912.07 L 1134.31 912.07 L 991.28 1055.09" />
+  </g>
+  <g id="methane_noordholland_friesland_group">
+    <path id="methane_noordholland_friesland" d="M 743.16 833.84 L 802.61 774.39 L 802.61 741.19 L 1207.27 336.53" />
+  </g>
+</svg>
