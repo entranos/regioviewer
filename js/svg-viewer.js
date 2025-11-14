@@ -927,9 +927,40 @@ function updateTopLeftTotal(totalValue) {
     { label: 'Drager', value: carrierName },
     { label: 'Categorie', value: dataVisualizationState.type },
     { label: 'Asset', value: dataVisualizationState.sector.replace(/_/g, ' ') },
-    { label: 'Eenheid', value: metricName },
-    { label: 'Totaal nationaal', value: formattedValue, isTotal: true }
+    { label: 'Eenheid', value: metricName }
   ];
+  
+  // Add tooltip information if available
+  if (tooltipManager && tooltipManager.loaded) {
+    const tooltipContent = tooltipManager.getTooltip(
+      dataVisualizationState.carrier, 
+      dataVisualizationState.type, 
+      dataVisualizationState.sector
+    );
+    
+    if (tooltipContent) {
+      // Parse HTML tooltip content to extract plain text
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = tooltipContent;
+      
+      // Extract definition and method text
+      const sections = tempDiv.querySelectorAll('div');
+      sections.forEach(section => {
+        const strongTag = section.querySelector('strong');
+        if (strongTag) {
+          const label = strongTag.textContent.replace(':', '').trim();
+          const text = section.textContent.replace(strongTag.textContent, '').trim();
+          
+          if (text && text !== 'Niet van toepassing') {
+            lines.push({ label: label, value: text, isWrappable: true });
+          }
+        }
+      });
+    }
+  }
+  
+  // Add total at the end
+  lines.push({ label: 'Totaal nationaal', value: formattedValue, isTotal: true });
   
   let currentY = y;
   const lineHeight = 50;
@@ -947,7 +978,6 @@ function updateTopLeftTotal(totalValue) {
     d3.select('#mapTitle').text(lines[0].value + ' | ' + lines[2].value)
 
   lines.forEach((line, index) => {
-
     // Add label
     labelGroup.append('text')
       .attr('x', x)
@@ -959,15 +989,71 @@ function updateTopLeftTotal(totalValue) {
       .style('letter-spacing', '0.4px')
       .text(line.label);
     
-    // Add value
-    labelGroup.append('text')
-      .attr('x', x + labelWidth)
-      .attr('y', currentY)
-      .attr('text-anchor', 'start')
-      .style('font-size', line.isTotal ? '25px' : '20px')
-      .style('font-weight', line.isTotal ? '700' : '400')
-      .style('fill', line.isTotal ? '#000' : '#333')
-      .text(line.value);
+    // Add value - with wrapping if needed
+    if (line.isWrappable) {
+      // Text needs wrapping
+      const maxWidth = 375; // Maximum width to avoid overlap with map
+      const words = line.value.split(' ');
+      let wrappedLines = [];
+      let currentLine = '';
+      
+      // Create a temporary text element for measuring
+      const measureText = labelGroup.append('text')
+        .attr('x', x + labelWidth)
+        .attr('y', currentY)
+        .attr('text-anchor', 'start')
+        .style('font-size', '18px')
+        .style('font-weight', '400')
+        .style('fill', '#333')
+        .style('visibility', 'hidden');
+      
+      // Build lines that fit within maxWidth
+      words.forEach((word) => {
+        const testLine = currentLine + (currentLine ? ' ' : '') + word;
+        measureText.text(testLine);
+        const testWidth = measureText.node().getComputedTextLength();
+        
+        if (testWidth > maxWidth && currentLine !== '') {
+          wrappedLines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine = testLine;
+        }
+      });
+      
+      // Add the last line
+      if (currentLine) {
+        wrappedLines.push(currentLine);
+      }
+      
+      // Remove the measuring text
+      measureText.remove();
+      
+      // Add all lines to the SVG
+      wrappedLines.forEach((textLine, lineIndex) => {
+        labelGroup.append('text')
+          .attr('x', x + labelWidth)
+          .attr('y', currentY + (lineIndex * 22))
+          .attr('text-anchor', 'start')
+          .style('font-size', '18px')
+          .style('font-weight', '400')
+          .style('fill', '#333')
+          .text(textLine);
+      });
+      
+      // Adjust currentY based on number of wrapped lines
+      currentY += (wrappedLines.length - 1) * 22;
+    } else {
+      // Normal single-line text
+      labelGroup.append('text')
+        .attr('x', x + labelWidth)
+        .attr('y', currentY)
+        .attr('text-anchor', 'start')
+        .style('font-size', line.isTotal ? '25px' : '20px')
+        .style('font-weight', line.isTotal ? '700' : '400')
+        .style('fill', line.isTotal ? '#000' : '#333')
+        .text(line.value);
+    }
     
     currentY += lineHeight;
     
