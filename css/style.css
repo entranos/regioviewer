@@ -2035,3 +2035,30 @@ body {
   margin-bottom: 0;
 }
 
+/* Tooltip styling */
+.sector-tooltip {
+  max-width: 400px !important;
+}
+
+.tooltip-inner {
+  max-width: 400px !important;
+  text-align: left !important;
+  padding: 10px 12px !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.tooltip-inner strong {
+  font-weight: 600;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.tooltip-inner div {
+  margin-bottom: 6px;
+}
+
+.tooltip-inner div:last-child {
+  margin-bottom: 0;
+}

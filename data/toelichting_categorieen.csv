@@ -1,0 +1,115 @@
+Carrier,Type,Sector,ID,Definition,Method/source
+Electricity,Demand,Households,Households,Electricity demand residential buildings / households,"Huidige woningvoorraad en PRIMOS-prognose, aangevuld met lokale planinformatie"
+Electricity,Demand,Households,Households_hp_electric,Electric heat pump demand residential buildings / households,"CBS data hoofdverwarmingsinstallaties + interne modellen (o.a. uitvraag gemeentes, PBL Startanalyse, woningkarakteristieken)"
+Electricity,Demand,Households,Households_hp_hybrid,Hybrid heat pump demand residential buildings / households,"CBS data hoofdverwarmingsinstallaties + interne modellen (o.a. uitvraag gemeentes, PBL Startanalyse, woningkarakteristieken)"
+Electricity,Demand,Buildings,Buildings,"Electricity demand non-residential buildings (offices, schools, shops etc.)",Gekoppeld aan woningen
+Electricity,Demand,Buildings,Buildings_hp_electric,"Electric heat pump demand non-residential buildings (offices, schools, shops etc.)",Interne modellen (o.a. verbruik & energielabels van gebouwen)
+Electricity,Demand,Buildings,Buildings_hp_hybrid,"Hybrid heat pump demand non-residential buildings (offices, schools, shops etc.)",Interne modellen (o.a. verbruik & energielabels van gebouwen)
+Electricity,Demand,District heating,District_heat_network,Electricity demand district heat networks,"CBS data hoofdverwarmingsinstallaties + intern model (o.a. uitvraag gemeentes, PBL Startanalyse, woningkarakteristieken)"
+Electricity,Demand,Agriculture,Agriculture,Electricity demand agriculture sector,Huidige landbouwwraag
+Electricity,Demand,Datacenters,Datacenters,Electricity demand datacenters,"Op basis van bestaande klanten, bekende aansluitaanvragen en groeiprognoses bij netbeheerders"
+Electricity,Demand,Industry,Industry_xxx,Electricity demand industry (per subsector),"Op provincieniveau op basis van: Huidige bedrijfslocaties, clusterinformatie (CES 3.0), klantprognoses"
+Electricity,Demand,Transport,Transport_car,Charging demand electric passenger cars,Meest recente Elaad outlook data (aantal auto's)
+Electricity,Demand,Transport,Transport_bus,Charging demand electric busses,Meest recente Elaad outlook data (aantal bussen)
+Electricity,Demand,Transport,Transport_truck,Charging demand electric trucks,Meest recente Elaad outlook data (aantal trucks)
+Electricity,Demand,Transport,Transport_van,Charging demand electric vans,Meest recente Elaad outlook data (aantal bestelauto's)
+Electricity,Demand,Transport,Transport_train,Electricity demand electric trains,Prorail stationslocaties (evenredige verdeling)
+Electricity,Demand,Transport,Transport_tram,Electricity demand electric trams,Publieke locatiedata stations metros & trams
+Electricity,Demand,Transport,Transport_other,Charging demand other electric vehicles (e.g. motorbikes),Evenredige verdeling over locaties TenneT stations
+Electricity,Demand,Transport,Transport_plane_national,Charging demand electric domestic aviation,Locaties luchthavens in Nederland (evenredige verdeling)
+Electricity,Demand,Transport,Transport_plane_international,Charging demand electric international aviation,Locaties internationale luchthavens in Nederland (verdeling o.b.v. aantal passagieren per jaar)
+Electricity,Demand,Transport,Transport_ship_national,Charging demand electric domestic shipping,Meest recente Elaad outlook data (aantal schepen)
+Electricity,Demand,Transport,Transport_ship_international,Charging demand electric international shipping,Walstroomlocaties zeehavens
+Electricity,Demand,Other demand,CO2_storage,Electricity demand for operation of CO2 storages,"Locaties bekende CO2 opslagprojecten (Porthos, Aramis)"
+Electricity,Demand,Other demand,Direct_air_capture,Electricity demand Direct Air Capture (DAC),Dichtbij locaties grote (industriële) CO2-uitstooters
+Electricity,Demand,Other demand,Other_demand,Other non-specified electricity demand,Evenredige verdeling over buurten
+Electricity,Supply,Renewables,Wind_offshore,Wind offshore electrically connected,"Bestaande en bekende toekomstige windparkprojecten (t/m 2035), voor latere scenariojaren inzichten uit WAWOZ (2040) en eigen aannames (2050)"
+Electricity,Supply,Renewables,Wind_offshore_hybrid,Wind offshore hybrid connected,"Bekende toekomstige windparkprojecten (t/m 2035) en eigen aannames netbeheerders (2040, 2050)"
+Electricity,Supply,Renewables,Wind_onshore,Wind onshore,"Huidige klanten en pijplijn, aangeleverde cijfers vanuit de Regionale Energie Strategieën (RES)"
+Electricity,Supply,Renewables,Solar_PV_households,Rooftop solar on households,CERES registraties + intern model (o.a. buurtkarakteristieken en dakpotentie)
+Electricity,Supply,Renewables,Solar_PV_buildings,Rooftop solar on buildings,"Huidige klanten en pijplijn, aangeleverde cijfers vanuit de Regionale Energie Strategieën (RES), dakpotentie"
+Electricity,Supply,Renewables,Solar_PV_field,Large-scale solar PV field onshore,"Huidige klanten en pijplijn, aangeleverde cijfers vanuit de Regionale Energie Strategieën, en beschikbaar landoppervlak."
+Electricity,Supply,Renewables,Solar_PV_offshore,Large-scale solar PV field offshore,Niet van toepassing
+Electricity,Supply,Renewables,Power_plant_biomass,Small (decentral) biomass plants,Locaties bestaande centrales
+Electricity,Supply,Renewables,Hydro_RoR,Run-of-river plants,Locaties bestaande centrales
+Electricity,Flexibility,Agriculture,Agriculture_CHP,CHP plants in agricultural sector,Bestaande WKK's (+ enkele concrete aanvragen)
+Electricity,Flexibility,Agriculture,Agriculture_PtH,Flexible power-to-heat in agriculture sector,Volgt vraalocaties landbouw
+Electricity,Flexibility,Curtailment,Curtailment,Market curtailment of renewable energy production,Modelmatig berekend
+Electricity,Flexibility,Datacenters,Datacenters_DSR,Flexible Demand Side Response (DSR) in datacenters,Locaties datacenters
+Electricity,Flexibility,Industry,Industry_xxx,"Combined heat- and power plants (CHP), Demand Side Response (DSR), Power-to-Heat (PtH)","Huidige en locaties volgens opgave industrie (CES 3.0), DSR volgens vraagverdeling per subsector"
+Electricity,Flexibility,Power plants,Power_plant_nuclear,Large nuclear power plants,Bestaande centrale Borssele + voorziene locaties voor nieuwe grote kerncentrales
+Electricity,Flexibility,Power plants,Power_plant_nuclear_SMR,Small Modular Reactor (SMR) power plants,Aanname potentieel geschikte locaties landinwaarts o.b.v. koelwatervoorziening en dichtbij (baseload) vraag
+Electricity,Flexibility,Power plants,Power_plant_coal,(Bio)coal power plants,Locaties bestaande centrales
+Electricity,Flexibility,Power plants,Power_plant_methane_CHP,Decentral methane CHP power plants,Locaties bestaande centrales
+Electricity,Flexibility,Power plants,Power_plant_methane,Existing methane power plants,Locaties bestaande centrales
+Electricity,Flexibility,Power plants,Power_plant_methane_backup,New-built methane power plants (turbines) providing backup capacity,"Modelmatig berekend, plaatsing alleen toegestaan binnen BARRO locaties"
+Electricity,Flexibility,Power plants,Power_plant_hydrogen,Existing methane power plants retrofitted to hydrogen,Locaties bestaande centrales
+Electricity,Flexibility,Power plants,Power_plant_hydrogen_backup,New-built hydrogen power plants (turbines) providing backup capacity,"Modelmatig berekend, plaatsing alleen toegestaan binnen BARRO locaties"
+Electricity,Flexibility,Power plants,Power_plant_other,Other power plants,Locaties bestaande centrales
+Electricity,Flexibility,Power plants,Power_plant_waste,Waste power plants,Locaties bestaande centrales
+Electricity,Flexibility,Power-to-gas,Power_to_gas_offshore,Flexible power-to-gas / electrolyzers offshore,Locaties gekoppeld aan aangenomen locaties van hybride windparken op zee
+Electricity,Flexibility,Power-to-gas,Power_to_gas_onshore,Flexible power-to-gas / electrolyzers onshore,"Locaties volgens bekende en voldoende concrete projecten, rest Modelmatig berekend"
+Electricity,Flexibility,Power-to-heat,District_PtH,Flexible power-to-heat for district heating,Volgt warmtenetten (district_heating)
+Electricity,Flexibility,Electricity storage,Battery_transport,Battery storage (V2G) in electric vehicles,Gelijk aan regionalisatie elektrische auto's
+Electricity,Flexibility,Electricity storage,Battery_households,Battery storage in households,Verdeling over huishoudens met zon PV
+Electricity,Flexibility,Electricity storage,Battery_solar_PV,Co-located battery storage at solar PV field plant,Gelijk aan regionalisatie grootschalige zon PV
+Electricity,Flexibility,Electricity storage,Battery_wind_onshore,Co-located battery storage at wind onshore plant,Gelijk aan regionalisatie wind op land
+Electricity,Flexibility,Electricity storage,Battery_system,Large scale (grid) battery,"Locaties volgens bekende en voldoende concrete projecten, rest Modelmatig berekend"
+Electricity,Flexibility,Electricity storage,IDES_storage,Intra Day Electricity Storage (IDES),Modelmatig berekend
+Electricity,Flexibility,Electricity storage,MDES_storage,Multi Day Electricity Storage (MDES),Locaties volgens potentieelanalyse persluchtopslag TNO
+Electricity,Flexibility,Electricity storage,Hydro_storage,Hydro storage,Niet van toepassing
+Electricity,Flexibility,Deficit,Deficit,Electricity demand not served,Evenredige verdeling over buurten
+Hydrogen,Demand,Agriculture,Agriculture,Hydrogen demand in agricultural sector,Alleen in HA. Volgt methaan.
+Hydrogen,Demand,Buildings,Buildings_combi_boiler,"Hydrogen boiler demand non-residential buildings (offices, schools, shops etc.)",Niet van toepassing
+Hydrogen,Demand,Buildings,Buildings_hp_hybrid,"Hybrid heat pump demand non-residential buildings (offices, schools, shops etc.)",Alleen in HA. Volgt methaan.
+Hydrogen,Demand,District heating,District_heat_network,Hydrogen back‑up heaters for district heating,Niet van toepassing
+Hydrogen,Demand,Households,Households_combi_boiler,Hydrogen boiler demand residential buildings / households,Niet van toepassing
+Hydrogen,Demand,Households,Households_hp_hybrid,Hybrid heat pump demand residential buildings / households,Alleen in HA. Volgt methaan.
+Hydrogen,Demand,Industry,Industry_xxx,Hydrogen demand industry (per subsector),"Op provincieniveau op basis van: Huidige bedrijfslocaties, clusterinformatie (CES 3.0), klantprognoses."
+Hydrogen,Demand,Transport,Transport,Hydrogen demand road & rail transport,O.b.v. huidige CNG‑tankstations
+Hydrogen,Demand,Other demand,Other_demand,Other non‑specified hydrogen demand,O.b.v. aantal inwoners
+Hydrogen,Demand,Transport,Transport_plane,Hydrogen demand aviation,Volgt elektriciteit.
+Hydrogen,Demand,Transport,Transport_ship,Hydrogen demand shipping,Volgt elektriciteit.
+Hydrogen,Demand,Power plants,Power_plant_hydrogen,Existing methane power plants retrofitted to hydrogen,Volgt elektriciteit
+Hydrogen,Demand,Power plants,Power_plant_hydrogen_backup,New‑built hydrogen power plants (turbines) providing backup capacity,Volgt elektriciteit
+Hydrogen,Supply,Hydrogen supply,Ammonia_reformer,Ammonia reformer locations,Analyse Gasunie o.b.v. huidige projecten voor waterstofimport.
+Hydrogen,Supply,Hydrogen supply,Biomass_hydrogen_production,Biomass gasification locations,Niet van toepassing
+Hydrogen,Supply,Hydrogen supply,Blue_hydrogen_production,Steam Methane Reformer (SMR) + CCS locations,Analyse Gasunie o.b.v. verwachte projecten
+Hydrogen,Supply,Hydrogen supply,Grey_hydrogen_production,Steam Methane Reformer (SMR) locations,Niet van toepassing
+Hydrogen,Supply,Hydrogen supply,LOHC,LOHC,Analyse Gasunie o.b.v. huidige projecten voor waterstofimport.
+Hydrogen,Supply,Hydrogen supply,Liquid_hydrogen,Liquid hydrogen,Analyse Gasunie o.b.v. huidige projecten voor waterstofimport.
+Hydrogen,Supply,Power-to-gas,Power_to_gas_onshore,Flexible power-to-gas / electrolyzers onshore,Volgt elektriciteit
+Hydrogen,Supply,Hydrogen supply,Power_to_gas_solar_PV,Hydrogen supply electrolyzers connected to solar PV,Niet van toepassing
+Hydrogen,Supply,Hydrogen supply,Power_to_gas_wind_offshore_dedicated,Hydrogen supply electrolyzers connected to wind offshore,"Analyse Gasunie, verdeling tussen Eemshaven en Den Helder"
+Hydrogen,Supply,Hydrogen supply,Power_to_gas_wind_offshore_hybrid,Hydrogen supply electrolyzers connected to hybrid wind offshore,"Analyse Gasunie, verdeling tussen Eemshaven en Den Helder"
+Hydrogen,Flexibility,Flexible hydrogen supply,Ammonia_reformer,Ammonia reformer locations,Analyse Gasunie o.b.v. huidige projecten voor waterstofimport.
+Hydrogen,Flexibility,Flexible hydrogen supply,Grey_hydrogen_production,Steam Methane Reformer (SMR) locations,Niet van toepassing
+Hydrogen,Flexibility,Hydrogen storage,Storage,Large scale hydrogen storage (seasonal),Gebaseerd op locaties van cavernes in NL en Duitsland (nabij de NLse grens) en de locatie van de meest kansrijke locaties voor opslag in een leeg gasveld.
+Hydrogen,Exchange,Exchange,Export,Hydrogen export locations,Op basis van verwachte capaciteiten voor de grenspunten in 2035.
+Hydrogen,Exchange,Exchange,Import,Hydrogen import locations,Op basis van verwachte capaciteiten voor de grenspunten in 2035.
+Methane,Demand,Agriculture,Agriculture,Methane demand in agricultural sector,Huidige landbouw vraag
+Methane,Demand,Agriculture,Agriculture_CHP,Methane demand CHP plants in agricultural sector,Bestaande WKK's (+ enkele concrete aanvragen)
+Methane,Demand,Buildings,Buildings,"Methane demand in non-residential buildings (offices, schools, shops etc.)",Huidige methaanvraag utiliteit
+Methane,Demand,Buildings,Buildings_combi_boiler,"Methane boiler demand non-residential buildings (offices, schools, shops etc.)",Huidige methaanvraag utiliteit
+Methane,Demand,Buildings,Buildings_hp_hybrid,"Hybrid heat pump demand non-residential buildings (offices, schools, shops etc.)",Volgt regionalisatie elektriciteit
+Methane,Demand,District heating,District_heat_network,Methane back-up heaters for district heating,Volgt regionalisatie elektriciteit
+Methane,Demand,Households,Households,Methane demand residential buildings / households,nvt
+Methane,Demand,Households,Households_combi_boiler,Methane boiler demand residential buildings / households,"CBS data hoofdverwarmingsinstallaties + interne modellen (o.a. uitvraag gemeentes, PBL Startanalyse, woningkarakteristieken)"
+Methane,Demand,Households,Households_hp_hybrid,Hybrid heat pump demand residential buildings / households,"CBS data hoofdverwarmingsinstallaties + interne modellen (o.a. uitvraag gemeentes, PBL Startanalyse, woningkarakteristieken)"
+Methane,Demand,Industry,Industry_xxx,Hydrogen demand industry (per subsector),"Op provincieniveau op basis van: Huidige bedrijfslocaties, clusterinformatie (CES 3.0), klantprognoses."
+Methane,Demand,Other demand,Other_demand,Other non-specified methane demand,Verdeeld obv inwoners
+Methane,Demand,Transport,Transport_other,Methane demand road & rail transport,Verdeeld obv huidige CNG-stations
+Methane,Demand,Power plants,Power_plant_methane,Existing methane power plants,Volgt elektriciteit
+Methane,Demand,Power plants,Power_plant_methane_backup,New-built methane power plants (turbines) providing backup capacity,Volgt elektriciteit
+Methane,Demand,Power plants,Power_plant_methane_CHP,Decentral methane CHP power plants,Volgt elektriciteit
+Methane,Demand,Hydrogen supply,Biomass_hydrogen_production,Hydrogen production from biomass,Niet van toepassing
+Methane,Demand,Hydrogen supply,Blue_hydrogen_production,Steam Methane Reformer (SMR) + CCS locations,Zie waterstof
+Methane,Demand,Hydrogen supply,Grey_hydrogen_production,Steam Methane Reformer (SMR) locations,Zie waterstof
+Methane,Supply,Methane supply,Green_gas_fermentation,Green gas fermentation locations,CE Delft “Scenariostudie groengasproductie rond 2030”
+Methane,Supply,Methane supply,Green_gas_dry_gasification,Methane production from dry gasification,Verdeeld over industrieclusters obv expert judgement
+Methane,Supply,Methane supply,Green_gas_wet_gasification,Methane production from wet gasification,Verdeeld over industrieclusters en bestaande locaties obv expert judgement
+Methane,Supply,Methane supply,Natural_gas_production,Methane production from underground ressources,Obv huidige en verwachte capaciteiten
+Methane,Exchange,Exchange,Export,Methane export locations,Obv huidige en verwachte capaciteiten
+Methane,Exchange,Exchange,Import,Methane import locations,Obv huidige en verwachte capaciteiten
+Methane,Exchange,Exchange,Import_LNG,LNG import locations,Obv huidige en verwachte capaciteiten
+Methane,Flexibility,Methane storage,Storage,Large scale methane storage (seasonal),O.b.v bestaande opslocaties

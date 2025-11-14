@@ -1161,7 +1161,8 @@ function initializeSVGElements() {
           .style('fill','white')
           .style('stroke','#333')
           .attr('r', 8)
-          .style('opacity', 0.8);
+          .style('opacity', 0.8)
+          .style('pointer-events', 'none');
       }
       const group = d3.select('#province_reference_point_' + (i+1) + '_group');
       if (!group.empty()) {
@@ -1593,7 +1594,8 @@ function drawViewButtons() {
             if (!circle.empty()) {
               circle
                 .style('fill', '#DCE6EF')
-                .style('opacity', 0.5);
+                .style('opacity', 0.5)
+                .style('pointer-events', 'none');
             }
           }
         }
@@ -2099,6 +2101,11 @@ function drawSectorButtons() {
   const container = document.getElementById('sectorButtons');
   if (!container) return;
   
+  // Dispose existing tooltips to prevent memory leaks
+  if (tooltipManager && tooltipManager.loaded) {
+    tooltipManager.disposeTooltipsInContainer(container);
+  }
+  
   container.innerHTML = '';
   const label = document.createElement('div');
   label.className = 'menu-label';
@@ -2181,6 +2188,11 @@ function drawSectorButtons() {
     const isHighlighted = sector === dataVisualizationState.sector;
     const isDisabled = !hasData;
     createButton(button, isHighlighted, isDisabled);
+
+    // Add tooltip if available
+    if (tooltipManager && tooltipManager.loaded) {
+      tooltipManager.addTooltipToButton(button, dataVisualizationState.carrier, dataVisualizationState.type, sector);
+    }
 
     button.onclick = function () {
       if (isDisabled) return; // Don't allow clicking disabled buttons
@@ -2760,7 +2772,8 @@ function initializeProvinceTotalLabels() {
       .attr('class', 'province-total-label')
       .attr('data-province', name)
       .style('opacity', 0)  // Start hidden
-      .style('filter', 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15))');
+      .style('filter', 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15))')
+      .style('pointer-events', 'none');
     
     // Add background rectangle (will be resized as needed)
     const initialWidth = 150;  // Default width, will be adjusted when data loads
@@ -2774,7 +2787,8 @@ function initializeProvinceTotalLabels() {
       .attr('fill-opacity', 0.92)
       .attr('stroke', '#ccc')
       .attr('stroke-width', 1)
-      .attr('rx', 8);
+      .attr('rx', 8)
+      .style('pointer-events', 'none');
     
     // Add text label
     labelGroup.append('text')
@@ -2786,6 +2800,7 @@ function initializeProvinceTotalLabels() {
       .style('font-size', '20px')
       .style('font-weight', '600')
       .style('fill', '#000')
+      .style('pointer-events', 'none')
       .text('');  // Empty initially
   });
 }
@@ -2880,7 +2895,9 @@ function resetProvincialCircles() {
     for (let i = 0; i < 12; i++) {
       const circle = d3.select(`#province_reference_point_${i+1}_point`);
       if (!circle.empty()) {
-        circle.style('fill', '#DCE6EF');
+        circle
+          .style('fill', '#DCE6EF')
+          .style('pointer-events', 'none');
         // .style('opacity', 1)
       }
     }
@@ -2891,6 +2908,7 @@ function resetProvincialCircles() {
       if (!circle.empty()) {
         circle
           .interrupt()
+          .style('pointer-events', 'none')
           .transition()
           .duration(300)
           .ease(d3.easeCubicOut)
@@ -3462,6 +3480,11 @@ async function initializeApplication() {
     await window.svgViewer.ready;
     // console.log('SVG loaded successfully');
 
+    // Load tooltip data
+    console.log('Loading tooltip data...');
+    if (tooltipManager) {
+      await tooltipManager.loadTooltips();
+    }
     
     // Step 1: Initialize SVG elements
     loadingManager.updateProgress('svg', 20);
