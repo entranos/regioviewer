@@ -2035,6 +2035,11 @@ body {
   margin-bottom: 0;
 }
 
+/* Menu button styling - slightly rounded corners */
+.menuContainer button {
+  border-radius: 6px;
+}
+
 /* Tooltip styling */
 .sector-tooltip {
   max-width: 400px !important;
