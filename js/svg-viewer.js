@@ -202,28 +202,37 @@ class SVGViewer {
    */
   handleSVGClick(e) {
     const element = e.target;
+
+    const provinceDisplayMap = {
+      'noordholland': 'Noord-Holland', 'flevoland': 'Flevoland', 'overijssel': 'Overijssel',
+      'drenthe': 'Drenthe', 'groningen': 'Groningen', 'friesland': 'Friesland',
+      'gelderland': 'Gelderland', 'utrecht': 'Utrecht', 'zuidholland': 'Zuid-Holland',
+      'noordbrabant': 'Noord-Brabant', 'limburg': 'Limburg', 'zeeland': 'Zeeland'
+    };
+
+    // Check if clicked a provincial-data-circle (the colored data dot)
+    if (element.classList && element.classList.contains('provincial-data-circle')) {
+      const provinceName = element.getAttribute('data-province');
+      if (provinceName && dataVisualizationState.isActive && provincialDataLoader && provincialDataLoader.loaded) {
+        showProvincePopup(provinceName, provinceDisplayMap[provinceName] || provinceName);
+      }
+      return;
+    }
+
     if (element.id && element.id.endsWith('_point')) {
       // Check if it's a province reference point
       if (element.id.startsWith('province_reference_point_')) {
         const refNum = element.id.match(/province_reference_point_(\d+)_point/)[1];
-        
-        // Find province name from reference number
+
         const provinceMap = {
           '1': 'noordholland', '2': 'flevoland', '3': 'overijssel', '4': 'drenthe',
           '5': 'groningen', '6': 'friesland', '7': 'gelderland', '8': 'utrecht',
           '9': 'zuidholland', '10': 'noordbrabant', '11': 'limburg', '12': 'zeeland'
         };
-        const provinceDisplayMap = {
-          'noordholland': 'Noord-Holland', 'flevoland': 'Flevoland', 'overijssel': 'Overijssel',
-          'drenthe': 'Drenthe', 'groningen': 'Groningen', 'friesland': 'Friesland',
-          'gelderland': 'Gelderland', 'utrecht': 'Utrecht', 'zuidholland': 'Zuid-Holland',
-          'noordbrabant': 'Noord-Brabant', 'limburg': 'Limburg', 'zeeland': 'Zeeland'
-        };
-        
+
         const provinceName = provinceMap[refNum];
         const provinceDisplayName = provinceDisplayMap[provinceName] || provinceName;
-        
-        // Show popup for province data (industrial demand)
+
         if (dataVisualizationState.isActive && provincialDataLoader && provincialDataLoader.loaded) {
           showProvincePopup(provinceName, provinceDisplayName);
         }
@@ -231,9 +240,16 @@ class SVGViewer {
         // It's a GM circle
         const gmCode = element.id.replace('_point', '');
         const municipalityName = gmLookup[gmCode] || gmCode;
-        
-        // Only show popup if data visualization is active
-        if (dataVisualizationState.isActive && municipalDataLoader && municipalDataLoader.loaded) {
+
+        if (!dataVisualizationState.isActive) return;
+
+        // For Industrial Demand (provincial-only data), show province popup
+        if (dataVisualizationState.type === 'Industrial Demand') {
+          const provinceName = gmToProvince[gmCode];
+          if (provinceName && provincialDataLoader && provincialDataLoader.loaded) {
+            showProvincePopup(provinceName, provinceDisplayMap[provinceName] || provinceName);
+          }
+        } else if (municipalDataLoader && municipalDataLoader.loaded) {
           showMunicipalityPopup(gmCode, municipalityName);
         }
       }
@@ -1265,7 +1281,8 @@ function initializeSVGElements() {
           .style('stroke','#333')
           .attr('r', 8)
           .style('opacity', 0.8)
-          .style('pointer-events', 'none');
+          .style('pointer-events', 'auto')
+          .style('cursor', 'pointer');
       }
       const group = d3.select('#province_reference_point_' + (i+1) + '_group');
       if (!group.empty()) {
@@ -2778,6 +2795,8 @@ function updateProvincialDataVisualization() {
       if (!existingCircle.empty()) {
         // Update existing circle - transition from current radius to new radius
         existingCircle
+          .style('pointer-events', 'auto')
+          .style('cursor', 'pointer')
           .interrupt() // Interrupt any ongoing transitions
           .transition()
           .duration(300)
@@ -2798,7 +2817,8 @@ function updateProvincialDataVisualization() {
           .style('stroke-width',1)
           .style('fill', carrierColor)
           .style('opacity', 0)
-          .style('pointer-events', 'none')
+          .style('pointer-events', 'auto')
+          .style('cursor', 'pointer')
           .transition()
           .duration(300)
           .ease(d3.easeCubicInOut)
