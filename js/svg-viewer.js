@@ -531,6 +531,7 @@ function drawMunicipalityLineChart(scenarioData) {
     chartContainer.innerHTML = '<p style="text-align: center; color: #999; padding: 40px 0;">No data available for the selected years</p>';
     return;
   }
+  chartContainer.style.position = 'relative';
   
   // Convert data values for all scenarios
   const metricType = dataVisualizationState.metricType;
@@ -704,6 +705,83 @@ function drawMunicipalityLineChart(scenarioData) {
 
     scenarioGroups[scenario] = scenarioGroup;
   });
+
+  // Interactive hover: vertical line + tooltip showing all values at hovered year
+  const hoverLine = svg.append('line')
+    .attr('class', 'chart-hover-line')
+    .attr('y1', 0)
+    .attr('y2', height)
+    .style('stroke', '#999')
+    .style('stroke-width', '1px')
+    .style('stroke-dasharray', '4,3')
+    .style('opacity', 0)
+    .style('pointer-events', 'none');
+
+  const hoverTooltip = d3.select(chartContainer)
+    .append('div')
+    .attr('class', 'chart-hover-tooltip')
+    .style('opacity', 0);
+
+  // Invisible overlay to capture mouse events
+  svg.append('rect')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'none')
+    .style('pointer-events', 'all')
+    .on('mousemove', function(event) {
+      const [mx] = d3.pointer(event, this);
+      const hoveredYear = xScale.invert(mx);
+      // Snap to nearest year
+      let nearestYear = sortedChartYears[0];
+      let minDist = Infinity;
+      sortedChartYears.forEach(y => {
+        const dist = Math.abs(y - hoveredYear);
+        if (dist < minDist) { minDist = dist; nearestYear = y; }
+      });
+
+      const xPos = xScale(nearestYear);
+      hoverLine.attr('x1', xPos).attr('x2', xPos).style('opacity', 1);
+
+      // Collect values for this year across all visible scenarios
+      const entries = [];
+      Object.keys(convertedScenarioData).forEach(scenario => {
+        if (scenarioGroups[scenario].style('display') === 'none') return;
+        const point = convertedScenarioData[scenario].find(d => d.year === nearestYear);
+        if (point) {
+          entries.push({ scenario, value: point.value, color: scenarioColors[scenario] || '#999' });
+        }
+      });
+
+      if (entries.length === 0) {
+        hoverTooltip.style('opacity', 0);
+        return;
+      }
+
+      // Sort by value descending
+      entries.sort((a, b) => b.value - a.value);
+
+      let html = `<div class="chart-hover-year">${nearestYear}</div>`;
+      entries.forEach(e => {
+        const displayVal = e.value % 1 === 0 ? e.value.toString() : e.value.toFixed(1);
+        html += `<div class="chart-hover-row"><span class="chart-hover-swatch" style="background:${e.color}"></span><span class="chart-hover-name">${e.scenario}</span><span class="chart-hover-val">${displayVal} ${unit}</span></div>`;
+      });
+
+      hoverTooltip.html(html).style('opacity', 1);
+
+      // Position tooltip
+      const tooltipNode = hoverTooltip.node();
+      const chartRect = chartContainer.getBoundingClientRect();
+      const tooltipW = tooltipNode.offsetWidth;
+      let left = margin.left + xPos + 12;
+      if (left + tooltipW > chartRect.width - 10) {
+        left = margin.left + xPos - tooltipW - 12;
+      }
+      hoverTooltip.style('left', left + 'px');
+    })
+    .on('mouseleave', function() {
+      hoverLine.style('opacity', 0);
+      hoverTooltip.style('opacity', 0);
+    });
 
   // Add HTML legend below the chart
   const legendContainer = document.createElement('div');

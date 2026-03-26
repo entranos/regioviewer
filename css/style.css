@@ -717,6 +717,61 @@ body {
 }
 
 /* Toast notification */
+
+/* Chart hover tooltip */
+.chart-hover-tooltip {
+  position: absolute;
+  top: 30px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  pointer-events: none;
+  z-index: 10;
+  min-width: 160px;
+  max-width: 320px;
+}
+
+.chart-hover-year {
+  font-weight: 700;
+  font-size: 12px;
+  color: #333;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.chart-hover-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.chart-hover-swatch {
+  width: 10px;
+  height: 3px;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.chart-hover-name {
+  flex: 1;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chart-hover-val {
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
 /* Chart legend */
 .chart-legend {
   display: flex;
