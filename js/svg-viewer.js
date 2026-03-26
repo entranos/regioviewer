@@ -1031,22 +1031,24 @@ function updateTopLeftTotal(totalValue) {
   const metricName = dataVisualizationState.metricType === 'volume' ? 'Volume' : 'Capacity';
   
   // Build info lines
+  const isImported = dataLoader.isImportedScenario(dataVisualizationState.scenario);
   const lines = [
     { label: 'Scenario', value: dataVisualizationState.scenario },
-    { label: 'Versie', value: 'NBNL 2025 v1.0' },
+    ...(!isImported ? [{ label: 'Versie', value: 'NBNL 2025 v1.0' }] : []),
     { label: 'Jaar', value: dataVisualizationState.year.toString() },
     { label: 'Drager', value: carrierName },
     { label: 'Categorie', value: dataVisualizationState.type },
     { label: 'Asset', value: dataVisualizationState.sector.replace(/_/g, ' ') },
     { label: 'Eenheid', value: metricName }
   ];
-  
-  // Add tooltip information if available
+
+  // Add tooltip information if available (skip methode/bron for imported scenarios)
   if (tooltipManager && tooltipManager.loaded) {
     const tooltipContent = tooltipManager.getTooltip(
-      dataVisualizationState.carrier, 
-      dataVisualizationState.type, 
-      dataVisualizationState.sector
+      dataVisualizationState.carrier,
+      dataVisualizationState.type,
+      dataVisualizationState.sector,
+      isImported
     );
     
     if (tooltipContent) {
@@ -1871,6 +1873,7 @@ function drawScenarioButtons_map() {
       dataVisualizationState.scenario = scenario.id;
       // console.log('Selected scenario:', scenario.title);
       drawYearButtons(); // Refresh year buttons as availability changes
+      drawSectorButtons(); // Refresh sector tooltips (methode/bron hidden for imported scenarios)
       if (dataVisualizationState.isActive) {
         updateDataVisualization();
         // If in clustered view, update province circle sizes
@@ -2377,7 +2380,8 @@ function drawSectorButtons() {
 
     // Add tooltip if available
     if (tooltipManager && tooltipManager.loaded) {
-      tooltipManager.addTooltipToButton(button, dataVisualizationState.carrier, dataVisualizationState.type, sector);
+      const hideMethod = dataLoader.isImportedScenario(dataVisualizationState.scenario);
+      tooltipManager.addTooltipToButton(button, dataVisualizationState.carrier, dataVisualizationState.type, sector, hideMethod);
     }
 
     button.onclick = function () {

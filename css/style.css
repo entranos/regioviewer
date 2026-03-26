@@ -705,6 +705,7 @@ body {
   justify-content: center;
   text-align: center;
   line-height: 1;
+  margin-left: auto;
 }
 
 .import-submit-btn:hover:not(:disabled) {

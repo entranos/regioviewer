@@ -147,7 +147,8 @@ class TooltipManager {
   }
 
   // Get tooltip for a specific sector button
-  getTooltip(carrier, type, sector) {
+  // If hideMethod is true, methode/bron info is excluded (used for imported scenarios)
+  getTooltip(carrier, type, sector, hideMethod) {
     if (!this.loaded) return null;
     
     const normalizedCarrier = this.normalizeCarrier(carrier);
@@ -210,7 +211,7 @@ class TooltipManager {
       if (match.definition) {
         tooltipHTML += `<div style="margin-bottom: 4px;"><strong>Definitie:</strong> ${match.definition}</div>`;
       }
-      if (match.method && match.method !== 'Niet van toepassing') {
+      if (!hideMethod && match.method && match.method !== 'Niet van toepassing') {
         tooltipHTML += `<div><strong>Methode/bron:</strong> ${match.method}</div>`;
       }
     });
@@ -219,8 +220,9 @@ class TooltipManager {
   }
 
   // Add tooltip to a button element using Bootstrap tooltip
-  addTooltipToButton(button, carrier, type, sector) {
-    const tooltipContent = this.getTooltip(carrier, type, sector);
+  // If hideMethod is true, methode/bron info is excluded
+  addTooltipToButton(button, carrier, type, sector, hideMethod) {
+    const tooltipContent = this.getTooltip(carrier, type, sector, hideMethod);
     
     if (tooltipContent) {
       button.setAttribute('data-bs-toggle', 'tooltip');

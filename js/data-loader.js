@@ -18,6 +18,9 @@ class DataLoader {
       'Koersvaste Middenweg'
     ];
 
+    // Track which scenarios are the original/default ones
+    this.defaultScenarios = new Set(this.scenarios);
+
     this.years = {
       'Eigen Vermogen': [2030, 2035, 2040, 2050],
       'Gezamenlijke Balans': [2030, 2035, 2040, 2050],
@@ -317,6 +320,10 @@ class DataLoader {
 
   getScenarios() {
     return this.scenarios;
+  }
+
+  isImportedScenario(scenario) {
+    return !this.defaultScenarios.has(scenario);
   }
 
   getYears(scenario) {
