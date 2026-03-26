@@ -207,118 +207,23 @@ function drawBarGraph (data, config) {
   /* ----------  DRAW BAR CHART (grouped by year: 2040 and 2050)  ---------- */
   const years = availableYears
 
-  // Keep the original hardcoded scenario names for display and color mapping
-  const varianten = [
-    'Groningen',
-    'Friesland',
-    'Drenthe',
-    'Overijssel',
-    'Flevoland',
-    'Gelderland',
-    'Utrecht',
-    'Noord-Holland',
-    'Zuid-Holland',
-    'Zeeland',
-    'Noord-Brabant',
-    'Limburg'
-  ]
+  // Populate varianten and displayNameToDataMap from scenarioDataMap
+  const varianten = Object.keys(scenarioDataMap)
+  const displayNameToDataMap = scenarioDataMap
 
-  // Create displayNameToDataMap by collecting data from multiple year-specific entries
-  const displayNameToDataMap = {}
-
-  // First, identify all unique scenario types and their available years
-  const scenarioTypes = {}
-
-  config.scenarios.forEach((scenarioConfig, index) => {
-    const dataColumnName = scenarioConfig.title.toLowerCase()
-
-    // Extract year and scenario type
-    const yearMatch = scenarioConfig.title.match(/x(\d{4})x_(.+)/)
-    if (!yearMatch) return
-
-    const year = parseInt(yearMatch[1])
-    const scenarioType = yearMatch[2]
-
-    // Determine display name for this scenario type
-    let displayName = null
-    if (scenarioType.includes('groningen')) displayName = 'Groningen'
-    else if (scenarioType.includes('friesland')) displayName = 'Friesland'
-    else if (scenarioType.includes('drenthe')) displayName = 'Drenthe'
-    else if (scenarioType.includes('overijssel')) displayName = 'Overijssel'
-    else if (scenarioType.includes('flevoland')) displayName = 'Flevoland'
-    else if (scenarioType.includes('gelderland')) displayName = 'Gelderland'
-    else if (scenarioType.includes('utrecht')) displayName = 'Utrecht'
-    else if (scenarioType.includes('noordholland')) displayName = 'Noord-Holland'
-    else if (scenarioType.includes('zuidholland')) displayName = 'Zuid-Holland'
-    else if (scenarioType.includes('zeeland')) displayName = 'Zeeland'
-    else if (scenarioType.includes('noordbrabant')) displayName = 'Noord-Brabant'
-    else if (scenarioType.includes('limburg')) displayName = 'Limburg'
-
-    if (displayName) {
-      // Initialize the display name if it doesn't exist
-      if (!displayNameToDataMap[displayName]) {
-        displayNameToDataMap[displayName] = {}
-      }
-
-      // Try to find the actual data key - handle case mismatches
-      let actualKey = scenarioConfig.title
-      let scenarioData = scenarioDataMap[actualKey]
-
-      // If not found, try different case variations
-      if (!scenarioData || Object.keys(scenarioData).length === 0) {
-        // Try uppercase version for WLO scenarios
-        if (scenarioConfig.title.includes('wlo_')) {
-          actualKey = scenarioConfig.title.replace(/wlo_(\d+)/, 'WLO_$1')
-          scenarioData = scenarioDataMap[actualKey]
-        }
-
-        // Try other case variations if still not found
-        if (!scenarioData || Object.keys(scenarioData).length === 0) {
-          // Look for a key that matches the pattern but with different case
-          const basePattern = scenarioConfig.title.toLowerCase()
-          const matchingKey = Object.keys(scenarioDataMap).find(key => key.toLowerCase() === basePattern
-          )
-          if (matchingKey) {
-            actualKey = matchingKey
-            scenarioData = scenarioDataMap[matchingKey]
-          }
-        }
-      }
-
-      if (scenarioData && Object.keys(scenarioData).length > 0) {
-        // For this year-specific entry, get the value for this year
-        // The data structure should have the year as a key
-        const yearValue = scenarioData[year]
-        if (yearValue !== undefined && yearValue !== null) {
-          displayNameToDataMap[displayName][year] = yearValue
-        }
-      }
-    }
+  // Create variant titles mapping (remove year prefixes like x2040x_, x2050x_)
+  const variantTitles = {}
+  varianten.forEach(scenarioTitle => {
+    // Remove patterns like "x2040x_", "x2050x_", etc.
+    const cleanTitle = scenarioTitle.replace(/^x\d{4}x_/, '')
+    variantTitles[scenarioTitle] = cleanTitle
   })
 
   // Debug: log the populated data map
   // console.log('displayNameToDataMap:', displayNameToDataMap)
-
-  const variantTitles = {
-    'Groningen': 'Groningen',
-    'Friesland': 'Friesland',
-    'Drenthe': 'Drenthe',
-    'Overijssel': 'Overijssel',
-    'Flevoland': 'Flevoland',
-    'Gelderland': 'Gelderland',
-    'Utrecht': 'Utrecht',
-    'Noord-Holland': 'Noord-Holland',
-    'Zuid-Holland': 'Zuid-Holland',
-    'Zeeland': 'Zeeland',
-    'Noord-Brabant': 'Noord-Brabant',
-    'Limburg': 'Limburg'
-  }
+  // console.log('varianten:', varianten)
 
   const categoryInfo = {
-    'ADAPT/TRANSFORM': {
-      baseColor: '#1f78b4', // blue
-      scenarios: ['Groningen', 'Friesland', 'Drenthe', 'Overijssel', 'Flevoland', 'Gelderland', 'Utrecht', 'Noord-Holland', 'Zuid-Holland', 'Zeeland', 'Noord-Brabant', 'Limburg']
-    },
     TVKN: {
       baseColor: '#33a02c', // green
       scenarios: ['TVKN-PR40', 'TVKN-SR20', 'TVKN-PB30']
