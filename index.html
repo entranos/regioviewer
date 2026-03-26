@@ -42,6 +42,7 @@
     rel="stylesheet" type="text/css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -158,6 +159,11 @@
             <div class="menuContainer-part" id="viewButtons">
               <div class="menu-label">Posities</div>
             </div>
+
+            <div class="import-label" onclick="showImportModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Importeer scenario's
+            </div>
           </div>
         </div>
 
@@ -269,21 +275,60 @@
     </div>
   </div>
 
+  <!-- Import Modal -->
+  <div id="importModal" class="import-modal">
+    <div class="import-modal-content">
+      <span class="import-modal-close" onclick="hideImportModal()">&times;</span>
+      <h2>Importeer scenario's</h2>
+      <p>Upload een ZIP-bestand met gecombineerde xlsx-bestanden. Bestandsnamen moeten het patroon <strong>&lt;scenarionaam&gt; &lt;jaar&gt;.xlsx</strong> volgen.</p>
+
+      <div class="import-form-group">
+        <label for="importMode">Importmodus</label>
+        <div class="import-radio-group">
+          <label><input type="radio" name="importMode" value="append" checked> Toevoegen aan huidige scenario's</label>
+          <label><input type="radio" name="importMode" value="replace"> Huidige scenario's vervangen</label>
+        </div>
+      </div>
+
+      <div class="import-form-group" id="importPasswordGroup" style="display:none;">
+        <label for="importPassword">Wachtwoord (versleuteld ZIP-bestand gedetecteerd)</label>
+        <input type="password" id="importPassword" placeholder="Voer ZIP-wachtwoord in">
+      </div>
+
+      <div class="import-form-group">
+        <label for="importFileInput">ZIP-bestand</label>
+        <input type="file" id="importFileInput" accept=".zip">
+      </div>
+
+      <div class="import-form-group" id="importScenarioSelectGroup" style="display:none;">
+        <label>Scenario's in ZIP-bestand</label>
+        <div class="import-scenario-actions">
+          <a href="#" onclick="toggleAllImportScenarios(true); return false;">Alles selecteren</a>
+          <a href="#" onclick="toggleAllImportScenarios(false); return false;">Alles deselecteren</a>
+        </div>
+        <div id="importScenarioList" class="import-scenario-list"></div>
+      </div>
+
+      <div id="importStatus" class="import-status" style="display:none;"></div>
+
+      <button id="importSubmitBtn" class="import-submit-btn" onclick="handleImportSubmit()" disabled>Importeer</button>
+    </div>
+  </div>
+
   <!-- About modal loaded from separate JS file -->
   <!-- Tooltip Manager Script -->
   <script src="js/tooltip-manager.js"></script>
-  <!-- Municipal Data Loader Script -->
-  <script src="js/municipal-data-loader.js"></script>
-  <!-- Provincial Data Loader Script -->
-  <script src="js/provincial-data-loader.js"></script>
+  <!-- JSZip (needed by data loader for import) -->
+  <script src="js/sankeyViewer/jszip.min.js"></script>
+  <script src="js/sankeyViewer/jszip-utils.min.js"></script>
+  <!-- Unified Data Loader Script (municipal + provincial) -->
+  <script src="js/data-loader.js"></script>
   <!-- SVG Viewer Script -->
   <script src="js/svg-viewer.js"></script>
 
 </body>
 <!-- About modal script -->
 <script src="js/aboutModal.js"></script>
-<script src="js/sankeyViewer/jszip.min.js"></script>
-<script src="js/sankeyViewer/jszip-utils.min.js"></script>
 <script src="js/sankeyViewer/UIlisteners.js"></script>
 <script src="js/sankeyViewer/helpers.js"></script>
 <!-- <script src="js/xlsx.full.min.js"></script> -->

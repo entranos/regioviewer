@@ -434,7 +434,7 @@ function showMunicipalityPopup(gmCode, municipalityName) {
       </div>
     </div>
     <div style="padding: 24px; flex: 1; overflow-y: auto;">
-      <div id="municipalityChart" style="width: 100%; height: 300px;"></div>
+      <div id="municipalityChart" style="width: 100%;"></div>
     </div>
   `;
   
@@ -446,8 +446,10 @@ function showMunicipalityPopup(gmCode, municipalityName) {
 }
 
 function collectMunicipalityDataOverYears(gmCode) {
-  const scenarios = ['Eigen Vermogen', 'Gezamenlijke Balans', 'Horizon Aanvoer', 'Koersvaste Middenweg'];
-  const years = [2025, 2030, 2035, 2040, 2050];
+  const scenarios = dataLoader.getScenarios();
+  const allYears = new Set();
+  scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
+  const years = Array.from(allYears).sort((a, b) => a - b);
   const scenarioData = {};
   
   scenarios.forEach(scenario => {
@@ -476,8 +478,10 @@ function collectMunicipalityDataOverYears(gmCode) {
 }
 
 function collectProvinceDataOverYears(provinceName) {
-  const scenarios = ['Eigen Vermogen', 'Gezamenlijke Balans', 'Horizon Aanvoer', 'Koersvaste Middenweg'];
-  const years = [2025, 2030, 2035, 2040, 2050];
+  const scenarios = dataLoader.getScenarios();
+  const allYears = new Set();
+  scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
+  const years = Array.from(allYears).sort((a, b) => a - b);
   const scenarioData = {};
   
   scenarios.forEach(scenario => {
@@ -569,16 +573,15 @@ function drawMunicipalityLineChart(scenarioData) {
     }
   }
   
-  // Scenario colors
-  const scenarioColors = {
-    'Eigen Vermogen': '#3498db',
-    'Gezamenlijke Balans': '#e74c3c',
-    'Horizon Aanvoer': '#2ecc71',
-    'Koersvaste Middenweg': '#f39c12'
-  };
+  // Scenario colors - dynamic palette that extends to imported scenarios
+  const defaultColors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#e84393', '#00b894', '#fdcb6e', '#6c5ce7', '#d63031', '#0984e3', '#00cec9', '#ff7675'];
+  const scenarioColors = {};
+  dataLoader.getScenarios().forEach((s, i) => {
+    scenarioColors[s] = defaultColors[i % defaultColors.length];
+  });
   
-  // Chart dimensions - increase right margin for legend
-  const margin = { top: 20, right: 180, bottom: 40, left: 60 };
+  // Chart dimensions
+  const margin = { top: 20, right: 20, bottom: 40, left: 60 };
   const width = chartContainer.clientWidth - margin.left - margin.right;
   const height = 300 - margin.top - margin.bottom;
   
@@ -591,9 +594,16 @@ function drawMunicipalityLineChart(scenarioData) {
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
   
+  // Collect all years across all scenarios for axis
+  const allChartYears = new Set();
+  dataLoader.getScenarios().forEach(s => dataLoader.getYears(s).forEach(y => allChartYears.add(y)));
+  const sortedChartYears = Array.from(allChartYears).sort((a, b) => a - b);
+  const minYear = sortedChartYears[0] || 2025;
+  const maxYear = sortedChartYears[sortedChartYears.length - 1] || 2050;
+
   // Scales
   const xScale = d3.scaleLinear()
-    .domain([2025, 2050])
+    .domain([minYear, maxYear])
     .range([0, width]);
   
   const yScale = d3.scaleLinear()
@@ -612,7 +622,7 @@ function drawMunicipalityLineChart(scenarioData) {
   svg.append('g')
     .attr('transform', `translate(0,${height})`)
     .call(d3.axisBottom(xScale)
-      .tickValues([2025, 2030, 2035, 2040, 2050])
+      .tickValues(sortedChartYears)
       .tickFormat(d3.format('d')))
     .style('font-size', '12px')
     .style('color', '#666');
@@ -645,15 +655,15 @@ function drawMunicipalityLineChart(scenarioData) {
     .y(d => yScale(d.value));
   
   // Draw lines and points for each scenario
+  const scenarioGroups = {};
   Object.keys(convertedScenarioData).forEach((scenario, index) => {
     const data = convertedScenarioData[scenario];
     const color = scenarioColors[scenario] || '#999';
-    
-    // Create a group for this scenario
+
     const scenarioGroup = svg.append('g')
-      .attr('class', `scenario-${index}`);
-    
-    // Add the line with explicit styling
+      .attr('class', 'scenario-group')
+      .attr('data-scenario', scenario);
+
     scenarioGroup.append('path')
       .datum(data)
       .attr('class', 'scenario-line')
@@ -663,8 +673,7 @@ function drawMunicipalityLineChart(scenarioData) {
       .style('stroke-linejoin', 'round')
       .style('stroke-linecap', 'round')
       .attr('d', line);
-    
-    // Add dots on top of the line
+
     scenarioGroup.selectAll('.dot')
       .data(data)
       .enter()
@@ -676,30 +685,38 @@ function drawMunicipalityLineChart(scenarioData) {
       .style('fill', color)
       .style('stroke', 'white')
       .style('stroke-width', '2px');
+
+    scenarioGroups[scenario] = scenarioGroup;
   });
-  
-  // Add legend - position in top right outside plot area
-  const legend = svg.append('g')
-    .attr('transform', `translate(${width + 10}, 0)`);
-  
-  Object.keys(convertedScenarioData).forEach((scenario, index) => {
-    const legendRow = legend.append('g')
-      .attr('transform', `translate(0, ${index * 20})`);
-    
-    legendRow.append('line')
-      .attr('x1', 0)
-      .attr('x2', 20)
-      .attr('y1', 0)
-      .attr('y2', 0)
-      .attr('stroke', scenarioColors[scenario])
-      .attr('stroke-width', 2);
-    
-    legendRow.append('text')
-      .attr('x', 25)
-      .attr('y', 4)
-      .style('font-size', '10px')
-      .style('fill', '#666')
-      .text(scenario);
+
+  // Add HTML legend below the chart
+  const legendContainer = document.createElement('div');
+  legendContainer.className = 'chart-legend';
+  chartContainer.appendChild(legendContainer);
+
+  Object.keys(convertedScenarioData).forEach((scenario) => {
+    const color = scenarioColors[scenario] || '#999';
+    const item = document.createElement('div');
+    item.className = 'chart-legend-item';
+
+    const swatch = document.createElement('span');
+    swatch.className = 'chart-legend-swatch';
+    swatch.style.backgroundColor = color;
+
+    const label = document.createElement('span');
+    label.className = 'chart-legend-label';
+    label.textContent = scenario;
+
+    item.appendChild(swatch);
+    item.appendChild(label);
+    legendContainer.appendChild(item);
+
+    item.addEventListener('click', () => {
+      const group = scenarioGroups[scenario];
+      const visible = group.style('display') !== 'none';
+      group.style('display', visible ? 'none' : null);
+      item.classList.toggle('disabled', visible);
+    });
   });
 }
 
@@ -766,7 +783,7 @@ function showProvincePopup(provinceName, provinceDisplayName) {
       </div>
     </div>
     <div style="padding: 24px; flex: 1; overflow-y: auto;">
-      <div id="municipalityChart" style="width: 100%; height: 300px;"></div>
+      <div id="municipalityChart" style="width: 100%;"></div>
     </div>
   `;
   
@@ -1727,12 +1744,7 @@ const sectorDefinitions = {
 };
 
 function drawScenarioButtons_map() {
-  const scenarios = [
-    { id: 'Eigen Vermogen', title: 'Eigen Vermogen' },
-    { id: 'Gezamenlijke Balans', title: 'Gezamenlijke Balans' },
-    { id: 'Horizon Aanvoer', title: 'Horizon Aanvoer' },
-    { id: 'Koersvaste Middenweg', title: 'Koersvaste Middenweg' }
-  ];
+  const scenarios = dataLoader.getScenarios().map(s => ({ id: s, title: s }));
 
   const container = document.getElementById('scenarioButtons_map');
   if (!container) return;
@@ -1778,14 +1790,7 @@ function drawScenarioButtons_map() {
 }
 
 function drawYearButtons() {
-  const yearsByScenario = {
-    'Eigen Vermogen': [2030, 2035, 2040, 2050],
-    'Gezamenlijke Balans': [2030, 2035, 2040, 2050],
-    'Horizon Aanvoer': [2030, 2035, 2040, 2050],
-    'Koersvaste Middenweg': [2025, 2030, 2035, 2040, 2050]
-  };
-
-  const availableYears = yearsByScenario[dataVisualizationState.scenario] || [2030, 2035, 2040, 2050];
+  const availableYears = dataLoader.getYears(dataVisualizationState.scenario) || [2030, 2035, 2040, 2050];
   
   // If current year is not available for this scenario, select first available
   if (!availableYears.includes(dataVisualizationState.year)) {
@@ -3582,25 +3587,19 @@ async function initializeApplication() {
     initializeProvinceTotalLabels();
     
     // Step 2: Load data with progress tracking
-    // console.log('Loading municipal and provincial data...');
-    
-    // Track municipal data loading progress
-    const municipalPromise = municipalDataLoader.loadAllData().then(() => {
+    // console.log('Loading combined data...');
+
+    // Track data loading progress
+    const dataPromise = dataLoader.loadAllData().then(() => {
       loadingManager.updateProgress('municipal', 100);
-      // console.log('Municipal data loaded successfully!');
-    });
-    
-    // Track provincial data loading progress  
-    const provincialPromise = provincialDataLoader.loadAllData().then(() => {
       loadingManager.updateProgress('provincial', 100);
-      // console.log('Provincial data loaded successfully!');
     });
-    
-    // Simulate progress for data loaders (since they don't have built-in progress tracking)
+
+    // Simulate progress for data loader (since it doesn't have built-in progress tracking)
     const simulateProgress = setInterval(() => {
       const municipalStep = loadingManager.steps.find(s => s.name === 'municipal');
       const provincialStep = loadingManager.steps.find(s => s.name === 'provincial');
-      
+
       if (municipalStep.progress < 90) {
         loadingManager.updateProgress('municipal', municipalStep.progress + 5);
       }
@@ -3608,8 +3607,8 @@ async function initializeApplication() {
         loadingManager.updateProgress('provincial', provincialStep.progress + 5);
       }
     }, 200);
-    
-    await Promise.all([municipalPromise, provincialPromise]);
+
+    await dataPromise;
     clearInterval(simulateProgress);
     
     // Step 3: Initialize UI components
@@ -3771,6 +3770,279 @@ window.resumeMenuVisibilityObserver = resumeMenuVisibilityObserver;
 window.updateDataVisualization = updateDataVisualization;
 window.updateMapUnitSelectorToggle = updateMapUnitSelectorToggle;
 window.dataVisualizationState = dataVisualizationState;
+
+// ========================
+// Import Modal Functions
+// ========================
+
+let importZipBuffer = null;
+let importZipInstance = null; // Parsed JSZip instance for scenario scanning
+
+function showImportModal() {
+  const modal = document.getElementById('importModal');
+  modal.style.display = 'block';
+  // Reset state
+  document.getElementById('importFileInput').value = '';
+  document.getElementById('importPassword').value = '';
+  document.getElementById('importPasswordGroup').style.display = 'none';
+  document.getElementById('importScenarioSelectGroup').style.display = 'none';
+  document.getElementById('importScenarioList').innerHTML = '';
+  document.getElementById('importSubmitBtn').disabled = true;
+  const status = document.getElementById('importStatus');
+  status.style.display = 'none';
+  status.className = 'import-status';
+  importZipBuffer = null;
+  importZipInstance = null;
+}
+
+function hideImportModal() {
+  document.getElementById('importModal').style.display = 'none';
+  importZipBuffer = null;
+}
+
+// Close modal on outside click
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('importModal');
+  if (event.target === modal) {
+    hideImportModal();
+  }
+});
+
+// Handle file selection - detect encryption
+(function initImportFileInput() {
+  const fileInput = document.getElementById('importFileInput');
+  if (!fileInput) {
+    // DOM not ready yet, wait for it
+    document.addEventListener('DOMContentLoaded', initImportFileInput);
+    return;
+  }
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) {
+      importZipBuffer = null;
+      document.getElementById('importSubmitBtn').disabled = true;
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(evt) {
+      importZipBuffer = evt.target.result;
+      const encrypted = DataLoader.isZipEncrypted(importZipBuffer);
+      document.getElementById('importPasswordGroup').style.display = encrypted ? 'block' : 'none';
+
+      if (encrypted) {
+        setImportStatus('Versleuteld ZIP-bestand gedetecteerd. Voer het wachtwoord in.', 'info');
+        document.getElementById('importScenarioSelectGroup').style.display = 'none';
+        document.getElementById('importSubmitBtn').disabled = false;
+      } else {
+        const status = document.getElementById('importStatus');
+        status.style.display = 'none';
+        // Scan ZIP for scenarios and show checkboxes
+        try {
+          importZipInstance = await JSZip.loadAsync(importZipBuffer);
+          const scenarios = dataLoader.scanZipScenarios(importZipInstance);
+          showImportScenarioCheckboxes(scenarios);
+          document.getElementById('importSubmitBtn').disabled = false;
+        } catch (e) {
+          setImportStatus('Fout bij lezen ZIP-bestand: ' + e.message, 'error');
+        }
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  });
+})();
+
+function getImportScenarioPrefs() {
+  try {
+    return JSON.parse(localStorage.getItem('importScenarioPrefs') || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveImportScenarioPrefs(prefs) {
+  localStorage.setItem('importScenarioPrefs', JSON.stringify(prefs));
+}
+
+function showImportScenarioCheckboxes(scenarios) {
+  const group = document.getElementById('importScenarioSelectGroup');
+  const list = document.getElementById('importScenarioList');
+  list.innerHTML = '';
+
+  if (scenarios.length === 0) {
+    group.style.display = 'none';
+    return;
+  }
+
+  const prefs = getImportScenarioPrefs();
+
+  scenarios.forEach(scenario => {
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = scenario;
+    checkbox.className = 'import-scenario-checkbox';
+    // Default to checked; use saved pref if it exists
+    checkbox.checked = prefs[scenario] !== undefined ? prefs[scenario] : true;
+    checkbox.addEventListener('change', () => {
+      const p = getImportScenarioPrefs();
+      p[scenario] = checkbox.checked;
+      saveImportScenarioPrefs(p);
+    });
+    const span = document.createElement('span');
+    span.textContent = scenario;
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    list.appendChild(label);
+  });
+
+  group.style.display = 'block';
+}
+
+function toggleAllImportScenarios(checked) {
+  const checkboxes = document.querySelectorAll('.import-scenario-checkbox');
+  const prefs = getImportScenarioPrefs();
+  checkboxes.forEach(cb => {
+    cb.checked = checked;
+    prefs[cb.value] = checked;
+  });
+  saveImportScenarioPrefs(prefs);
+}
+
+function getSelectedImportScenarios() {
+  const checkboxes = document.querySelectorAll('.import-scenario-checkbox');
+  const selected = [];
+  checkboxes.forEach(cb => {
+    if (cb.checked) selected.push(cb.value);
+  });
+  return selected;
+}
+
+function showImportToast(message) {
+  let toast = document.getElementById('importToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'importToast';
+    toast.className = 'import-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  // Trigger reflow then animate in
+  toast.classList.remove('visible');
+  requestAnimationFrame(() => {
+    toast.classList.add('visible');
+  });
+  setTimeout(() => {
+    toast.classList.remove('visible');
+  }, 4000);
+}
+
+function showAandachtspuntenPopup(text) {
+  // Remove existing popup if any
+  const existing = document.getElementById('aandachtspuntenModal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'aandachtspuntenModal';
+  modal.className = 'import-modal';
+  modal.style.display = 'block';
+
+  const content = document.createElement('div');
+  content.className = 'import-modal-content';
+
+  const closeBtn = document.createElement('span');
+  closeBtn.className = 'import-modal-close';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.onclick = () => modal.remove();
+
+  const title = document.createElement('h2');
+  title.textContent = 'Aandachtspunten';
+
+  const body = document.createElement('pre');
+  body.className = 'aandachtspunten-text';
+  body.textContent = text;
+
+  const okBtn = document.createElement('button');
+  okBtn.className = 'import-submit-btn';
+  okBtn.textContent = 'OK';
+  okBtn.onclick = () => modal.remove();
+
+  content.appendChild(closeBtn);
+  content.appendChild(title);
+  content.appendChild(body);
+  content.appendChild(okBtn);
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+}
+
+function setImportStatus(message, type, loading) {
+  const status = document.getElementById('importStatus');
+  status.className = 'import-status ' + type;
+  status.style.display = 'flex';
+  status.innerHTML = '';
+  if (loading) {
+    const spinner = document.createElement('span');
+    spinner.className = 'import-spinner';
+    status.appendChild(spinner);
+  }
+  const text = document.createElement('span');
+  text.textContent = message;
+  status.appendChild(text);
+}
+
+async function handleImportSubmit() {
+  if (!importZipBuffer) return;
+
+  const mode = document.querySelector('input[name="importMode"]:checked').value;
+  const password = document.getElementById('importPassword').value || null;
+  const btn = document.getElementById('importSubmitBtn');
+
+  btn.disabled = true;
+  setImportStatus('Bezig met importeren...', 'info', true);
+
+  try {
+    const selectedScenarios = getSelectedImportScenarios();
+    const result = await dataLoader.importFromZip(importZipBuffer, mode, password, (msg) => {
+      setImportStatus(msg, 'info', true);
+    }, selectedScenarios);
+
+    // Select the first imported scenario if current one was removed (replace mode)
+    if (mode === 'replace' || !dataLoader.getScenarios().includes(dataVisualizationState.scenario)) {
+      dataVisualizationState.scenario = result.scenarios[0];
+      const years = dataLoader.getYears(result.scenarios[0]);
+      if (years.length > 0) {
+        dataVisualizationState.year = years[0];
+      }
+    }
+
+    // Redraw scenario and year buttons
+    drawScenarioButtons_map();
+    drawYearButtons();
+
+    // Update visualization if active
+    if (dataVisualizationState.isActive) {
+      updateDataVisualization();
+    }
+
+    // Close modal and show toast
+    hideImportModal();
+    showImportToast('Import succesvol, ' + result.scenarios.length + ' scenario\'s ge\u00EFmporteerd.');
+
+    // Show aandachtspunten popup if present
+    if (result.aandachtspunten) {
+      showAandachtspuntenPopup(result.aandachtspunten);
+    }
+
+  } catch (err) {
+    console.error('Import error:', err);
+    setImportStatus('Fout: ' + (err.message || err), 'error');
+    btn.disabled = false;
+  }
+}
 
 // Start the application
 initializeApplication();
