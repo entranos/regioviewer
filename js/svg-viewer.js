@@ -388,77 +388,33 @@ class SVGViewer {
 // ===== Municipality Popup with Line Chart =====
 
 function showMunicipalityPopup(gmCode, municipalityName) {
-  // Remove existing popup if any
-  const existingPopup = document.getElementById('municipalityPopup');
-  if (existingPopup) {
-    existingPopup.remove();
-  }
-  
-  // Create popup container
-  const popup = document.createElement('div');
-  popup.id = 'municipalityPopup';
-  popup.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    max-width: 90vw;
-    max-height: 80vh;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    z-index: 10001;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  `;
-  
-  // Create overlay
-  const overlay = document.createElement('div');
-  overlay.id = 'municipalityPopupOverlay';
-  overlay.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10000;
-  `;
-  
-  // Close popup when clicking overlay
-  overlay.onclick = () => closeMunicipalityPopup();
-  
-  // Get data for all years
-  const yearsData = collectMunicipalityDataOverYears(gmCode);
-  
-  // Build popup content
-  const carrierNames = { 'ELEC': 'Electricity', 'H2': 'Hydrogen', 'METH': 'Methane' };
-  const carrierName = carrierNames[dataVisualizationState.carrier] || dataVisualizationState.carrier;
-  const sectorName = dataVisualizationState.sector.replace(/_/g, ' ');
-  const typeName = dataVisualizationState.type;
-  
-  popup.innerHTML = `
-    <div style="padding: 24px; border-bottom: 1px solid #eee;">
-      <div style="display: flex; justify-content: space-between; align-items: start;">
-        <div>
-          <h2 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 600; color: #333;">${municipalityName}</h2>
-          <p style="margin: 0; font-size: 14px; color: #666;">${carrierName} &bull; ${sectorName} &bull; ${typeName}</p>
-        </div>
-        <button onclick="closeMunicipalityPopup()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999; line-height: 1; padding: 0; width: 32px; height: 32px;">&times;</button>
-      </div>
-    </div>
-    <div style="padding: 24px; flex: 1; overflow-y: auto;">
-      <div id="municipalityChart" style="width: 100%;"></div>
-    </div>
-  `;
-  
-  document.body.appendChild(overlay);
-  document.body.appendChild(popup);
-  
-  // Draw the chart
-  drawMunicipalityLineChart(yearsData);
+  const provinceName = gmToProvince[gmCode];
+  const provinceDisplayMap = {
+    'noordholland': 'Noord-Holland', 'flevoland': 'Flevoland', 'overijssel': 'Overijssel',
+    'drenthe': 'Drenthe', 'groningen': 'Groningen', 'friesland': 'Friesland',
+    'gelderland': 'Gelderland', 'utrecht': 'Utrecht', 'zuidholland': 'Zuid-Holland',
+    'noordbrabant': 'Noord-Brabant', 'limburg': 'Limburg', 'zeeland': 'Zeeland'
+  };
+  const provinceDisplayName = provinceName ? (provinceDisplayMap[provinceName] || provinceName) : null;
+
+  const isIndustrial = dataVisualizationState.type === 'Industrial Demand';
+  const tabs = [
+    ...(!isIndustrial ? [{ label: municipalityName, data: () => collectMunicipalityDataOverYears(gmCode) }] : []),
+    ...(provinceName ? [{
+      label: `Provincie ${provinceDisplayName}`,
+      data: () => isIndustrial
+        ? collectProvinceDataFromProvincialOverYears(provinceName)
+        : collectProvinceDataOverYears(provinceName)
+    }] : []),
+    {
+      label: 'Nederland',
+      data: () => isIndustrial
+        ? collectNationalDataFromProvincialOverYears()
+        : collectNationalDataOverYears()
+    }
+  ];
+
+  showLineChartPopup(tabs[0].label, tabs);
 }
 
 function collectMunicipalityDataOverYears(gmCode) {
@@ -827,77 +783,206 @@ function drawMunicipalityLineChart(scenarioData) {
 }
 
 function showProvincePopup(provinceName, provinceDisplayName) {
+  const isIndustrial = dataVisualizationState.type === 'Industrial Demand';
+  const tabs = [
+    {
+      label: `Provincie ${provinceDisplayName}`,
+      data: () => isIndustrial
+        ? collectProvinceDataFromProvincialOverYears(provinceName)
+        : collectProvinceDataOverYears(provinceName)
+    },
+    {
+      label: 'Nederland',
+      data: () => isIndustrial
+        ? collectNationalDataFromProvincialOverYears()
+        : collectNationalDataOverYears()
+    }
+  ];
+
+  showLineChartPopup(provinceDisplayName, tabs);
+}
+
+function collectProvinceDataFromProvincialOverYears(provinceName) {
+  const scenarios = dataLoader.getScenarios();
+  const allYears = new Set();
+  scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
+  const years = Array.from(allYears).sort((a, b) => a - b);
+  const scenarioData = {};
+
+  scenarios.forEach(scenario => {
+    const data = [];
+    years.forEach(year => {
+      const value = provincialDataLoader.query({
+        scenario, year,
+        carrier: dataVisualizationState.carrier,
+        metricType: dataVisualizationState.metricType,
+        province: provinceName,
+        type: 'Demand',
+        sector: dataVisualizationState.sector
+      });
+      if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
+        data.push({ year, value: Math.abs(parseFloat(value)) });
+      }
+    });
+    if (data.length > 0) scenarioData[scenario] = data;
+  });
+
+  return scenarioData;
+}
+
+function collectNationalDataFromProvincialOverYears() {
+  const scenarios = dataLoader.getScenarios();
+  const allYears = new Set();
+  scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
+  const years = Array.from(allYears).sort((a, b) => a - b);
+  const allProvinces = Object.values(PROVINCE_METADATA).map(p => p.name);
+  const scenarioData = {};
+
+  scenarios.forEach(scenario => {
+    const data = [];
+    years.forEach(year => {
+      let total = 0;
+      let hasAny = false;
+      allProvinces.forEach(province => {
+        const value = provincialDataLoader.query({
+          scenario, year,
+          carrier: dataVisualizationState.carrier,
+          metricType: dataVisualizationState.metricType,
+          province,
+          type: 'Demand',
+          sector: dataVisualizationState.sector
+        });
+        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
+          total += Math.abs(parseFloat(value));
+          hasAny = true;
+        }
+      });
+      if (hasAny) data.push({ year, value: total });
+    });
+    if (data.length > 0) scenarioData[scenario] = data;
+  });
+
+  return scenarioData;
+}
+
+function collectNationalDataOverYears() {
+  const scenarios = dataLoader.getScenarios();
+  const allYears = new Set();
+  scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
+  const years = Array.from(allYears).sort((a, b) => a - b);
+  const allGMCodes = Object.keys(gmToProvince);
+  const scenarioData = {};
+
+  scenarios.forEach(scenario => {
+    const data = [];
+    years.forEach(year => {
+      let total = 0;
+      let hasAny = false;
+      allGMCodes.forEach(gmCode => {
+        const value = municipalDataLoader.query({
+          scenario, year,
+          carrier: dataVisualizationState.carrier,
+          metricType: dataVisualizationState.metricType,
+          gmCode,
+          type: dataVisualizationState.type,
+          sector: dataVisualizationState.sector
+        });
+        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
+          total += Math.abs(parseFloat(value));
+          hasAny = true;
+        }
+      });
+      if (hasAny) data.push({ year, value: total });
+    });
+    if (data.length > 0) scenarioData[scenario] = data;
+  });
+
+  return scenarioData;
+}
+
+function showLineChartPopup(title, tabs) {
   // Remove existing popup if any
   const existingPopup = document.getElementById('municipalityPopup');
-  if (existingPopup) {
-    existingPopup.remove();
-  }
-  
-  // Create popup container
-  const popup = document.createElement('div');
-  popup.id = 'municipalityPopup';
-  popup.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    max-width: 90vw;
-    max-height: 80vh;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    z-index: 10001;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  `;
-  
-  // Create overlay
-  const overlay = document.createElement('div');
-  overlay.id = 'municipalityPopupOverlay';
-  overlay.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10000;
-  `;
-  
-  // Close popup when clicking overlay
-  overlay.onclick = () => closeMunicipalityPopup();
-  
-  // Get data for all years
-  const yearsData = collectProvinceDataOverYears(provinceName);
-  
-  // Build popup content
+  if (existingPopup) existingPopup.remove();
+  const existingOverlay = document.getElementById('municipalityPopupOverlay');
+  if (existingOverlay) existingOverlay.remove();
+
   const carrierNames = { 'ELEC': 'Electricity', 'H2': 'Hydrogen', 'METH': 'Methane' };
   const carrierName = carrierNames[dataVisualizationState.carrier] || dataVisualizationState.carrier;
   const sectorName = dataVisualizationState.sector.replace(/_/g, ' ');
-  const typeName = 'Industrial Demand';
-  
-  popup.innerHTML = `
-    <div style="padding: 24px; border-bottom: 1px solid #eee;">
-      <div style="display: flex; justify-content: space-between; align-items: start;">
-        <div>
-          <h2 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 600; color: #333;">${provinceDisplayName}</h2>
-          <p style="margin: 0; font-size: 14px; color: #666;">${carrierName} &bull; ${sectorName} &bull; ${typeName}</p>
-        </div>
-        <button onclick="closeMunicipalityPopup()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999; line-height: 1; padding: 0; width: 32px; height: 32px;">&times;</button>
+  const typeName = dataVisualizationState.type;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'municipalityPopupOverlay';
+  overlay.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:10000;`;
+  overlay.onclick = () => closeMunicipalityPopup();
+
+  const popup = document.createElement('div');
+  popup.id = 'municipalityPopup';
+  popup.style.cssText = `
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:600px;max-width:90vw;max-height:80vh;background-color:white;
+    border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    z-index:10001;overflow:hidden;display:flex;flex-direction:column;
+  `;
+
+  // Header
+  const header = document.createElement('div');
+  header.style.cssText = 'padding:24px 24px 0;border-bottom:1px solid #eee;';
+  header.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;">
+      <div>
+        <h2 id="popupTitle" style="margin:0 0 8px 0;font-size:20px;font-weight:600;color:#333;">${title}</h2>
+        <p style="margin:0;font-size:14px;color:#666;">${carrierName} &bull; ${sectorName} &bull; ${typeName}</p>
       </div>
-    </div>
-    <div style="padding: 24px; flex: 1; overflow-y: auto;">
-      <div id="municipalityChart" style="width: 100%;"></div>
+      <button onclick="closeMunicipalityPopup()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#999;line-height:1;padding:0;width:32px;height:32px;">&times;</button>
     </div>
   `;
-  
+
+  // Tabs bar
+  const tabBar = document.createElement('div');
+  tabBar.style.cssText = 'display:flex;gap:0;';
+
+  const chartArea = document.createElement('div');
+  chartArea.style.cssText = 'padding:24px;flex:1;overflow-y:auto;';
+  const chartDiv = document.createElement('div');
+  chartDiv.id = 'municipalityChart';
+  chartDiv.style.width = '100%';
+  chartArea.appendChild(chartDiv);
+
+  let activeTab = 0;
+
+  const tabEls = tabs.map((tab, i) => {
+    const tabEl = document.createElement('div');
+    tabEl.textContent = tab.label;
+    tabEl.style.cssText = `
+      padding:8px 16px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;
+      color:#999;white-space:nowrap;user-select:none;
+    `;
+    tabEl.onclick = () => {
+      activeTab = i;
+      tabEls.forEach((t, j) => {
+        t.style.color = j === i ? '#333' : '#999';
+        t.style.borderBottomColor = j === i ? '#333' : 'transparent';
+      });
+      const titleEl = document.getElementById('popupTitle');
+      if (titleEl) titleEl.textContent = tab.label;
+      chartDiv.innerHTML = '';
+      drawMunicipalityLineChart(tab.data());
+    };
+    tabBar.appendChild(tabEl);
+    return tabEl;
+  });
+
+  header.appendChild(tabBar);
+  popup.appendChild(header);
+  popup.appendChild(chartArea);
+
   document.body.appendChild(overlay);
   document.body.appendChild(popup);
-  
-  // Draw the chart
-  drawMunicipalityLineChart(yearsData);
+
+  // Activate first tab
+  tabEls[0].click();
 }
 
 function closeMunicipalityPopup() {

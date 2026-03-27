@@ -473,8 +473,17 @@ body {
 }
 
 /* Import Button */
-.menu-action-btn {
+.menu-action-group {
   margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.menu-action-btn {
+  margin-left: 0;
   background-color: white;
   color: #888;
   font-family: sans-serif;
