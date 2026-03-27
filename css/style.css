@@ -475,7 +475,7 @@ body {
 /* Import Button */
 .menu-action-btn {
   margin-left: auto;
-  background-color: transparent;
+  background-color: white;
   color: #888;
   font-family: sans-serif;
   font-weight: 300;
