@@ -543,11 +543,10 @@ function drawMunicipalityLineChart(scenarioData) {
       }
     }
   } else {
-    // Capacity: use global unit setting
+    // Capacity: use GW if max >= 1000 MW, or if user toggled GW
     const userUnit = window.globalDisplayUnits ? window.globalDisplayUnits.capacity : 'MW';
-    
-    if (userUnit === 'GW') {
-      // Always show as GW
+
+    if (userUnit === 'GW' || globalMaxValue >= 1000) {
       Object.keys(convertedScenarioData).forEach(scenario => {
         convertedScenarioData[scenario].forEach(d => d.value = d.value / 1000);
       });
