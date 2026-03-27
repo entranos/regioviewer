@@ -499,29 +499,41 @@ function collectProvinceDataOverYears(provinceName) {
   scenarios.forEach(s => dataLoader.getYears(s).forEach(y => allYears.add(y)));
   const years = Array.from(allYears).sort((a, b) => a - b);
   const scenarioData = {};
-  
+
+  // Get all GM codes that belong to this province
+  const provinceGMCodes = Object.keys(gmToProvince).filter(gm => gmToProvince[gm] === provinceName);
+
   scenarios.forEach(scenario => {
     const data = [];
     years.forEach(year => {
-      const value = provincialDataLoader.query({
-        scenario: scenario,
-        year: year,
-        carrier: dataVisualizationState.carrier,
-        metricType: dataVisualizationState.metricType,
-        province: provinceName,
-        type: 'Demand',
-        sector: dataVisualizationState.sector
+      let total = 0;
+      let hasAny = false;
+
+      provinceGMCodes.forEach(gmCode => {
+        const value = municipalDataLoader.query({
+          scenario,
+          year,
+          carrier: dataVisualizationState.carrier,
+          metricType: dataVisualizationState.metricType,
+          gmCode,
+          type: dataVisualizationState.type,
+          sector: dataVisualizationState.sector
+        });
+        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
+          total += Math.abs(parseFloat(value));
+          hasAny = true;
+        }
       });
-      
-      if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-        data.push({ year: year, value: Math.abs(parseFloat(value)) });
+
+      if (hasAny) {
+        data.push({ year, value: total });
       }
     });
     if (data.length > 0) {
       scenarioData[scenario] = data;
     }
   });
-  
+
   return scenarioData;
 }
 
@@ -3003,6 +3015,55 @@ function initializeProvinceTotalLabels() {
       .style('fill', '#000')
       .style('pointer-events', 'none')
       .text('');  // Empty initially
+
+    // Add 'T' trend button (small square, positioned right of label, hidden initially)
+    const tBtn = labelGroup.append('g')
+      .attr('class', 'province-trend-btn')
+      .style('cursor', 'pointer')
+      .style('pointer-events', 'all');
+
+    tBtn.append('rect')
+      .attr('class', 'trend-btn-bg')
+      .attr('width', 44)
+      .attr('height', 44)
+      .attr('rx', 8)
+      .attr('fill', 'white')
+      .attr('stroke', '#ccc')
+      .attr('stroke-width', 1);
+
+    tBtn.append('text')
+      .attr('x', 22)
+      .attr('y', 22)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .style('font-size', '18px')
+      .style('font-weight', '600')
+      .style('fill', '#555')
+      .style('pointer-events', 'none')
+      .text('T');
+
+    tBtn.on('mouseover', function() {
+      d3.select(this).select('.trend-btn-bg')
+        .attr('fill', '#333')
+        .attr('stroke', '#333');
+      d3.select(this).select('text').style('fill', 'white');
+    });
+    tBtn.on('mouseout', function() {
+      d3.select(this).select('.trend-btn-bg')
+        .attr('fill', 'white')
+        .attr('stroke', '#ccc');
+      d3.select(this).select('text').style('fill', '#555');
+    });
+    tBtn.on('click', function(event) {
+      event.stopPropagation();
+      const provinceDisplayMap = {
+        'groningen': 'Groningen', 'friesland': 'Friesland', 'drenthe': 'Drenthe',
+        'overijssel': 'Overijssel', 'flevoland': 'Flevoland', 'gelderland': 'Gelderland',
+        'utrecht': 'Utrecht', 'noordholland': 'Noord-Holland', 'zuidholland': 'Zuid-Holland',
+        'zeeland': 'Zeeland', 'noordbrabant': 'Noord-Brabant', 'limburg': 'Limburg'
+      };
+      showProvincePopup(name, provinceDisplayMap[name] || name);
+    });
   });
 }
 
@@ -3068,6 +3129,14 @@ function updateProvinceTotalLabels(dataByProvince) {
       .attr('y', labelY - 22)
       .attr('width', textWidth + labelPadding * 2);
     
+    // Position T button just to the right of the label background, only in clustered view
+    const bgX = parseFloat(labelGroup.select('.label-bg').attr('x'));
+    const bgWidth = parseFloat(labelGroup.select('.label-bg').attr('width'));
+    const inClustered = currentViewMode === 'clustered';
+    labelGroup.select('.province-trend-btn')
+      .attr('transform', `translate(${bgX + bgWidth + 8}, ${labelY - 22})`)
+      .style('display', inClustered ? null : 'none');
+
     // Show label and raise to top
     labelGroup
       .style('opacity', 0.8)
