@@ -899,6 +899,171 @@ function collectNationalDataOverYears() {
   return scenarioData;
 }
 
+// Convert raw scenarioData to display units, returning { data, unit }
+// Mirrors the conversion logic in drawMunicipalityLineChart
+function convertChartData(scenarioData) {
+  const metricType = dataVisualizationState.metricType;
+  const converted = {};
+  let globalMax = 0;
+
+  Object.keys(scenarioData).forEach(scenario => {
+    converted[scenario] = scenarioData[scenario].map(d => ({
+      year: d.year,
+      value: metricType === 'volume' ? d.value / 1000000 : d.value
+    }));
+    const localMax = d3.max(converted[scenario], d => Math.abs(d.value));
+    if (localMax > globalMax) globalMax = localMax;
+  });
+
+  let unit;
+  if (metricType === 'volume') {
+    const userUnit = window.globalDisplayUnits ? window.globalDisplayUnits.volume : 'TWh';
+    if (userUnit === 'PJ') {
+      Object.keys(converted).forEach(s => converted[s].forEach(d => d.value = d.value * 3.6));
+      unit = 'PJ';
+    } else if (globalMax < 1) {
+      Object.keys(converted).forEach(s => converted[s].forEach(d => d.value = d.value * 1000));
+      unit = 'GWh';
+    } else {
+      unit = 'TWh';
+    }
+  } else {
+    const userUnit = window.globalDisplayUnits ? window.globalDisplayUnits.capacity : 'MW';
+    if (userUnit === 'GW' || globalMax >= 1000) {
+      Object.keys(converted).forEach(s => converted[s].forEach(d => d.value = d.value / 1000));
+      unit = 'GW';
+    } else {
+      unit = 'MW';
+    }
+  }
+
+  return { data: converted, unit };
+}
+
+// Build metadata rows for chart exports
+function buildChartMetaRows(unit) {
+  const { carrier, type, sector } = dataVisualizationState;
+  const carrierLabel = { ELEC: 'Elektriciteit', H2: 'Waterstof', METH: 'Methaan' }[carrier] || carrier;
+  const sectorName = sector.replace(/_/g, ' ');
+
+  // Parse tooltip for definitie/methode
+  let definition = '';
+  let method = '';
+  if (tooltipManager && tooltipManager.loaded) {
+    const tooltipData = tooltipManager.getTooltip(carrier, type, sector);
+    if (tooltipData) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = tooltipData;
+      tmp.querySelectorAll('div').forEach(el => {
+        const strong = el.querySelector('strong');
+        if (!strong) return;
+        const label = strong.textContent.replace(':', '').trim();
+        const val = el.textContent.replace(strong.textContent, '').trim();
+        if (label === 'Definitie') definition = val;
+        if (label === 'Methode/bron') method = val;
+      });
+    }
+  }
+
+  // Determine bron: if all active scenarios are imported use that label, otherwise NBNL
+  const scenarios = dataLoader.getScenarios();
+  const allImported = scenarios.every(s => dataLoader.isImportedScenario(s));
+  const bronLabel = allImported ? 'Geïmporteerd scenario' : 'NBNL 2025 v1.0';
+
+  const rows = [
+    ['Drager', carrierLabel],
+    ['Categorie', type],
+    ['Asset', sectorName],
+    ['Eenheid', unit],
+    ['Bron', bronLabel],
+    ['Exportdatum', new Date().toLocaleDateString('nl-NL')],
+  ];
+  if (definition) rows.push(['Definitie', definition]);
+  if (method) rows.push(['Methode/bron', method]);
+  return rows;
+}
+
+function exportLineChartXlsx(tabs) {
+  const wb = XLSX.utils.book_new();
+  const sectorSlug = dataVisualizationState.sector.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+
+  tabs.forEach(tab => {
+    const rawData = tab.data();
+    const { data: converted, unit } = convertChartData(rawData);
+
+    // Collect all years
+    const allYears = new Set();
+    Object.values(converted).forEach(arr => arr.forEach(d => allYears.add(d.year)));
+    const sortedYears = Array.from(allYears).sort((a, b) => a - b);
+
+    // Data rows
+    const rows = [[`Scenario (${unit})`, ...sortedYears]];
+    Object.keys(converted).forEach(scenario => {
+      const yearMap = {};
+      converted[scenario].forEach(d => yearMap[d.year] = d.value);
+      rows.push([scenario, ...sortedYears.map(y => yearMap[y] !== undefined ? yearMap[y] : '')]);
+    });
+
+    // Metadata rows below data
+    rows.push([]);
+    buildChartMetaRows(unit).forEach(r => rows.push(r));
+
+    const sheetName = tab.label.substring(0, 31);
+    wb.SheetNames.push(sheetName);
+    wb.Sheets[sheetName] = XLSX.utils.aoa_to_sheet(rows);
+  });
+
+  XLSX.writeFile(wb, `grafiek_${sectorSlug}.xlsx`);
+}
+
+function exportLineChartClipboard(activeTabIndex, tabs) {
+  const tab = tabs[activeTabIndex];
+  const rawData = tab.data();
+  const { data: converted, unit } = convertChartData(rawData);
+
+  const allYears = new Set();
+  Object.values(converted).forEach(arr => arr.forEach(d => allYears.add(d.year)));
+  const sortedYears = Array.from(allYears).sort((a, b) => a - b);
+
+  const dataRows = [
+    [`Scenario (${unit})`, ...sortedYears].join('\t'),
+    ...Object.keys(converted).map(scenario => {
+      const yearMap = {};
+      converted[scenario].forEach(d => yearMap[d.year] = d.value);
+      return [scenario, ...sortedYears.map(y => yearMap[y] !== undefined ? yearMap[y] : '')].join('\t');
+    }),
+    '',
+    ...buildChartMetaRows(unit).map(r => r.join('\t')),
+  ];
+
+  navigator.clipboard.writeText(dataRows.join('\n')).then(() => {
+    showToast('Gekopieerd naar klembord');
+  }).catch(() => {
+    showToast('Kopiëren mislukt');
+  });
+}
+
+function showToast(message) {
+  const existing = document.getElementById('clipboardToast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'clipboardToast';
+  toast.textContent = message;
+  toast.style.cssText = `
+    position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+    background:#333;color:white;padding:8px 20px;border-radius:6px;
+    font-size:13px;z-index:99999;opacity:1;transition:opacity 0.4s ease;
+    pointer-events:none;white-space:nowrap;
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 400);
+  }, 2000);
+}
+
 function showLineChartPopup(title, tabs) {
   // Remove existing popup if any
   const existingPopup = document.getElementById('municipalityPopup');
@@ -927,16 +1092,46 @@ function showLineChartPopup(title, tabs) {
 
   // Header
   const header = document.createElement('div');
-  header.style.cssText = 'padding:24px 24px 0;border-bottom:1px solid #eee;';
-  header.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:16px;">
-      <div>
-        <h2 id="popupTitle" style="margin:0 0 8px 0;font-size:20px;font-weight:600;color:#333;">${title}</h2>
-        <p style="margin:0;font-size:14px;color:#666;">${carrierName} &bull; ${sectorName} &bull; ${typeName}</p>
-      </div>
-      <button onclick="closeMunicipalityPopup()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#999;line-height:1;padding:0;width:32px;height:32px;">&times;</button>
-    </div>
-  `;
+  header.style.cssText = 'padding:20px 20px 0;border-bottom:1px solid #eee;background:#f7f7f7;';
+
+  const btnBtnStyle = `background:white;color:#333;border:1px solid #333;font-size:11px;font-weight:300;
+    border-radius:0;padding:3px 7px;min-height:22px;cursor:pointer;white-space:nowrap;`;
+
+  // Title row: title + export buttons + close on same row
+  const topRow = document.createElement('div');
+  topRow.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:4px;';
+
+  const titleEl = document.createElement('h2');
+  titleEl.id = 'popupTitle';
+  titleEl.textContent = title;
+  titleEl.style.cssText = 'margin:0;font-size:20px;font-weight:600;color:#333;white-space:nowrap;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;';
+
+  const xlsxBtn = document.createElement('div');
+  xlsxBtn.textContent = 'Export naar xlsx';
+  xlsxBtn.style.cssText = btnBtnStyle + 'flex-shrink:0;';
+  xlsxBtn.onclick = () => exportLineChartXlsx(tabs);
+
+  const clipBtn = document.createElement('div');
+  clipBtn.textContent = 'Export naar klembord';
+  clipBtn.style.cssText = btnBtnStyle + 'flex-shrink:0;';
+  clipBtn.onclick = () => exportLineChartClipboard(activeTab, tabs);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.onclick = () => closeMunicipalityPopup();
+  closeBtn.style.cssText = 'background:none;border:none;font-size:24px;cursor:pointer;color:#999;line-height:1;padding:0;width:28px;height:28px;flex-shrink:0;';
+
+  topRow.appendChild(titleEl);
+  topRow.appendChild(xlsxBtn);
+  topRow.appendChild(clipBtn);
+  topRow.appendChild(closeBtn);
+  header.appendChild(topRow);
+
+  // Subtitle below title
+  const subtitle = document.createElement('p');
+  subtitle.style.cssText = 'margin:0 0 14px 0;font-size:13px;color:#999;';
+  subtitle.innerHTML = `${carrierName} &bull; ${sectorName} &bull; ${typeName}`;
+  header.appendChild(subtitle);
 
   // Tabs bar
   const tabBar = document.createElement('div');
