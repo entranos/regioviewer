@@ -104,7 +104,7 @@
       </div>
       <div class="content-fullwidth" style="padding:0px;background-color: white;">
         <div class="version-label">
-          v26.03.2026.ESA-R.NBNL2025
+          v27.03.2026.ESA-R.NBNL2025
         </div>
 
       </div>
@@ -160,12 +160,30 @@
               <div class="menu-label">Posities</div>
             </div>
 
-            <div class="import-label" onclick="showImportModal()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px;">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
+            <div id="downloadScenarioBtn" class="menu-action-btn" onclick="downloadScenario()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;flex-shrink:0;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Download scenario
+            </div>
+            <div id="downloadSelectieBtn" class="menu-action-btn" onclick="downloadSelectie()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;flex-shrink:0;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Download selectie
+            </div>
+            <div class="menu-action-btn" style="margin-left:16px;" onclick="showImportModal()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;flex-shrink:0;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
               Importeer scenario's
             </div>
@@ -177,20 +195,6 @@
           <div id="mapTitle"
             style="padding-top:70px; padding-left: 90px; font-size: 30px; font-weight: 300; fill: #333; letter-spacing: 0.4px; text-anchor: start;">
             Nederland |</div>
-          <div id="downloadButtons" style="position:absolute;top:16px;right:20px;display:flex;gap:4px;">
-            <button id="downloadScenarioBtn" class="download-btn" onclick="downloadScenario()">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style="margin-right:4px;flex-shrink:0;">
-                <path d="M8 12l-4.5-4.5 1.06-1.06L7 9.88V1h2v8.88l2.44-3.44 1.06 1.06L8 12zM2 14v-2h1.5v.5h9V12H14v2H2z"/>
-              </svg>
-              Download scenario
-            </button>
-            <button id="downloadSelectieBtn" class="download-btn" onclick="downloadSelectie()">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" style="margin-right:4px;flex-shrink:0;">
-                <path d="M8 12l-4.5-4.5 1.06-1.06L7 9.88V1h2v8.88l2.44-3.44 1.06 1.06L8 12zM2 14v-2h1.5v.5h9V12H14v2H2z"/>
-              </svg>
-              Download selectie
-            </button>
-          </div>
           <div class="content-constrained" style="padding-bottom:0px;padding-top:30px;">
           </div>
         </div>
