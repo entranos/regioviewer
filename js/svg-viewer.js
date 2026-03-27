@@ -4157,5 +4157,179 @@ async function handleImportSubmit() {
   }
 }
 
+// ========================
+// Download functions
+// ========================
+
+function triggerDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function downloadScenario() {
+  const { scenario, year } = dataVisualizationState;
+  const filename = `Scenario ${scenario} ${year}.xlsx`;
+
+  if (!dataLoader.isImportedScenario(scenario)) {
+    // Fetch the original file directly
+    const response = await fetch(`data/combined/${filename}`);
+    if (!response.ok) {
+      alert(`Bestand niet gevonden: ${filename}`);
+      return;
+    }
+    const blob = await response.blob();
+    triggerDownload(blob, filename);
+    return;
+  }
+
+  // For imported scenarios: reconstruct xlsx in the original sheet format
+  const wb = XLSX.utils.book_new();
+  const carriers = ['ELEC', 'H2', 'METH'];
+  const metricTypes = ['capacity', 'volume'];
+
+  for (const carrier of carriers) {
+    for (const metricType of metricTypes) {
+      // Municipal sheet — original format: rows 0-2 empty, row 3 = types, row 4 = sectors, row 5 empty, row 6+ = data
+      const munSheetName = dataLoader.municipalSheetNames[carrier][metricType];
+      const munData = dataLoader.municipalData[scenario]?.[year]?.[carrier]?.[metricType];
+      if (munData && munData._columns) {
+        const columns = munData._columns.filter(c => c.type && c.sector);
+        const sheetData = [];
+        // Rows 0-2: empty
+        sheetData.push([]);
+        sheetData.push([]);
+        sheetData.push([]);
+        // Row 3: type headers
+        sheetData.push(['', '', ...columns.map(c => c.type)]);
+        // Row 4: sector headers
+        sheetData.push(['', '', ...columns.map(c => c.sector)]);
+        // Row 5: empty
+        sheetData.push([]);
+        // Rows 6+: data
+        for (const gmCode in munData) {
+          if (gmCode.startsWith('_')) continue;
+          const row = [gmCode, munData[gmCode]._gmName || ''];
+          for (const col of columns) {
+            row.push(munData[gmCode]?.[col.type]?.[col.sector] ?? null);
+          }
+          sheetData.push(row);
+        }
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sheetData), munSheetName.substring(0, 31));
+      }
+
+      // Provincial sheet — same format
+      const provSheetName = dataLoader.provincialSheetNames[carrier][metricType];
+      const provData = dataLoader.provincialData[scenario]?.[year]?.[carrier]?.[metricType];
+      if (provData && provData._columns && provData._provinceRows) {
+        const columns = provData._columns.filter(c => c && c.type && c.sector);
+        const sheetData = [];
+        sheetData.push([]);
+        sheetData.push([]);
+        sheetData.push([]);
+        sheetData.push(['', '', ...columns.map(c => c.type)]);
+        sheetData.push(['', '', ...columns.map(c => c.sector)]);
+        sheetData.push([]);
+        for (const { code, name, normalizedName } of provData._provinceRows) {
+          const row = [code, name];
+          for (const col of columns) {
+            row.push(provData[normalizedName]?.[col.type]?.[col.sector] ?? null);
+          }
+          sheetData.push(row);
+        }
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sheetData), provSheetName.substring(0, 31));
+      }
+    }
+  }
+
+  const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  triggerDownload(new Blob([wbout], { type: 'application/octet-stream' }), filename);
+}
+
+function downloadSelectie() {
+  const { scenario, year, carrier, metricType, type, sector } = dataVisualizationState;
+
+  const wb = XLSX.utils.book_new();
+
+  // Municipal sheet
+  const munData = dataLoader.municipalData[scenario]?.[year]?.[carrier]?.[metricType];
+  if (munData) {
+    const rows = [['GM_code', 'GM_naam', type + ' | ' + sector]];
+    for (const gmCode in munData) {
+      const value = munData[gmCode]?.[type]?.[sector];
+      if (value !== undefined && value !== null) {
+        rows.push([gmCode, munData[gmCode]._gmName || '', value]);
+      }
+    }
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Gemeenten');
+  }
+
+  // Provincial sheet
+  const provData = dataLoader.provincialData[scenario]?.[year]?.[carrier]?.[metricType];
+  if (provData) {
+    const rows = [['Provincie', type + ' | ' + sector]];
+    for (const province in provData) {
+      const value = provData[province]?.[type]?.[sector];
+      if (value !== undefined && value !== null) {
+        rows.push([province, value]);
+      }
+    }
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Provincies');
+  }
+
+  const carrierLabel = { ELEC: 'Elektriciteit', H2: 'Waterstof', METH: 'Methaan' }[carrier] || carrier;
+  const metricLabel = metricType === 'volume' ? 'volume' : 'capaciteit';
+  const unitLabel = metricType === 'volume' ? 'TWh' : 'MW';
+
+  // Metadata sheet
+  const isImported = dataLoader.isImportedScenario(scenario);
+  const tooltipData = (tooltipManager && tooltipManager.loaded)
+    ? tooltipManager.getTooltip(carrier, type, sector)
+    : null;
+
+  // Parse definition and method from tooltip HTML
+  let definition = '';
+  let method = '';
+  if (tooltipData) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = tooltipData;
+    tmp.querySelectorAll('div').forEach(el => {
+      const strong = el.querySelector('strong');
+      if (!strong) return;
+      const label = strong.textContent.replace(':', '').trim();
+      const val = el.textContent.replace(strong.textContent, '').trim();
+      if (label === 'Definitie') definition = val;
+      if (label === 'Methode/bron') method = val;
+    });
+  }
+
+  const metaRows = [
+    ['Veld', 'Waarde'],
+    ['Scenario', scenario],
+    ['Jaar', year],
+    ['Drager', carrierLabel],
+    ['Eenheid', metricLabel + ' (' + unitLabel + ')'],
+    ['Categorie', type],
+    ['Asset', sector.replace(/_/g, ' ')],
+    ['Bron', isImported ? 'Geïmporteerd scenario' : 'NBNL 2025 v1.0'],
+    ['Exportdatum', new Date().toLocaleDateString('nl-NL')],
+    [],
+    ['Definitie', definition],
+    ...(!isImported && method ? [['Methode/bron', method]] : []),
+  ];
+  const metaSheet = XLSX.utils.aoa_to_sheet(metaRows);
+  metaSheet['!cols'] = [{ wch: 16 }, { wch: 60 }];
+  XLSX.utils.book_append_sheet(wb, metaSheet, 'Metadata');
+
+  const filename = `${scenario} ${year} - ${carrierLabel} ${metricLabel} - ${type} ${sector}.xlsx`;
+  const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  triggerDownload(new Blob([wbout], { type: 'application/octet-stream' }), filename);
+}
+
 // Start the application
 initializeApplication();

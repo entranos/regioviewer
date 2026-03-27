@@ -501,6 +501,30 @@ body {
   color: #555;
 }
 
+/* Download buttons */
+.download-btn {
+  background-color: transparent;
+  color: #666;
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  border: 0px solid #aaa;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 3px 7px;
+  white-space: nowrap;
+  line-height: 1.2;
+  min-height: 22px;
+}
+
+.download-btn:hover {
+  border-color: #444;
+  color: #222;
+}
+
 /* Import Modal */
 .import-modal {
   display: none;

@@ -172,32 +172,36 @@ class DataLoader {
     const range = XLSX.utils.decode_range(sheet['!ref']);
     const data = {};
 
-    const types = [];
-    const sectors = [];
+    const columns = []; // ordered [{type, sector}]
 
     for (let col = range.s.c + 2; col <= range.e.c; col++) {
       const typeCell = sheet[XLSX.utils.encode_cell({ r: 3, c: col })];
       const sectorCell = sheet[XLSX.utils.encode_cell({ r: 4, c: col })];
-      types.push(typeCell ? typeCell.v : '');
-      sectors.push(sectorCell ? sectorCell.v : '');
+      columns.push({
+        type: typeCell ? typeCell.v : '',
+        sector: sectorCell ? sectorCell.v : ''
+      });
     }
+
+    data._columns = columns;
 
     for (let row = 6; row <= range.e.r; row++) {
       const gmCodeCell = sheet[XLSX.utils.encode_cell({ r: row, c: 0 })];
       if (!gmCodeCell) continue;
 
       const gmCode = gmCodeCell.v;
-      if (!data[gmCode]) data[gmCode] = {};
+      if (!data[gmCode]) {
+        const gmNameCell = sheet[XLSX.utils.encode_cell({ r: row, c: 1 })];
+        data[gmCode] = { _gmName: gmNameCell ? gmNameCell.v : '' };
+      }
 
-      for (let i = 0; i < types.length; i++) {
-        const col = i + 2;
-        const type = types[i];
-        const sector = sectors[i];
+      for (let i = 0; i < columns.length; i++) {
+        const { type, sector } = columns[i];
         if (!type || !sector) continue;
 
         if (!data[gmCode][type]) data[gmCode][type] = {};
 
-        const valueCell = sheet[XLSX.utils.encode_cell({ r: row, c: col })];
+        const valueCell = sheet[XLSX.utils.encode_cell({ r: row, c: i + 2 })];
         data[gmCode][type][sector] = valueCell ? valueCell.v : null;
       }
     }
@@ -214,15 +218,18 @@ class DataLoader {
     const typeRow = jsonData[3];
     const sectorRow = jsonData[4];
 
+    const columns = []; // ordered [{type, sector}], index matches col-2
     const columnMapping = [];
     for (let col = 2; col < typeRow.length; col++) {
       if (typeRow[col] && sectorRow[col]) {
-        columnMapping[col] = {
-          type: typeRow[col],
-          sector: sectorRow[col]
-        };
+        const entry = { type: typeRow[col], sector: sectorRow[col] };
+        columnMapping[col] = entry;
+        columns[col - 2] = entry;
       }
     }
+
+    targetObject._columns = columns;
+    targetObject._provinceRows = []; // [{code, name, normalizedName}]
 
     for (let row = 6; row < jsonData.length; row++) {
       const rowData = jsonData[row];
@@ -233,6 +240,8 @@ class DataLoader {
       if (!provinceCode || !provinceName) continue;
 
       const normalizedProvinceName = provinceName.toLowerCase().replace(/-/g, '');
+
+      targetObject._provinceRows.push({ code: provinceCode, name: provinceName, normalizedName: normalizedProvinceName });
 
       if (!targetObject[normalizedProvinceName]) {
         targetObject[normalizedProvinceName] = {};
