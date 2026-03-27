@@ -326,6 +326,26 @@ class DataLoader {
     return !this.defaultScenarios.has(scenario);
   }
 
+  hasCarrierData(scenario, carrier) {
+    function hasNonZero(obj) {
+      if (obj === null || obj === undefined) return false;
+      if (typeof obj === 'number') return Math.abs(obj) > 1e-9;
+      if (typeof obj === 'string') { const n = parseFloat(obj.replace(/,/g, '')); return !isNaN(n) && Math.abs(n) > 1e-9; }
+      if (typeof obj === 'object') { for (const k in obj) { if (hasNonZero(obj[k])) return true; } }
+      return false;
+    }
+    const scenarioMunicipal = this.municipalData[scenario];
+    const scenarioProvincial = this.provincialData[scenario];
+    if (!scenarioMunicipal && !scenarioProvincial) return false;
+    for (const year in (scenarioMunicipal || {})) {
+      if (hasNonZero(scenarioMunicipal[year]?.[carrier])) return true;
+    }
+    for (const year in (scenarioProvincial || {})) {
+      if (hasNonZero(scenarioProvincial[year]?.[carrier])) return true;
+    }
+    return false;
+  }
+
   getYears(scenario) {
     return this.years[scenario] || [];
   }

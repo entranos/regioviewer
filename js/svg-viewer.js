@@ -1872,7 +1872,13 @@ function drawScenarioButtons_map() {
 
       dataVisualizationState.scenario = scenario.id;
       // console.log('Selected scenario:', scenario.title);
+      // If current carrier has no data for new scenario, fall back to ELEC
+      if (!dataLoader.hasCarrierData(scenario.id, dataVisualizationState.carrier)) {
+        dataVisualizationState.carrier = 'ELEC';
+      }
+      drawDataCarrierButtons(); // Refresh carrier buttons (grey out empty carriers)
       drawYearButtons(); // Refresh year buttons as availability changes
+      drawDataTypeButtons();
       drawSectorButtons(); // Refresh sector tooltips (methode/bron hidden for imported scenarios)
       if (dataVisualizationState.isActive) {
         updateDataVisualization();
@@ -1957,9 +1963,11 @@ function drawDataCarrierButtons() {
     const button = document.createElement('button');
     button.textContent = carrier.title;
     const isHighlighted = carrier.id === dataVisualizationState.carrier;
-    createButton(button, isHighlighted, false);
+    const hasData = dataLoader.hasCarrierData(dataVisualizationState.scenario, carrier.id);
+    createButton(button, isHighlighted, !hasData);
 
     button.onclick = function () {
+      if (!hasData) return;
       const buttons = container.getElementsByTagName('button');
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('highlighted');
@@ -4121,9 +4129,12 @@ async function handleImportSubmit() {
       }
     }
 
-    // Redraw scenario and year buttons
+    // Redraw menu buttons
     drawScenarioButtons_map();
     drawYearButtons();
+    drawDataCarrierButtons();
+    drawDataTypeButtons();
+    drawSectorButtons();
 
     // Update visualization if active
     if (dataVisualizationState.isActive) {
