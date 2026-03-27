@@ -569,9 +569,11 @@ function drawMunicipalityLineChart(scenarioData) {
   const width = chartContainer.clientWidth - margin.left - margin.right;
   const height = 300 - margin.top - margin.bottom;
   
+  // Clear previous content
+  d3.select('#municipalityChart').html('');
+
   // Create SVG
   const svg = d3.select('#municipalityChart')
-    .html('') // Clear previous content
     .append('svg')
     .attr('width', '100%')
     .attr('height', 300)
@@ -749,6 +751,33 @@ function drawMunicipalityLineChart(scenarioData) {
       hoverLine.style('opacity', 0);
       hoverTooltip.style('opacity', 0);
     });
+
+  // Add definitie/methode text between chart and legend
+  if (tooltipManager && tooltipManager.loaded) {
+    const { carrier, type, sector } = dataVisualizationState;
+    const isImported = dataLoader.isImportedScenario(dataVisualizationState.scenario);
+    const tooltipData = tooltipManager.getTooltip(carrier, type, sector, isImported);
+    if (tooltipData) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = tooltipData;
+      let definition = '', method = '';
+      tmp.querySelectorAll('div').forEach(el => {
+        const strong = el.querySelector('strong');
+        if (!strong) return;
+        const label = strong.textContent.replace(':', '').trim();
+        const val = el.textContent.replace(strong.textContent, '').trim();
+        if (label === 'Definitie') definition = val;
+        if (label === 'Methode/bron') method = val;
+      });
+      if (definition || method) {
+        const infoEl = document.createElement('div');
+        infoEl.style.cssText = 'font-size:11px;color:#999;line-height:1.5;margin-bottom:8px;';
+        if (definition) infoEl.innerHTML += `<span><strong style="color:#bbb;">Definitie:</strong> ${definition}</span>`;
+        if (method) infoEl.innerHTML += `${definition ? ' &nbsp;|&nbsp; ' : ''}<span><strong style="color:#bbb;">Methode/bron (basisscenario's):</strong> ${method}</span>`;
+        chartContainer.appendChild(infoEl);
+      }
+    }
+  }
 
   // Add HTML legend below the chart
   const legendContainer = document.createElement('div');
