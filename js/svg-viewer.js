@@ -51,6 +51,41 @@ const gmCodes = [
 // Global storage for original GM positions (for clustering/restoring)
 const originalGMPositions = {};
 
+// Asset visibility lookup loaded from data/assets.csv
+// Key: "CARRIER|TYPE|SECTOR" → true (visible) / false (hidden)
+const assetVisibility = {};
+let assetVisibilityLoaded = false;
+
+async function loadAssetVisibility() {
+  try {
+    const response = await fetch('./data/assets.csv');
+    if (!response.ok) return;
+    const text = await response.text();
+    const lines = text.trim().split('\n');
+    const header = lines[0].split(',');
+    const showIdx = header.indexOf('visibility');
+    const assetIdx = header.indexOf('asset');
+    const typeIdx = header.indexOf('type');
+    const carrierIdx = header.indexOf('carrier');
+    if (showIdx < 0 || assetIdx < 0 || typeIdx < 0 || carrierIdx < 0) return;
+
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',');
+      const key = `${cols[carrierIdx]}|${cols[typeIdx]}|${cols[assetIdx]}`;
+      assetVisibility[key] = cols[showIdx]?.trim().toLowerCase() === 'visible';
+    }
+    assetVisibilityLoaded = true;
+  } catch (e) {
+    console.warn('Could not load assets.csv:', e);
+  }
+}
+
+function isAssetVisible(carrier, type, sector) {
+  if (!assetVisibilityLoaded) return true; // show all if CSV not loaded
+  const key = `${carrier}|${type}|${sector}`;
+  return assetVisibility[key] !== false; // default visible if not listed
+}
+
 // Global data visualization state
 const dataVisualizationState = {
   scenario: 'Eigen Vermogen',
@@ -2614,6 +2649,9 @@ function drawSectorButtons() {
     // Get sectors from municipal data
     availableSectors = (sectorDefinitions[carrier] && sectorDefinitions[carrier][type]) || [];
   }
+
+  // Filter by asset visibility from assets.csv
+  availableSectors = availableSectors.filter(sector => isAssetVisible(carrier, type, sector));
   
   const container = document.getElementById('sectorButtons');
   if (!container) return;
@@ -4102,6 +4140,9 @@ async function initializeApplication() {
     loadingManager.updateProgress('initialization', 50);
     // console.log('Initializing UI components...');
     
+    // Load asset visibility config before drawing UI
+    await loadAssetVisibility();
+
     // Initialize grid lines before drawing UI
     initializeGridLines();
     
@@ -4118,7 +4159,7 @@ async function initializeApplication() {
     
     // Calculate global max values for consistent scaling
     calculateGlobalMaxValues();
-    
+
     // Auto-select specific defaults after page load to ensure proper label initialization
     // console.log('Setting default selections: Koersvaste Middenweg, 2025, Households');
     setTimeout(() => {
