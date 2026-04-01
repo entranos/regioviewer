@@ -23,10 +23,10 @@ Transport_van,Demand,ELEC,municipal,consumption,visible,visible
 Agriculture_CHP,Flexibility,ELEC,municipal,production,visible,visible
 Agriculture_PtH,Flexibility,ELEC,municipal,production,visible,visible
 Battery_households,Flexibility,ELEC,municipal,storage,disabled,visible
-Battery_solar_PV,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_solar_PV,Flexibility,ELEC,municipal,storage,visible,visible
 Battery_system,Flexibility,ELEC,municipal,storage,disabled,visible
 Battery_transport,Flexibility,ELEC,municipal,storage,disabled,visible
-Battery_wind_onshore,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_wind_onshore,Flexibility,ELEC,municipal,storage,visible,visible
 Curtailment,Flexibility,ELEC,municipal,others,visible,visible
 Datacenters_DSR,Flexibility,ELEC,municipal,others,visible,visible
 Deficit,Flexibility,ELEC,municipal,others,visible,visible
