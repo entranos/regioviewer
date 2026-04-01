@@ -52,7 +52,7 @@ const gmCodes = [
 const originalGMPositions = {};
 
 // Asset visibility lookup loaded from data/assets.csv
-// Key: "CARRIER|TYPE|SECTOR" → true (visible) / false (hidden)
+// Key: "CARRIER|TYPE|SECTOR" → { volume: 'visible'|'hidden'|'disabled', capacity: ... }
 const assetVisibility = {};
 let assetVisibilityLoaded = false;
 
@@ -63,16 +63,22 @@ async function loadAssetVisibility() {
     const text = await response.text();
     const lines = text.trim().split('\n');
     const header = lines[0].split(',');
-    const showIdx = header.indexOf('visibility');
+    const visVolumeIdx = header.indexOf('visibility_volume');
+    const visCapacityIdx = header.indexOf('visibility_capacity');
     const assetIdx = header.indexOf('asset');
     const typeIdx = header.indexOf('type');
     const carrierIdx = header.indexOf('carrier');
-    if (showIdx < 0 || assetIdx < 0 || typeIdx < 0 || carrierIdx < 0) return;
+    if (assetIdx < 0 || typeIdx < 0 || carrierIdx < 0) return;
+    if (visVolumeIdx < 0 && visCapacityIdx < 0) return;
 
     for (let i = 1; i < lines.length; i++) {
       const cols = lines[i].split(',');
+      if (cols.length < 3) continue;
       const key = `${cols[carrierIdx]}|${cols[typeIdx]}|${cols[assetIdx]}`;
-      assetVisibility[key] = cols[showIdx]?.trim().toLowerCase() === 'visible';
+      assetVisibility[key] = {
+        volume: visVolumeIdx >= 0 ? (cols[visVolumeIdx]?.trim().toLowerCase() || 'visible') : 'visible',
+        capacity: visCapacityIdx >= 0 ? (cols[visCapacityIdx]?.trim().toLowerCase() || 'visible') : 'visible'
+      };
     }
     assetVisibilityLoaded = true;
   } catch (e) {
@@ -80,10 +86,14 @@ async function loadAssetVisibility() {
   }
 }
 
-function isAssetVisible(carrier, type, sector) {
-  if (!assetVisibilityLoaded) return true; // show all if CSV not loaded
+// Returns 'visible', 'hidden', or 'disabled' based on current metricType
+function getAssetVisibility(carrier, type, sector) {
+  if (!assetVisibilityLoaded) return 'visible';
   const key = `${carrier}|${type}|${sector}`;
-  return assetVisibility[key] !== false; // default visible if not listed
+  const entry = assetVisibility[key];
+  if (!entry) return 'visible';
+  const metricType = dataVisualizationState.metricType || 'volume';
+  return entry[metricType] || 'visible';
 }
 
 // Global data visualization state
@@ -2387,10 +2397,13 @@ function drawMetricTypeButtons() {
 
       dataVisualizationState.metricType = metric.id;
       // console.log('Selected metric type:', metric.title);
-      
+
       // Update the unit selector toggle
       updateMapUnitSelectorToggle();
-      
+
+      // Refresh sector buttons as visibility may differ per metric type
+      drawSectorButtons();
+
       if (dataVisualizationState.isActive) {
         updateDataVisualization();
         // If in clustered view, update province circle sizes
@@ -2650,8 +2663,8 @@ function drawSectorButtons() {
     availableSectors = (sectorDefinitions[carrier] && sectorDefinitions[carrier][type]) || [];
   }
 
-  // Filter by asset visibility from assets.csv
-  availableSectors = availableSectors.filter(sector => isAssetVisible(carrier, type, sector));
+  // Filter by asset visibility from assets.csv (remove 'hidden', keep 'visible' and 'disabled')
+  availableSectors = availableSectors.filter(sector => getAssetVisibility(carrier, type, sector) !== 'hidden');
   
   const container = document.getElementById('sectorButtons');
   if (!container) return;
@@ -2677,10 +2690,15 @@ function drawSectorButtons() {
     return;
   }
 
-  // Check if current sector is valid for this carrier/type combination
-  if (!availableSectors.includes(dataVisualizationState.sector)) {
-    // Set to first available sector with data
-    dataVisualizationState.sector = availableSectors[0];
+  // Get only selectable (non-disabled) sectors
+  const selectableSectors = availableSectors.filter(sector => getAssetVisibility(carrier, type, sector) === 'visible');
+
+  // Check if current sector is valid and selectable
+  if (!selectableSectors.includes(dataVisualizationState.sector)) {
+    // Set to first selectable sector
+    if (selectableSectors.length > 0) {
+      dataVisualizationState.sector = selectableSectors[0];
+    }
   }
   
   // Find sectors with data
@@ -2729,19 +2747,21 @@ function drawSectorButtons() {
     }
   });
   
-  // If current sector has no data, switch to first sector with data
-  if (!sectorsWithData.includes(dataVisualizationState.sector) && sectorsWithData.length > 0) {
-    dataVisualizationState.sector = sectorsWithData[0];
+  // If current sector has no data or is disabled, switch to first selectable sector with data
+  const selectableWithData = sectorsWithData.filter(s => getAssetVisibility(carrier, type, s) === 'visible');
+  if (!selectableWithData.includes(dataVisualizationState.sector) && selectableWithData.length > 0) {
+    dataVisualizationState.sector = selectableWithData[0];
   }
 
   availableSectors.forEach((sector, index) => {
     const button = document.createElement('button');
     button.textContent = sector.replace(/_/g, ' ');
     
-    // Check if this sector has data (use pre-calculated list)
+    // Check if this sector has data and visibility state
     const hasData = sectorsWithData.includes(sector);
+    const visibilityState = getAssetVisibility(carrier, type, sector);
     const isHighlighted = sector === dataVisualizationState.sector;
-    const isDisabled = !hasData;
+    const isDisabled = !hasData || visibilityState === 'disabled';
     createButton(button, isHighlighted, isDisabled);
 
     // Add tooltip if available

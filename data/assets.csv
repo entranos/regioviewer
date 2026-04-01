@@ -1,147 +1,147 @@
-asset,type,carrier,scope,interpret,visibility
-Agriculture,Demand,ELEC,municipal,consumption,visible
-Buildings,Demand,ELEC,municipal,consumption,visible
-Buildings_hp_electric,Demand,ELEC,municipal,consumption,visible
-Buildings_hp_hybrid,Demand,ELEC,municipal,consumption,visible
-CO2_storage,Demand,ELEC,municipal,consumption,visible
-Datacenters,Demand,ELEC,municipal,consumption,visible
-Direct_air_capture,Demand,ELEC,municipal,consumption,visible
-District_heat_network,Demand,ELEC,municipal,consumption,visible
-Households,Demand,ELEC,municipal,consumption,visible
-Households_hp_electric,Demand,ELEC,municipal,consumption,visible
-Households_hp_hybrid,Demand,ELEC,municipal,consumption,visible
-Other_demand,Demand,ELEC,municipal,consumption,visible
-Transport_bus,Demand,ELEC,municipal,consumption,visible
-Transport_car,Demand,ELEC,municipal,consumption,visible
-Transport_other,Demand,ELEC,municipal,consumption,visible
-Transport_plane,Demand,ELEC,municipal,consumption,visible
-Transport_ship,Demand,ELEC,municipal,consumption,visible
-Transport_train,Demand,ELEC,municipal,consumption,visible
-Transport_tram,Demand,ELEC,municipal,consumption,visible
-Transport_truck,Demand,ELEC,municipal,consumption,visible
-Transport_van,Demand,ELEC,municipal,consumption,visible
-Agriculture_CHP,Flexibility,ELEC,municipal,production,visible
-Agriculture_PtH,Flexibility,ELEC,municipal,production,visible
-Battery_households,Flexibility,ELEC,municipal,storage,hidden
-Battery_solar_PV,Flexibility,ELEC,municipal,storage,hidden
-Battery_system,Flexibility,ELEC,municipal,storage,hidden
-Battery_transport,Flexibility,ELEC,municipal,storage,hidden
-Battery_wind_onshore,Flexibility,ELEC,municipal,storage,hidden
-Curtailment,Flexibility,ELEC,municipal,others,visible
-Datacenters_DSR,Flexibility,ELEC,municipal,others,visible
-Deficit,Flexibility,ELEC,municipal,others,visible
-District_PtH,Flexibility,ELEC,municipal,consumption,visible
-Hydro_storage,Flexibility,ELEC,municipal,storage,hidden
-IDES_storage,Flexibility,ELEC,municipal,storage,hidden
-MDES_storage,Flexibility,ELEC,municipal,storage,hidden
-Power_plant_coal,Flexibility,ELEC,municipal,production,visible
-Power_plant_hydrogen,Flexibility,ELEC,municipal,production,visible
-Power_plant_hydrogen_backup,Flexibility,ELEC,municipal,production,visible
-Power_plant_methane,Flexibility,ELEC,municipal,production,visible
-Power_plant_methane_CHP,Flexibility,ELEC,municipal,production,visible
-Power_plant_methane_backup,Flexibility,ELEC,municipal,production,visible
-Power_plant_nuclear,Flexibility,ELEC,municipal,production,visible
-Power_plant_nuclear_SMR,Flexibility,ELEC,municipal,production,visible
-Power_plant_other,Flexibility,ELEC,municipal,production,visible
-Power_plant_waste,Flexibility,ELEC,municipal,production,visible
-Power_to_gas_offshore,Flexibility,ELEC,municipal,production,visible
-Power_to_gas_onshore,Flexibility,ELEC,municipal,production,visible
-Hydro_RoR,Supply,ELEC,municipal,production,visible
-Power_plant_biomass,Supply,ELEC,municipal,production,visible
-Solar_PV_buildings,Supply,ELEC,municipal,production,visible
-Solar_PV_field,Supply,ELEC,municipal,production,visible
-Solar_PV_households,Supply,ELEC,municipal,production,visible
-Wind_offshore,Supply,ELEC,municipal,production,visible
-Wind_offshore_hybrid,Supply,ELEC,municipal,production,visible
-Wind_onshore,Supply,ELEC,municipal,production,visible
-Industry_aluminium,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_chemicals,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_food,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_metals,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_other,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_paper,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_refineries,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_steel,Industrial Demand,ELEC,provincial,consumption,visible
-Industry_chemicals_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_chemicals_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_food_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_hydrogen_CHP,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_metals_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_methane_CHP,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_other_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_paper_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible
-Industry_refineries_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible
-Agriculture,Demand,H2,municipal,consumption,visible
-Buildings_combi_boiler,Demand,H2,municipal,consumption,visible
-Buildings_hp_hybrid,Demand,H2,municipal,consumption,visible
-District_heat_network,Demand,H2,municipal,consumption,visible
-Households_combi_boiler,Demand,H2,municipal,consumption,visible
-Households_hp_hybrid,Demand,H2,municipal,consumption,visible
-Other_demand,Demand,H2,municipal,consumption,visible
-Transport,Demand,H2,municipal,consumption,visible
-Transport_plane,Demand,H2,municipal,consumption,visible
-Transport_ship,Demand,H2,municipal,consumption,visible
-Export,Exchange,H2,municipal,consumption,visible
-Import,Exchange,H2,municipal,production,visible
-Power_plant_hydrogen,Flexibility,H2,municipal,consumption,visible
-Power_plant_hydrogen_backup,Flexibility,H2,municipal,consumption,visible
-Power_to_gas_onshore,Flexibility,H2,municipal,production,visible
-Storage,Flexibility,H2,municipal,storage,hidden
-Ammonia_reformer,Supply,H2,municipal,consumption,visible
-Biomass_hydrogen_production,Supply,H2,municipal,production,visible
-Blue_hydrogen_production,Supply,H2,municipal,production,visible
-Grey_hydrogen_production,Supply,H2,municipal,production,visible
-LOHC,Supply,H2,municipal,production,visible
-Liquid_hydrogen,Supply,H2,municipal,production,visible
-Power_to_gas_solar_PV,Supply,H2,municipal,production,visible
-Power_to_gas_wind_offshore_dedicated,Supply,H2,municipal,production,visible
-Power_to_gas_wind_offshore_hybrid,Supply,H2,municipal,production,visible
-Industry_aluminium,Industrial Demand,H2,provincial,consumption,visible
-Industry_chemicals,Industrial Demand,H2,provincial,consumption,visible
-Industry_food,Industrial Demand,H2,provincial,consumption,visible
-Industry_heat_network,Industrial Demand,H2,provincial,consumption,visible
-Industry_hydrogen_CHP,Industrial Demand,H2,provincial,consumption,visible
-Industry_metals,Industrial Demand,H2,provincial,consumption,visible
-Industry_other,Industrial Demand,H2,provincial,consumption,visible
-Industry_paper,Industrial Demand,H2,provincial,consumption,visible
-Industry_refineries,Industrial Demand,H2,provincial,consumption,visible
-Industry_steel,Industrial Demand,H2,provincial,consumption,visible
-Industry_chemicals,Industrial Supply,H2,provincial,production,visible
-Industry_refineries,Industrial Supply,H2,provincial,production,visible
-Agriculture,Demand,METH,municipal,consumption,visible
-Agriculture_CHP,Demand,METH,municipal,consumption,visible
-Biomass_hydrogen_production,Demand,METH,municipal,consumption,visible
-Blue_hydrogen_production,Demand,METH,municipal,consumption,visible
-Buildings,Demand,METH,municipal,consumption,visible
-Buildings_combi_boiler,Demand,METH,municipal,consumption,visible
-Buildings_hp_hybrid,Demand,METH,municipal,consumption,visible
-District_heat_network,Demand,METH,municipal,consumption,visible
-Grey_hydrogen_production,Demand,METH,municipal,consumption,visible
-Households,Demand,METH,municipal,consumption,visible
-Households_combi_boiler,Demand,METH,municipal,consumption,visible
-Households_hp_hybrid,Demand,METH,municipal,consumption,visible
-Other_demand,Demand,METH,municipal,consumption,visible
-Transport_other,Demand,METH,municipal,consumption,visible
-Export,Exchange,METH,municipal,consumption,visible
-Import,Exchange,METH,municipal,production,visible
-Power_plant_methane,Flexibility,METH,municipal,consumption,visible
-Power_plant_methane_CHP,Flexibility,METH,municipal,consumption,visible
-Power_plant_methane_backup,Flexibility,METH,municipal,consumption,visible
-Storage,Flexibility,METH,municipal,storage,hidden
-Green_gas_dry_gasification,Supply,METH,municipal,production,visible
-Green_gas_fermentation,Supply,METH,municipal,production,visible
-Green_gas_wet_gasification,Supply,METH,municipal,production,visible
-Natural_gas_production,Supply,METH,municipal,production,visible
-Industry_aluminium,Industrial Demand,METH,provincial,consumption,visible
-Industry_chemicals,Industrial Demand,METH,provincial,consumption,visible
-Industry_food,Industrial Demand,METH,provincial,consumption,visible
-Industry_heat_network,Industrial Demand,METH,provincial,consumption,visible
-Industry_metals,Industrial Demand,METH,provincial,consumption,visible
-Industry_methane_CHP,Industrial Demand,METH,provincial,consumption,visible
-Industry_other,Industrial Demand,METH,provincial,consumption,visible
-Industry_other_non_energetic,Industrial Demand,METH,provincial,consumption,visible
-Industry_paper,Industrial Demand,METH,provincial,consumption,visible
-Industry_refineries,Industrial Demand,METH,provincial,consumption,visible
-Industry_steel,Industrial Demand,METH,provincial,consumption,visible
-Industry_chemicals,Industrial Supply,METH,provincial,consumption,visible
-Industry_refineries,Industrial Supply,METH,provincial,consumption,visible
+asset,type,carrier,scope,interpret,visibility_volume,visibility_capacity
+Agriculture,Demand,ELEC,municipal,consumption,visible,visible
+Buildings,Demand,ELEC,municipal,consumption,visible,visible
+Buildings_hp_electric,Demand,ELEC,municipal,consumption,visible,visible
+Buildings_hp_hybrid,Demand,ELEC,municipal,consumption,visible,visible
+CO2_storage,Demand,ELEC,municipal,consumption,visible,visible
+Datacenters,Demand,ELEC,municipal,consumption,visible,visible
+Direct_air_capture,Demand,ELEC,municipal,consumption,visible,visible
+District_heat_network,Demand,ELEC,municipal,consumption,visible,visible
+Households,Demand,ELEC,municipal,consumption,visible,visible
+Households_hp_electric,Demand,ELEC,municipal,consumption,visible,visible
+Households_hp_hybrid,Demand,ELEC,municipal,consumption,visible,visible
+Other_demand,Demand,ELEC,municipal,consumption,visible,visible
+Transport_bus,Demand,ELEC,municipal,consumption,visible,visible
+Transport_car,Demand,ELEC,municipal,consumption,visible,visible
+Transport_other,Demand,ELEC,municipal,consumption,visible,visible
+Transport_plane,Demand,ELEC,municipal,consumption,visible,visible
+Transport_ship,Demand,ELEC,municipal,consumption,visible,visible
+Transport_train,Demand,ELEC,municipal,consumption,visible,visible
+Transport_tram,Demand,ELEC,municipal,consumption,visible,visible
+Transport_truck,Demand,ELEC,municipal,consumption,visible,visible
+Transport_van,Demand,ELEC,municipal,consumption,visible,visible
+Agriculture_CHP,Flexibility,ELEC,municipal,production,visible,visible
+Agriculture_PtH,Flexibility,ELEC,municipal,production,visible,visible
+Battery_households,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_solar_PV,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_system,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_transport,Flexibility,ELEC,municipal,storage,disabled,visible
+Battery_wind_onshore,Flexibility,ELEC,municipal,storage,disabled,visible
+Curtailment,Flexibility,ELEC,municipal,others,visible,visible
+Datacenters_DSR,Flexibility,ELEC,municipal,others,visible,visible
+Deficit,Flexibility,ELEC,municipal,others,visible,visible
+District_PtH,Flexibility,ELEC,municipal,consumption,visible,visible
+Hydro_storage,Flexibility,ELEC,municipal,storage,disabled,visible
+IDES_storage,Flexibility,ELEC,municipal,storage,disabled,visible
+MDES_storage,Flexibility,ELEC,municipal,storage,disabled,visible
+Power_plant_coal,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_hydrogen,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_hydrogen_backup,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_methane,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_methane_CHP,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_methane_backup,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_nuclear,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_nuclear_SMR,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_other,Flexibility,ELEC,municipal,production,visible,visible
+Power_plant_waste,Flexibility,ELEC,municipal,production,visible,visible
+Power_to_gas_offshore,Flexibility,ELEC,municipal,production,visible,visible
+Power_to_gas_onshore,Flexibility,ELEC,municipal,production,visible,visible
+Hydro_RoR,Supply,ELEC,municipal,production,visible,visible
+Power_plant_biomass,Supply,ELEC,municipal,production,visible,visible
+Solar_PV_buildings,Supply,ELEC,municipal,production,visible,visible
+Solar_PV_field,Supply,ELEC,municipal,production,visible,visible
+Solar_PV_households,Supply,ELEC,municipal,production,visible,visible
+Wind_offshore,Supply,ELEC,municipal,production,visible,visible
+Wind_offshore_hybrid,Supply,ELEC,municipal,production,visible,visible
+Wind_onshore,Supply,ELEC,municipal,production,visible,visible
+Industry_aluminium,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_chemicals,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_food,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_metals,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_other,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_paper,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_refineries,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_steel,Industrial Demand,ELEC,provincial,consumption,visible,visible
+Industry_chemicals_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_chemicals_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_food_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_hydrogen_CHP,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_metals_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_methane_CHP,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_other_DSR,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_paper_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Industry_refineries_PtH,Industrial Flexibility,ELEC,provincial,consumption,visible,visible
+Agriculture,Demand,H2,municipal,consumption,visible,visible
+Buildings_combi_boiler,Demand,H2,municipal,consumption,visible,visible
+Buildings_hp_hybrid,Demand,H2,municipal,consumption,visible,visible
+District_heat_network,Demand,H2,municipal,consumption,visible,visible
+Households_combi_boiler,Demand,H2,municipal,consumption,visible,visible
+Households_hp_hybrid,Demand,H2,municipal,consumption,visible,visible
+Other_demand,Demand,H2,municipal,consumption,visible,visible
+Transport,Demand,H2,municipal,consumption,visible,visible
+Transport_plane,Demand,H2,municipal,consumption,visible,visible
+Transport_ship,Demand,H2,municipal,consumption,visible,visible
+Export,Exchange,H2,municipal,consumption,visible,visible
+Import,Exchange,H2,municipal,production,visible,visible
+Power_plant_hydrogen,Flexibility,H2,municipal,consumption,visible,visible
+Power_plant_hydrogen_backup,Flexibility,H2,municipal,consumption,visible,visible
+Power_to_gas_onshore,Flexibility,H2,municipal,production,visible,visible
+Storage,Flexibility,H2,municipal,storage,disabled,visible
+Ammonia_reformer,Supply,H2,municipal,consumption,visible,visible
+Biomass_hydrogen_production,Supply,H2,municipal,production,visible,visible
+Blue_hydrogen_production,Supply,H2,municipal,production,visible,visible
+Grey_hydrogen_production,Supply,H2,municipal,production,visible,visible
+LOHC,Supply,H2,municipal,production,visible,visible
+Liquid_hydrogen,Supply,H2,municipal,production,visible,visible
+Power_to_gas_solar_PV,Supply,H2,municipal,production,visible,visible
+Power_to_gas_wind_offshore_dedicated,Supply,H2,municipal,production,visible,visible
+Power_to_gas_wind_offshore_hybrid,Supply,H2,municipal,production,visible,visible
+Industry_aluminium,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_chemicals,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_food,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_heat_network,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_hydrogen_CHP,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_metals,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_other,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_paper,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_refineries,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_steel,Industrial Demand,H2,provincial,consumption,visible,visible
+Industry_chemicals,Industrial Supply,H2,provincial,production,visible,visible
+Industry_refineries,Industrial Supply,H2,provincial,production,visible,visible
+Agriculture,Demand,METH,municipal,consumption,visible,visible
+Agriculture_CHP,Demand,METH,municipal,consumption,visible,visible
+Biomass_hydrogen_production,Demand,METH,municipal,consumption,visible,visible
+Blue_hydrogen_production,Demand,METH,municipal,consumption,visible,visible
+Buildings,Demand,METH,municipal,consumption,visible,visible
+Buildings_combi_boiler,Demand,METH,municipal,consumption,visible,visible
+Buildings_hp_hybrid,Demand,METH,municipal,consumption,visible,visible
+District_heat_network,Demand,METH,municipal,consumption,visible,visible
+Grey_hydrogen_production,Demand,METH,municipal,consumption,visible,visible
+Households,Demand,METH,municipal,consumption,visible,visible
+Households_combi_boiler,Demand,METH,municipal,consumption,visible,visible
+Households_hp_hybrid,Demand,METH,municipal,consumption,visible,visible
+Other_demand,Demand,METH,municipal,consumption,visible,visible
+Transport_other,Demand,METH,municipal,consumption,visible,visible
+Export,Exchange,METH,municipal,consumption,visible,visible
+Import,Exchange,METH,municipal,production,visible,visible
+Power_plant_methane,Flexibility,METH,municipal,consumption,visible,visible
+Power_plant_methane_CHP,Flexibility,METH,municipal,consumption,visible,visible
+Power_plant_methane_backup,Flexibility,METH,municipal,consumption,visible,visible
+Storage,Flexibility,METH,municipal,storage,disabled,visible
+Green_gas_dry_gasification,Supply,METH,municipal,production,visible,visible
+Green_gas_fermentation,Supply,METH,municipal,production,visible,visible
+Green_gas_wet_gasification,Supply,METH,municipal,production,visible,visible
+Natural_gas_production,Supply,METH,municipal,production,visible,visible
+Industry_aluminium,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_chemicals,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_food,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_heat_network,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_metals,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_methane_CHP,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_other,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_other_non_energetic,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_paper,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_refineries,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_steel,Industrial Demand,METH,provincial,consumption,visible,visible
+Industry_chemicals,Industrial Supply,METH,provincial,consumption,visible,visible
+Industry_refineries,Industrial Supply,METH,provincial,consumption,visible,visible
