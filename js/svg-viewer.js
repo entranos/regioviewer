@@ -104,6 +104,9 @@ const dataVisualizationState = {
   metricType: 'volume',
   type: 'Demand',
   sector: 'Households',
+  // Multi-select: one or more assets whose values are aggregated on the map.
+  // Always kept in sync so `sector` equals the first entry of `selectedSectors`.
+  selectedSectors: ['Households'],
   isActive: false,
   minRadius: 0,
   maxRadius: 140,
@@ -118,6 +121,67 @@ const dataVisualizationState = {
     'METH': '#3f88ae'   // Methane - blue
   }
 };
+
+/**
+ * Return the list of currently selected assets (sectors).
+ * Falls back to the single `sector` for backwards compatibility.
+ */
+function getSelectedSectors() {
+  const sectors = dataVisualizationState.selectedSectors;
+  if (Array.isArray(sectors) && sectors.length > 0) return sectors;
+  return dataVisualizationState.sector ? [dataVisualizationState.sector] : [];
+}
+
+/**
+ * Query a data loader once per selected asset and return the aggregate sum.
+ * `baseParams` should contain everything except `sector`.
+ * Returns null when none of the selected assets have data.
+ */
+function querySectorSum(loader, baseParams) {
+  const sectors = getSelectedSectors();
+  let total = 0;
+  let hasAny = false;
+  for (const sector of sectors) {
+    const value = loader.query({ ...baseParams, sector });
+    if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
+      total += parseFloat(value);
+      hasAny = true;
+    }
+  }
+  return hasAny ? total : null;
+}
+
+/**
+ * Human-readable label for the current asset selection, e.g. "Households + Services".
+ */
+function getSelectedSectorsLabel() {
+  return getSelectedSectors().map(s => s.replace(/_/g, ' ')).join(' + ');
+}
+
+/**
+ * Truncate a string to `maxChars`, cutting at a word boundary and appending an ellipsis.
+ */
+function truncateText(text, maxChars) {
+  if (!text || text.length <= maxChars) return text;
+  let cut = text.slice(0, maxChars);
+  const lastSpace = cut.lastIndexOf(' ');
+  if (lastSpace > 0) cut = cut.slice(0, lastSpace);
+  return cut + ' …';
+}
+
+/**
+ * Keep `selectedSectors` limited to sectors that are currently valid, and keep
+ * `sector` in sync as the primary (first) selection. If nothing valid remains,
+ * fall back to `fallbackSector`.
+ */
+function reconcileSelectedSectors(validSectors, fallbackSector) {
+  let selected = getSelectedSectors().filter(s => validSectors.includes(s));
+  if (selected.length === 0 && fallbackSector) {
+    selected = [fallbackSector];
+  }
+  dataVisualizationState.selectedSectors = selected;
+  dataVisualizationState.sector = selected[0] || fallbackSector || dataVisualizationState.sector;
+}
 
 class SVGViewer {
   constructor(containerId, svgPath) {
@@ -316,20 +380,19 @@ class SVGViewer {
         
         // If data visualization is active, show data value
         if (dataVisualizationState.isActive && municipalDataLoader && municipalDataLoader.loaded) {
-          const value = municipalDataLoader.query({
+          const value = querySectorSum(municipalDataLoader, {
             scenario: dataVisualizationState.scenario,
             year: dataVisualizationState.year,
             carrier: dataVisualizationState.carrier,
             metricType: dataVisualizationState.metricType,
             gmCode: gmCode,
-            type: dataVisualizationState.type,
-            sector: dataVisualizationState.sector
+            type: dataVisualizationState.type
           });
-          
-          const sectorName = dataVisualizationState.sector.replace(/_/g, ' ');
-          
-          if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-            const formatted = formatValueWithUnit(parseFloat(value), dataVisualizationState.metricType);
+
+          const sectorName = getSelectedSectorsLabel();
+
+          if (value !== null) {
+            const formatted = formatValueWithUnit(value, dataVisualizationState.metricType);
             tooltipText = `<strong>${municipalityName}</strong><br/>${sectorName}<br/><strong>${formatted.formatted}</strong> (${dataVisualizationState.year})`;
           } else {
             tooltipText = `<strong>${municipalityName}</strong><br/>No data available`;
@@ -472,18 +535,17 @@ function collectMunicipalityDataOverYears(gmCode) {
   scenarios.forEach(scenario => {
     const data = [];
     years.forEach(year => {
-      const value = municipalDataLoader.query({
+      const value = querySectorSum(municipalDataLoader, {
         scenario: scenario,
         year: year,
         carrier: dataVisualizationState.carrier,
         metricType: dataVisualizationState.metricType,
         gmCode: gmCode,
-        type: dataVisualizationState.type,
-        sector: dataVisualizationState.sector
+        type: dataVisualizationState.type
       });
-      
-      if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-        data.push({ year: year, value: Math.abs(parseFloat(value)) });
+
+      if (value !== null) {
+        data.push({ year: year, value: Math.abs(value) });
       }
     });
     if (data.length > 0) {
@@ -511,17 +573,16 @@ function collectProvinceDataOverYears(provinceName) {
       let hasAny = false;
 
       provinceGMCodes.forEach(gmCode => {
-        const value = municipalDataLoader.query({
+        const value = querySectorSum(municipalDataLoader, {
           scenario,
           year,
           carrier: dataVisualizationState.carrier,
           metricType: dataVisualizationState.metricType,
           gmCode,
-          type: dataVisualizationState.type,
-          sector: dataVisualizationState.sector
+          type: dataVisualizationState.type
         });
-        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-          total += Math.abs(parseFloat(value));
+        if (value !== null) {
+          total += Math.abs(value);
           hasAny = true;
         }
       });
@@ -885,16 +946,15 @@ function collectProvinceDataFromProvincialOverYears(provinceName) {
   scenarios.forEach(scenario => {
     const data = [];
     years.forEach(year => {
-      const value = provincialDataLoader.query({
+      const value = querySectorSum(provincialDataLoader, {
         scenario, year,
         carrier: dataVisualizationState.carrier,
         metricType: dataVisualizationState.metricType,
         province: provinceName,
-        type: 'Demand',
-        sector: dataVisualizationState.sector
+        type: 'Demand'
       });
-      if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-        data.push({ year, value: Math.abs(parseFloat(value)) });
+      if (value !== null) {
+        data.push({ year, value: Math.abs(value) });
       }
     });
     if (data.length > 0) scenarioData[scenario] = data;
@@ -917,16 +977,15 @@ function collectNationalDataFromProvincialOverYears() {
       let total = 0;
       let hasAny = false;
       allProvinces.forEach(province => {
-        const value = provincialDataLoader.query({
+        const value = querySectorSum(provincialDataLoader, {
           scenario, year,
           carrier: dataVisualizationState.carrier,
           metricType: dataVisualizationState.metricType,
           province,
-          type: 'Demand',
-          sector: dataVisualizationState.sector
+          type: 'Demand'
         });
-        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-          total += Math.abs(parseFloat(value));
+        if (value !== null) {
+          total += Math.abs(value);
           hasAny = true;
         }
       });
@@ -952,16 +1011,15 @@ function collectNationalDataOverYears() {
       let total = 0;
       let hasAny = false;
       allGMCodes.forEach(gmCode => {
-        const value = municipalDataLoader.query({
+        const value = querySectorSum(municipalDataLoader, {
           scenario, year,
           carrier: dataVisualizationState.carrier,
           metricType: dataVisualizationState.metricType,
           gmCode,
-          type: dataVisualizationState.type,
-          sector: dataVisualizationState.sector
+          type: dataVisualizationState.type
         });
-        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-          total += Math.abs(parseFloat(value));
+        if (value !== null) {
+          total += Math.abs(value);
           hasAny = true;
         }
       });
@@ -1016,15 +1074,17 @@ function convertChartData(scenarioData) {
 
 // Build metadata rows for chart exports
 function buildChartMetaRows(unit) {
-  const { carrier, type, sector } = dataVisualizationState;
+  const { carrier, type } = dataVisualizationState;
+  const selectedSectors = getSelectedSectors();
   const carrierLabel = { ELEC: 'Elektriciteit', H2: 'Waterstof', METH: 'Methaan' }[carrier] || carrier;
-  const sectorName = sector.replace(/_/g, ' ');
+  const sectorName = getSelectedSectorsLabel();
 
-  // Parse tooltip for definitie/methode
+  // Parse tooltip for definitie/methode. Only meaningful for a single asset —
+  // for aggregates the definition/method is ambiguous, so it is omitted.
   let definition = '';
   let method = '';
-  if (tooltipManager && tooltipManager.loaded) {
-    const tooltipData = tooltipManager.getTooltip(carrier, type, sector);
+  if (tooltipManager && tooltipManager.loaded && selectedSectors.length === 1) {
+    const tooltipData = tooltipManager.getTooltip(carrier, type, selectedSectors[0]);
     if (tooltipData) {
       const tmp = document.createElement('div');
       tmp.innerHTML = tooltipData;
@@ -1059,7 +1119,7 @@ function buildChartMetaRows(unit) {
 
 function exportLineChartXlsx(tabs) {
   const wb = XLSX.utils.book_new();
-  const sectorSlug = dataVisualizationState.sector.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  const sectorSlug = getSelectedSectors().join('_').replace(/[^a-z0-9]/gi, '_').toLowerCase();
 
   tabs.forEach(tab => {
     const rawData = tab.data();
@@ -1147,7 +1207,7 @@ function showLineChartPopup(title, tabs) {
 
   const carrierNames = { 'ELEC': 'Electricity', 'H2': 'Hydrogen', 'METH': 'Methane' };
   const carrierName = carrierNames[dataVisualizationState.carrier] || dataVisualizationState.carrier;
-  const sectorName = dataVisualizationState.sector.replace(/_/g, ' ');
+  const sectorName = getSelectedSectorsLabel();
   const typeName = dataVisualizationState.type;
 
   const overlay = document.createElement('div');
@@ -1203,7 +1263,9 @@ function showLineChartPopup(title, tabs) {
 
   // Subtitle below title
   const subtitle = document.createElement('p');
-  subtitle.style.cssText = 'margin:0 0 14px 0;font-size:13px;color:#999;';
+  // Clamp to two lines with an ellipsis; full text available on hover.
+  subtitle.style.cssText = 'margin:0 0 14px 0;font-size:13px;color:#999;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;';
+  subtitle.title = `${carrierName} • ${sectorName} • ${typeName}`;
   subtitle.innerHTML = `${carrierName} &bull; ${sectorName} &bull; ${typeName}`;
   header.appendChild(subtitle);
 
@@ -1403,12 +1465,13 @@ function updateTopLeftTotal(totalValue) {
     { label: 'Jaar', value: dataVisualizationState.year.toString() },
     { label: 'Drager', value: carrierName },
     { label: 'Categorie', value: dataVisualizationState.type },
-    { label: 'Asset', value: dataVisualizationState.sector.replace(/_/g, ' ') },
+    { label: getSelectedSectors().length > 1 ? 'Assets' : 'Asset', value: getSelectedSectorsLabel(), isWrappable: true, maxLines: 3 },
     { label: 'Eenheid', value: metricName }
   ];
 
-  // Add tooltip information if available (skip methode/bron for imported scenarios)
-  if (tooltipManager && tooltipManager.loaded) {
+  // Add tooltip information if available (skip methode/bron for imported scenarios).
+  // Only show definition/method when a single asset is selected — it is ambiguous for aggregates.
+  if (tooltipManager && tooltipManager.loaded && getSelectedSectors().length === 1) {
     const tooltipContent = tooltipManager.getTooltip(
       dataVisualizationState.carrier,
       dataVisualizationState.type,
@@ -1444,6 +1507,8 @@ function updateTopLeftTotal(totalValue) {
   const lineHeight = 50;
   const labelWidth = 40;
   
+  // Truncate the (potentially very long) asset list so the heading stays on one line.
+  const headingAssets = truncateText(lines[5].value, 60);
   labelGroup.append('text')
     .attr('x', x-87)
     .attr('y', y-lineHeight-10-20)
@@ -1451,7 +1516,9 @@ function updateTopLeftTotal(totalValue) {
     .style('font-size', '29px')
     .style('font-weight', '400')
     .style('fill', '#222')
-    .text(lines[5].value  + ' | ' + lines[3].value + ' | ' + lines[4].value )
+    .text(headingAssets + ' | ' + lines[3].value + ' | ' + lines[4].value )
+    .append('title')
+    .text(lines[5].value)
 
     d3.select('#mapTitle').text(lines[0].value + ' | ' + lines[2].value)
 
@@ -1503,7 +1570,19 @@ function updateTopLeftTotal(totalValue) {
       if (currentLine) {
         wrappedLines.push(currentLine);
       }
-      
+
+      // Truncate to a maximum number of lines with an ellipsis on the last one.
+      if (line.maxLines && wrappedLines.length > line.maxLines) {
+        wrappedLines = wrappedLines.slice(0, line.maxLines);
+        let lastLine = wrappedLines[line.maxLines - 1];
+        measureText.text(lastLine + ' …');
+        while (lastLine && measureText.node().getComputedTextLength() > maxWidth) {
+          lastLine = lastLine.replace(/\s*\S+$/, '');
+          measureText.text(lastLine + ' …');
+        }
+        wrappedLines[line.maxLines - 1] = (lastLine ? lastLine + ' ' : '') + '…';
+      }
+
       // Remove the measuring text
       measureText.remove();
       
@@ -2678,6 +2757,7 @@ function drawSectorButtons() {
   const label = document.createElement('div');
   label.className = 'menu-label';
   label.textContent = 'Asset';
+  label.title = 'Selecteer één of meerdere assets om hun opgetelde waarde op de kaart te tonen';
   container.appendChild(label);
 
   if (availableSectors.length === 0) {
@@ -2693,14 +2773,11 @@ function drawSectorButtons() {
   // Get only selectable (non-disabled) sectors
   const selectableSectors = availableSectors.filter(sector => getAssetVisibility(carrier, type, sector) === 'visible');
 
-  // Check if current sector is valid and selectable
-  if (!selectableSectors.includes(dataVisualizationState.sector)) {
-    // Set to first selectable sector
-    if (selectableSectors.length > 0) {
-      dataVisualizationState.sector = selectableSectors[0];
-    }
+  // Drop any previously selected assets that are no longer selectable, keeping the rest.
+  if (selectableSectors.length > 0) {
+    reconcileSelectedSectors(selectableSectors, selectableSectors[0]);
   }
-  
+
   // Find sectors with data
   const sectorsWithData = [];
   availableSectors.forEach(sector => {
@@ -2747,20 +2824,21 @@ function drawSectorButtons() {
     }
   });
   
-  // If current sector has no data or is disabled, switch to first selectable sector with data
+  // Keep the selection limited to selectable sectors that actually have data.
   const selectableWithData = sectorsWithData.filter(s => getAssetVisibility(carrier, type, s) === 'visible');
-  if (!selectableWithData.includes(dataVisualizationState.sector) && selectableWithData.length > 0) {
-    dataVisualizationState.sector = selectableWithData[0];
+  if (selectableWithData.length > 0) {
+    reconcileSelectedSectors(selectableWithData, selectableWithData[0]);
   }
 
   availableSectors.forEach((sector, index) => {
     const button = document.createElement('button');
     button.textContent = sector.replace(/_/g, ' ');
-    
+    button.dataset.sector = sector;
+
     // Check if this sector has data and visibility state
     const hasData = sectorsWithData.includes(sector);
     const visibilityState = getAssetVisibility(carrier, type, sector);
-    const isHighlighted = sector === dataVisualizationState.sector;
+    const isHighlighted = getSelectedSectors().includes(sector);
     const isDisabled = !hasData || visibilityState === 'disabled';
     createButton(button, isHighlighted, isDisabled);
 
@@ -2772,25 +2850,38 @@ function drawSectorButtons() {
 
     button.onclick = function () {
       if (isDisabled) return; // Don't allow clicking disabled buttons
-      
+
+      const selected = getSelectedSectors().slice();
+      const idx = selected.indexOf(sector);
+      if (idx >= 0) {
+        // Toggle off — but never allow deselecting the last remaining asset.
+        if (selected.length === 1) return;
+        selected.splice(idx, 1);
+      } else {
+        // Toggle on — add to the aggregate selection.
+        selected.push(sector);
+      }
+
+      dataVisualizationState.selectedSectors = selected;
+      dataVisualizationState.sector = selected[0];
+      dataVisualizationState.isActive = true;
+
+      // Reflect the multi-selection highlight state across all buttons
+      // (leave disabled buttons with their disabled styling untouched).
       const buttons = container.getElementsByTagName('button');
       for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove('highlighted');
-        buttons[i].style.backgroundColor = 'white';
-        buttons[i].style.color = 'black';
+        if (buttons[i].disabled) continue;
+        const btnSector = buttons[i].dataset.sector;
+        const on = btnSector && selected.includes(btnSector);
+        buttons[i].classList.toggle('highlighted', on);
+        buttons[i].style.backgroundColor = on ? 'black' : 'white';
+        buttons[i].style.color = on ? 'white' : 'black';
       }
-      
-      button.classList.add('highlighted');
-      button.style.backgroundColor = 'black';
-      button.style.color = 'white';
 
-      dataVisualizationState.sector = sector;
-      dataVisualizationState.isActive = true;
-      // console.log('Selected sector:', sector);
       updateGridVisibility(); // Show grid lines when visualization is activated
       updateDataVisualization();
-      
-      // If in clustered view, update province circle sizes based on new sector
+
+      // If in clustered view, update province circle sizes based on new selection
       if (currentViewMode === 'clustered' && dataVisualizationState.type !== 'Industrial Demand') {
         setTimeout(() => {
           updateProvinceCircleSizes();
@@ -2956,18 +3047,17 @@ function updateMunicipalDataVisualization() {
   const dataByGM = {};
 
   gmCodes.forEach(gmCode => {
-    const value = municipalDataLoader.query({
+    const value = querySectorSum(municipalDataLoader, {
       scenario: dataVisualizationState.scenario,
       year: dataVisualizationState.year,
       carrier: dataVisualizationState.carrier,
       metricType: dataVisualizationState.metricType,
       gmCode: gmCode,
-      type: dataVisualizationState.type,
-      sector: dataVisualizationState.sector
+      type: dataVisualizationState.type
     });
 
-    if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-      let numValue = Math.abs(parseFloat(value)); // Use absolute value for sizing
+    if (value !== null) {
+      let numValue = Math.abs(value); // Use absolute value for sizing
       // Convert MWh to TWh for volume metrics
       if (dataVisualizationState.metricType === 'volume') {
         numValue = numValue / 1000000;
@@ -3122,18 +3212,17 @@ function updateProvincialDataVisualization() {
   const dataByProvince = {};
 
   provinces.forEach(({ name }) => {
-    const value = provincialDataLoader.query({
+    const value = querySectorSum(provincialDataLoader, {
       scenario: dataVisualizationState.scenario,
       year: dataVisualizationState.year,
       carrier: dataVisualizationState.carrier,
       metricType: dataVisualizationState.metricType,
       province: name,
-      type: 'Demand',  // Always 'Demand' for industrial data
-      sector: dataVisualizationState.sector
+      type: 'Demand'  // Always 'Demand' for industrial data
     });
 
-    if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-      let numValue = Math.abs(parseFloat(value));
+    if (value !== null) {
+      let numValue = Math.abs(value);
       // Convert MWh to TWh for volume metrics
       if (dataVisualizationState.metricType === 'volume') {
         numValue = numValue / 1000000;
@@ -3659,18 +3748,17 @@ function updateProvinceCircleSizes() {
     const province = gmToProvince[gmCode];
     if (!province || !provinceTotals.hasOwnProperty(province)) return;
     
-    const value = municipalDataLoader.query({
+    const value = querySectorSum(municipalDataLoader, {
       scenario: dataVisualizationState.scenario,
       year: dataVisualizationState.year,
       carrier: dataVisualizationState.carrier,
       metricType: dataVisualizationState.metricType,
       gmCode: gmCode,
-      type: dataVisualizationState.type,
-      sector: dataVisualizationState.sector
+      type: dataVisualizationState.type
     });
-    
-    if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-      let numValue = Math.abs(parseFloat(value));
+
+    if (value !== null) {
+      let numValue = Math.abs(value);
       // Convert MWh to TWh for volume metrics
       if (dataVisualizationState.metricType === 'volume') {
         numValue = numValue / 1000000;
@@ -3826,18 +3914,17 @@ function clusterGMPointsByProvince() {
       gmCodes.forEach(gmCode => {
         const provinceForGM = gmToProvince[gmCode];
         if (provinceForGM === province) {
-          const value = municipalDataLoader.query({
+          const value = querySectorSum(municipalDataLoader, {
             scenario: dataVisualizationState.scenario,
             year: dataVisualizationState.year,
             carrier: dataVisualizationState.carrier,
             metricType: dataVisualizationState.metricType,
             gmCode: gmCode,
-            type: dataVisualizationState.type,
-            sector: dataVisualizationState.sector
+            type: dataVisualizationState.type
           });
-          
-          if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-            let numValue = Math.abs(parseFloat(value));
+
+          if (value !== null) {
+            let numValue = Math.abs(value);
             // Convert MWh to TWh for volume metrics
             if (dataVisualizationState.metricType === 'volume') {
               numValue = numValue / 1000000;
@@ -4036,18 +4123,17 @@ function showProvinceTotalBars() {
     gmCodes.forEach(gmCode => {
       const provinceForGM = gmToProvince[gmCode];
       if (provinceForGM === province) {
-        const value = municipalDataLoader.query({
+        const value = querySectorSum(municipalDataLoader, {
           scenario: dataVisualizationState.scenario,
           year: dataVisualizationState.year,
           carrier: dataVisualizationState.carrier,
           metricType: dataVisualizationState.metricType,
           gmCode: gmCode,
-          type: dataVisualizationState.type,
-          sector: dataVisualizationState.sector
+          type: dataVisualizationState.type
         });
-        
-        if (value !== 'ERROR - data not available' && value !== null && !isNaN(parseFloat(value))) {
-          let numValue = Math.abs(parseFloat(value));
+
+        if (value !== null) {
+          let numValue = Math.abs(value);
           // Convert MWh to TWh for volume metrics
           if (dataVisualizationState.metricType === 'volume') {
             numValue = numValue / 1000000;
@@ -4690,18 +4776,44 @@ async function downloadScenario() {
 }
 
 function downloadSelectie() {
-  const { scenario, year, carrier, metricType, type, sector } = dataVisualizationState;
+  const { scenario, year, carrier, metricType, type } = dataVisualizationState;
+  const selectedSectors = getSelectedSectors();
+  const isAggregate = selectedSectors.length > 1;
 
   const wb = XLSX.utils.book_new();
+
+  // Header: one column per selected asset, plus a Totaal column when aggregating.
+  const sectorHeaders = selectedSectors.map(s => type + ' | ' + s);
+  const totalHeader = 'Totaal (' + selectedSectors.map(s => s.replace(/_/g, ' ')).join(' + ') + ')';
+
+  // Sum the selected assets for one entity record, returning null if none present.
+  const sumSectors = (record) => {
+    let total = 0;
+    let hasAny = false;
+    const perSector = selectedSectors.map(s => {
+      const v = record?.[type]?.[s];
+      if (v !== undefined && v !== null && !isNaN(parseFloat(v))) {
+        total += parseFloat(v);
+        hasAny = true;
+        return v;
+      }
+      return null;
+    });
+    return hasAny ? { perSector, total } : null;
+  };
 
   // Municipal sheet
   const munData = dataLoader.municipalData[scenario]?.[year]?.[carrier]?.[metricType];
   if (munData) {
-    const rows = [['GM_code', 'GM_naam', type + ' | ' + sector]];
+    const header = ['GM_code', 'GM_naam', ...sectorHeaders];
+    if (isAggregate) header.push(totalHeader);
+    const rows = [header];
     for (const gmCode in munData) {
-      const value = munData[gmCode]?.[type]?.[sector];
-      if (value !== undefined && value !== null) {
-        rows.push([gmCode, munData[gmCode]._gmName || '', value]);
+      const summed = sumSectors(munData[gmCode]);
+      if (summed) {
+        const row = [gmCode, munData[gmCode]._gmName || '', ...summed.perSector];
+        if (isAggregate) row.push(summed.total);
+        rows.push(row);
       }
     }
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Gemeenten');
@@ -4710,11 +4822,15 @@ function downloadSelectie() {
   // Provincial sheet
   const provData = dataLoader.provincialData[scenario]?.[year]?.[carrier]?.[metricType];
   if (provData) {
-    const rows = [['Provincie', type + ' | ' + sector]];
+    const header = ['Provincie', ...sectorHeaders];
+    if (isAggregate) header.push(totalHeader);
+    const rows = [header];
     for (const province in provData) {
-      const value = provData[province]?.[type]?.[sector];
-      if (value !== undefined && value !== null) {
-        rows.push([province, value]);
+      const summed = sumSectors(provData[province]);
+      if (summed) {
+        const row = [province, ...summed.perSector];
+        if (isAggregate) row.push(summed.total);
+        rows.push(row);
       }
     }
     XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Provincies');
@@ -4724,10 +4840,10 @@ function downloadSelectie() {
   const metricLabel = metricType === 'volume' ? 'volume' : 'capaciteit';
   const unitLabel = metricType === 'volume' ? 'TWh' : 'MW';
 
-  // Metadata sheet
+  // Metadata sheet — definition/method only meaningful for a single asset.
   const isImported = dataLoader.isImportedScenario(scenario);
-  const tooltipData = (tooltipManager && tooltipManager.loaded)
-    ? tooltipManager.getTooltip(carrier, type, sector)
+  const tooltipData = (tooltipManager && tooltipManager.loaded && !isAggregate)
+    ? tooltipManager.getTooltip(carrier, type, selectedSectors[0])
     : null;
 
   // Parse definition and method from tooltip HTML
@@ -4753,18 +4869,19 @@ function downloadSelectie() {
     ['Drager', carrierLabel],
     ['Eenheid', metricLabel + ' (' + unitLabel + ')'],
     ['Categorie', type],
-    ['Asset', sector.replace(/_/g, ' ')],
+    [isAggregate ? 'Assets' : 'Asset', getSelectedSectorsLabel()],
     ['Bron', isImported ? 'Geïmporteerd scenario' : 'NBNL 2025 v1.0'],
     ['Exportdatum', new Date().toLocaleDateString('nl-NL')],
     [],
-    ['Definitie', definition],
+    ...(definition ? [['Definitie', definition]] : []),
     ...(!isImported && method ? [['Methode/bron', method]] : []),
   ];
   const metaSheet = XLSX.utils.aoa_to_sheet(metaRows);
   metaSheet['!cols'] = [{ wch: 16 }, { wch: 60 }];
   XLSX.utils.book_append_sheet(wb, metaSheet, 'Metadata');
 
-  const filename = `${scenario} ${year} - ${carrierLabel} ${metricLabel} - ${type} ${sector}.xlsx`;
+  const sectorForFilename = selectedSectors.join(' + ');
+  const filename = `${scenario} ${year} - ${carrierLabel} ${metricLabel} - ${type} ${sectorForFilename}.xlsx`;
   const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
   triggerDownload(new Blob([wbout], { type: 'application/octet-stream' }), filename);
 }
